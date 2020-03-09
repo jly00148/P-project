@@ -1,6 +1,7 @@
 const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');// 新用法
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // console.log(CleanWebpackPlugin);
 const publicPath = "/";
 module.exports = {
@@ -15,11 +16,25 @@ module.exports = {
     },
     module:{
         rules:[
+            // 旧写法
+            // {
+            //     test:/\.css$/i,
+            //     use:[
+            //         'style-loader',
+            //         'css-loader'
+            //     ]
+            // },
+
             {
-                test:/\.css$/i,
+                test:/\.css$/,
                 use:[
-                    'style-loader',
-                    'css-loader'
+                    {
+                        loader:MiniCssExtractPlugin.loader,
+                        options:{
+                            
+                        }
+                    },
+                    "css-loader"
                 ]
             },
             {
@@ -56,7 +71,8 @@ module.exports = {
             inject:true,
             hash:true
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({})
     ],
     devServer:{
         contentBase:'./dist',//内容的目录
