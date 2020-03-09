@@ -1,0 +1,11 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.App li{
+    float: left;
+    list-style: none;
+    font-size: 28px;
+    margin-right: 15px;
+}
