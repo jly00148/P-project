@@ -6,7 +6,7 @@ const defaultState = {
 }
 
 module.exports = (state=defaultState,action)=>{ 
-    console.log(state,action);
+    // console.log(state,action);
 
     //不推荐使用
     if(action.type == CHANGE_ITEM){
