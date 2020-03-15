@@ -45,8 +45,25 @@
                 dataType:'json',
                 data:{
                     username:username,
-                    psssword:password
+                    password:password
                 }
+            })
+            .done(function(result){
+                // console.log(result);
+                if(result.status == 10){
+                    $err.html(result.msg);
+                }else if(result.status == 0){
+                    $err.html(result.msg);
+                    setTimeout(function(){
+                        $register.hide();
+                        $login.show();
+                    },1000)
+                }else if(result.status == 20){
+                    $err.html(result.msg);
+                }
+            })
+            .fail(function(){
+                $err.html('请求失败，请稍后再试!');
             })
         }
     })
