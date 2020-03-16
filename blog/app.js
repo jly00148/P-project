@@ -2,6 +2,7 @@ const express = require('express');
 const swig = require('swig');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const Cookies = require('cookies');
 const app = express();
 const port = 3000;
 
@@ -32,9 +33,22 @@ app.set('view engine','html') //前者参数必需是view engine，后者参数�
 app.use(bodyParser.urlencoded({ extended:false })); 
 app.use(bodyParser.json());
 
-// 3.3 渲染index.html使用express.Router()方法,同理下
+// 3.3设置cookies中间件：
+app.use((req,res,next)=>{
+    req.cookies = new Cookies(req,res);
+    // console.log(req.cookies.get('userInfo')); // 接收到user.js文件req.cookies.set的键：userInfo,他的值是{"isAdmin":false,"_id":"5e6e4265a1ded954342b0579","username":"a123"} string
+  
+    req.userInfo = {}
+    let userInfo = req.cookies.get('userInfo');
+    if(userInfo){
+        req.userInfo = JSON.parse(userInfo); // req对象上添加属性userInfo，它的值是上面userInfo;route文件下的index.js文件里req对象就会有userInfo属性。
+    }
+    next();
+})
+
+// 3.4 渲染index.html使用express.Router()方法,同理下
 app.use('/',require('./route/index.js'));
-// 3.4 请求/user的路由:
+// 3.5 请求/user的路由:
 app.use('/user',require('./route/user.js')); 
 
 

@@ -2,6 +2,7 @@
     var $register = $('#register');
     var $login = $('#login');
 
+    // 一：登录和注册页面相互跳转：
     //1.登录页面跳转到注册页面
     $('#go-register').on('click',function(){
         $register.show();
@@ -13,7 +14,8 @@
         $login.show();
     })
 
-    //2.用户注册：
+    // 二：用户注册发送给后台数据的逻辑
+    //1.用户注册验证：
     $('#sub-register').on('click',function(){
         //2.1获取表单数据：
         var username = $register.find('[name="username"]').val();
@@ -65,6 +67,60 @@
             .fail(function(){
                 $err.html('请求失败，请稍后再试!');
             })
+        }
+    })
+
+    // 三：用户登录发送给后台数据的逻辑
+    $('#sub-login').on('click',function(){
+        //1.2 获取表单数据：
+        var username = $login.find('[name="username"]').val();
+        var password = $login.find('[name="password"]').val();
+
+        //1.3验证：
+        var $err = $login.find('.err');
+        var errMsg = '';
+        if(!/^[a-z][0-9a-z_]{2,9}$/i.test(username)){
+            errMsg = '用户名以字母开头，3-10位';
+        }
+        else if(!/^\w{3,6}$/.test(password)){
+            errMsg = '密码必需是字母、数字以及下划线密码3-6字符';
+        }
+
+        if(errMsg){
+            //验证不通过
+            $err.html(errMsg);
+            return;
+        }else{
+            //验证通过
+            $.ajax({
+                url:'/user/login',
+                type:'post',
+                dataType:'json',
+                data:{
+                    username:username,
+                    password:password
+                }
+            })
+            .done(function(result){
+                // console.log(result);
+                if(result.status == 0){
+                    $err.html(result.msg);
+                    setTimeout(() => {
+                        $login.hide();
+                        $('#user-info').show();
+                        $('#user-info span').html(result.data.username);
+
+                        // window.location.reload();
+                    }, 1500);
+                }else if(result.status == 10){
+                    $err.html(result.msg);
+                }else if(result.status == 20){
+                    $err.html(result.msg);
+                }
+            })
+            .fail(function(){
+                $err.html('请求失败，请稍后再试!');
+            })            
         }
     })
 

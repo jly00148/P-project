@@ -50,18 +50,15 @@
         </div>
         <div class="col-md-4 hidden-xs hidden-sm">
 
-          <div class="user-panel" id='user-info' style="display: none">
-            <a class="link" href="/admin">jly</a>
+          {% if userInfo._id %} <!-- 通过route文件夹index.html文件{userInfo:req.userInfo} -->
+          <div class="user-panel" id='user-info'>
+          <!-- <div class="user-panel" id='user-info' style="display: none">  -->
+            hello <span>{{ userInfo.username }}</span>
             <a class="link" href="/home">进入个人中心</a>
             <a class="link" href="javascript:;" id='logout'>退出</a>
-            <div class="form-group">
-              <div class="col-sm-12">
-                <p class="text-danger err"></p>
-              </div>
-            </div>              
           </div>
-
-          <div class="form-horizontal user-panel" id='register' style="display: none">
+          {% else %}
+          <div class="form-horizontal user-panel" id='register' style="display: none;">
             <div class="form-group">
               <label class="col-sm-4 control-label">用户名</label>
               <div class="col-sm-6">
@@ -119,6 +116,7 @@
               </div>
             </div>            
           </div>
+          {% endif %}
           <!-- 用户注册页面 -->
 
           <div class="ad">

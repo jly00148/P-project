@@ -5,6 +5,7 @@ const hmac = require('../util/hmac.js');
 const router = express.Router();
 
 
+// 一： 后台接收前台(二)注册逻辑：
 router.post('/register',(req,res)=>{
 
 //1 对前台注册时返回后台的数据进行解析：
@@ -64,5 +65,39 @@ UserModel.findOne({username}) // 返回一个promise
 })
 
 })
+
+
+// 二： 后台接收前台(三)登录逻辑
+router.post('/login',(req,res)=>{
+
+    const {username,password} = req.body;
+    // 3.2 返回给前台数据和判断result
+    const result = {
+        status:0,
+        msg:""
+    }
+    
+    UserModel.findOne({username,password:hmac(password)},'-password -__v') // 查找时过滤密码，防止前台出现密码
+    .then(user=>{
+        if(user){// 表示用户存在
+            // console.log(typeof user); object
+            result.data = user;
+            req.cookies.set('userInfo',JSON.stringify(user)); // 登录成功后会产生cookies,它的键是'userInfo',值是JSON.stringify(user)
+            result.msg = '登录成功';
+            res.json(result);
+        }else{// 表示用户注册通过
+            result.status = 10;
+            result.msg = '用户名或者密码错误';
+            res.json(result);
+        }
+    })
+    .catch(err=>{
+        // 不是查不到，是查询出错，这种情况很少遇到。
+        result.status = 20;
+        result.msg = '服务器端错误,请稍后再试！';
+        res.json(result);
+    })
+    
+    })
 
 module.exports = router;

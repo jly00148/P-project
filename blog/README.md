@@ -11,3 +11,6 @@
 example:
 app.use(bodyParser.urlencoded({ extended:false })); 
 app.use(bodyParser.json());
+(以上两行代码写在app或server请求的路由前面)
+
+### `为什么后台返回给前台的数据是json格式？`：因为从后台传给前台只能是以字符串形式传输，但是前台必需要获取相关数据，字符串则不行，通过后台字符串格式数据转换json格式，前台就可获取到。
