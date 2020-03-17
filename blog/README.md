@@ -1,16 +1,37 @@
 # `blog博客说明`：
 
-### `请求静态资源`：把静态资源放在public文件夹内，index.html内链接的资源，通过app.use(express.static('public'))自动加载。
+## 一、`页面请求基本思路`：
 
-### `连接数据库`：example:mongod --dbpath ./db/(当前文件夹数据库)
+### `准备前工作`：
+把静态文件放到public文件夹下，在后台服务器app.js通过app.use(express.static('public'))，后台可以获取静态资源再到前台渲染，配制相关缓存，配制应用模板、存放目录、注册模板引擎相关工作。
+通过mongoose启动数据库，设置默认数据存放路径。
+
+### `请求静态资源`：
+把静态资源放在public文件夹内，通过app.use(express.static('public'))自动加载，index.html是首页，通过在app后台服务app.js文件express函数模块调用的返回值app上use方法设置请求路由,
+各项路由请求都分离在同文件夹下的route下，index.js是index.html首页路由，user是用户注册、登录等相关路由。
+
+### `页面继承`：
+以layout.html为模板文件，其他页面通过它继承。
+
+### `注册逻辑`：
+发送/user/Register路由，后台通过app.use()方法接收，在route文件下user.js文件下从数据库查找、验证、设置hmac密码加密等逻辑并且发送相关数据到前台。
+
+5.登录逻辑：
+登录逻辑验证过程和注册过程基本相似，但是登录成功后刷新页面会回到首页，需要在登录成功时设置cookies，为：req.cookies.set('userInfo',JSON.stringify(user))；初始请求首页时候不会有cookies，
+在登录成功时设置cookies，后台app.js通过设置req.cookies.get('userInfo');就会获取到cookies，在req对象设置属性userIno，把获取到的cookies值赋给userInfo，然后在rout文件的index.js传入是对
+象的参数，在layout.html文件下通过逻辑设置跳转用户中心。设置好后并不能立即显示，需要刷新一下。
+
+## 二、`相关注意点`：
+### `连接数据库`：
+example:mongod --dbpath ./db/(当前文件夹数据库)
 
 ### `模板的继承`：
 以'layout.html'为模板继承，带下划线页面是原始页面。
 
-### `通过express中间件获取前台传过来的数据`：app.use(bodyParser.urlencoded({ extended:false })); app.use(bodyParser.json());
-example:
+### `通过express中间件获取前台传过来的数据`：
 app.use(bodyParser.urlencoded({ extended:false })); 
 app.use(bodyParser.json());
 (以上两行代码写在app或server请求的路由前面)
 
-### `为什么后台返回给前台的数据是json格式？`：因为从后台传给前台只能是以字符串形式传输，但是前台必需要获取相关数据，字符串则不行，通过后台字符串格式数据转换json格式，前台就可获取到。
+### `为什么后台返回给前台的数据是json格式？`：
+因为从后台传给前台只能是以字符串形式传输，但是前台必需要获取相关数据，字符串则不行，通过后台字符串格式数据转换json格式，前台就可获取到。

@@ -105,13 +105,13 @@
                 // console.log(result);
                 if(result.status == 0){
                     $err.html(result.msg);
-                    setTimeout(() => {
-                        $login.hide();
-                        $('#user-info').show();
-                        $('#user-info span').html(result.data.username);
 
-                        // window.location.reload();
-                    }, 1500);
+                        // $login.hide();
+                        // $('#user-info').hide();
+                        // $('#user-info span').html(result.data.username);
+                    setTimeout(function(){
+                        window.location.reload(); 
+                    },1500)
                 }else if(result.status == 10){
                     $err.html(result.msg);
                 }else if(result.status == 20){
