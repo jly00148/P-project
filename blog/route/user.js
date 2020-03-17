@@ -100,4 +100,13 @@ router.post('/login',(req,res)=>{
     
     })
 
+// 三：是、用户退出：
+router.get('/logout',(req,res)=>{
+    var result = {
+        status:0,
+        msg:'用户退出成功'
+    }
+    req.cookies.set('userInfo',null); 
+    res.json(result);
+})
 module.exports = router;

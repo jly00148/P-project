@@ -16,10 +16,13 @@
 ### `注册逻辑`：
 发送/user/Register路由，后台通过app.use()方法接收，在route文件下user.js文件下从数据库查找、验证、设置hmac密码加密等逻辑并且发送相关数据到前台。
 
-5.登录逻辑：
+### `登录逻辑`：
 登录逻辑验证过程和注册过程基本相似，但是登录成功后刷新页面会回到首页，需要在登录成功时设置cookies，为：req.cookies.set('userInfo',JSON.stringify(user))；初始请求首页时候不会有cookies，
 在登录成功时设置cookies，后台app.js通过设置req.cookies.get('userInfo');就会获取到cookies，在req对象设置属性userIno，把获取到的cookies值赋给userInfo，然后在rout文件的index.js传入是对
 象的参数，在layout.html文件下通过逻辑设置跳转用户中心。设置好后并不能立即显示，需要刷新一下。
+
+### `用户退出`：
+发送get请求，在user.js文件匹配的路由取消删除cookies，代码：req.cookies.set('userInfo',null); 将信息返回common.js。
 
 ## 二、`相关注意点`：
 ### `连接数据库`：

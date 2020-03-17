@@ -111,7 +111,7 @@
                         // $('#user-info span').html(result.data.username);
                     setTimeout(function(){
                         window.location.reload(); 
-                    },1500)
+                    },1000)
                 }else if(result.status == 10){
                     $err.html(result.msg);
                 }else if(result.status == 20){
@@ -123,5 +123,24 @@
             })            
         }
     })
+
+    // 四：用户退出：
+    $('#logout').on('click',function(){
+        $.ajax({
+            url:'/user/logout',
+            type:'get'
+        })
+        .done(function(result){
+            var $err = $login.find('.err');
+            if(result.status == 0){
+                $err.html(result.msg);
+                window.location.reload();
+            }
+        })
+        .fail(function(result){
+            $err.html('服务器端错误,请稍后再试！');
+        })        
+    })
+
 
 })(jQuery)
