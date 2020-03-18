@@ -14,6 +14,7 @@
         $login.show();
     })
 
+
     // 二：用户注册发送给后台数据的逻辑
     //1.用户注册验证：
     $('#sub-register').on('click',function(){
@@ -75,7 +76,6 @@
         //1.2 获取表单数据：
         var username = $login.find('[name="username"]').val();
         var password = $login.find('[name="password"]').val();
-
         //1.3验证：
         var $err = $login.find('.err');
         var errMsg = '';
@@ -131,15 +131,13 @@
             type:'get'
         })
         .done(function(result){
-            var $err = $login.find('.err');
             if(result.status == 0){
-                $err.html(result.msg);
                 window.location.reload();
             }
         })
         .fail(function(result){
-            $err.html('服务器端错误,请稍后再试！');
-        })        
+            $('#user-info .err').html('服务器端错误,请稍后再试！');
+        })
     })
 
 

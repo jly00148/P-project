@@ -3,6 +3,8 @@ const swig = require('swig');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Cookies = require('cookies');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const app = express();
 const port = 3000;
 
@@ -34,21 +36,44 @@ app.use(bodyParser.urlencoded({ extended:false }));
 app.use(bodyParser.json());
 
 // 3.3设置cookies中间件：
-app.use((req,res,next)=>{
-    req.cookies = new Cookies(req,res);
-    // console.log(req.cookies.get('userInfo')); // 接收到user.js文件req.cookies.set的键：userInfo,他的值是{"isAdmin":false,"_id":"5e6e4265a1ded954342b0579","username":"a123"} string
+// app.use((req,res,next)=>{
+//     req.cookies = new Cookies(req,res);
+//     // console.log(req.cookies.get('userInfo')); // 接收到user.js文件req.cookies.set的键：userInfo,他的值是{"isAdmin":false,"_id":"5e6e4265a1ded954342b0579","username":"a123"} string
   
-    req.userInfo = {}
-    let userInfo = req.cookies.get('userInfo');
-    if(userInfo){
-        req.userInfo = JSON.parse(userInfo); // req对象上添加属性userInfo，它的值是上面userInfo;route文件下的index.js文件里req对象就会有userInfo属性。
-    }
+//     req.userInfo = {}
+//     let userInfo = req.cookies.get('userInfo');
+//     if(userInfo){
+//         req.userInfo = JSON.parse(userInfo); // req对象上添加属性userInfo，它的值是上面userInfo;route文件下的index.js文件里req对象就会有userInfo属性。
+//     }
+//     next();
+// })
+
+//3.4 添加session中间件：
+app.use(session({
+    //设置cookie名称
+    name:'kzid',
+    //用它来对session cookie签名，防止篡改
+    secret:'abc',
+    //强制保存session即使它没有变化
+    resave:true,
+    // 强制将未初始化的session存储
+    saveUninitialized:true,
+    //如果为true，则每次请求都更新cookie的过期时间
+    rolling:true,
+    //cookie过期时间为1天
+    cookie:{maxAge:1000*60*60*24},// 登录时开始设置cookie过期时间
+    store:new MongoStore({ mongooseConnection:mongoose.connection }) // session存储到数据库相关配置
+}))
+
+app.use((req,res,next)=>{
+    req.userInfo = req.session.userInfo || {}
+    // console.log(req.userInfo)
     next();
 })
 
-// 3.4 渲染index.html使用express.Router()方法,同理下
+// 3.5 渲染index.html使用express.Router()方法,同理下
 app.use('/',require('./route/index.js'));
-// 3.5 请求/user的路由:
+// 3.6 请求/user的路由:
 app.use('/user',require('./route/user.js')); 
 
 

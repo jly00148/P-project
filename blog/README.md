@@ -1,6 +1,6 @@
 # `blog博客说明`：
 
-## 一、`页面请求基本思路`：
+## 一、`页面请求基本步骤`：
 
 ### `准备前工作`：
 把静态文件放到public文件夹下，在后台服务器app.js通过app.use(express.static('public'))，后台可以获取静态资源再到前台渲染，配制相关缓存，配制应用模板、存放目录、注册模板引擎相关工作。
@@ -19,10 +19,19 @@
 ### `登录逻辑`：
 登录逻辑验证过程和注册过程基本相似，但是登录成功后刷新页面会回到首页，需要在登录成功时设置cookies，为：req.cookies.set('userInfo',JSON.stringify(user))；初始请求首页时候不会有cookies，
 在登录成功时设置cookies，后台app.js通过设置req.cookies.get('userInfo');就会获取到cookies，在req对象设置属性userIno，把获取到的cookies值赋给userInfo，然后在rout文件的index.js传入是对
-象的参数，在layout.html文件下通过逻辑设置跳转用户中心。设置好后并不能立即显示，需要刷新一下。
+象的参数，在layout.html文件下通过逻辑设置跳转用户中心。设置好后并不能立即显示，需要刷新一下(window.lacation.reload())。
 
 ### `用户退出`：
 发送get请求，在user.js文件匹配的路由取消删除cookies，代码：req.cookies.set('userInfo',null); 将信息返回common.js。
+
+### `cookie+session`:
+原理：cookie保存session id,session在服务端保存储用户的信息
+在app.js中引入：const session = require('express-session');注销掉cookies中间件，通过app.use添加session中间件，在user.js文件中，注销掉cookies,登录查找成功时设置req.session.userInfo = user;
+在app.js中就会获得req.session.userInfo上的值，然后赋值给req.userInfo，同理在layout.html文件传参数。重启服务器后会销毁session，因此想了办法把session存储到数据库中，重启服务器后，数据库里的值并
+不会被销毁，引入const MongoStore = require('connect-mongo')(session);重启服务器后，前台请求时把cookie携带上，服务器就会从数据库中把存储的session拿出来，找到session的_id和前台_id(value)的对应关系。
+
+### `销毁session`:
+req.session.destroy();
 
 ## 二、`相关注意点`：
 ### `连接数据库`：

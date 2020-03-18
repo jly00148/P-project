@@ -56,6 +56,11 @@
             hello <span>{{ userInfo.username }}</span>
             <a class="link" href="/home">进入个人中心</a>
             <a class="link" href="javascript:;" id='logout'>退出</a>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <p class="text-danger err" style="text-align: center;"></p>
+              </div>
+            </div>            
           </div>
           {% else %}
           <div class="form-horizontal user-panel" id='register' style="display: none;">
@@ -184,6 +189,7 @@
 <script src="lib/jquery/jquery-1.12.4.min.js"></script>	
 <script src="lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="js/common.js"></script>
+<script src="js/clear.js"></script>
 {% block footer %}{% endblock %}
 </body>
 

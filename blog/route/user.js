@@ -82,7 +82,8 @@ router.post('/login',(req,res)=>{
         if(user){// 表示用户查找存在
             // console.log(typeof user); object
             result.data = user;
-            req.cookies.set('userInfo',JSON.stringify(user)); // 登录成功后会产生cookies,它的键是'userInfo',值是JSON.stringify(user)
+            // req.cookies.set('userInfo',JSON.stringify(user)); // 登录成功后会产生cookies,它的键是'userInfo',值是JSON.stringify(user)
+            req.session.userInfo = user; // 不用转换成字符串
             result.msg = '登录成功';
             res.json(result);
         }else{// 表示用户没有查到或者密码有错误
@@ -106,7 +107,8 @@ router.get('/logout',(req,res)=>{
         status:0,
         msg:'用户退出成功'
     }
-    req.cookies.set('userInfo',null); 
+    // req.cookies.set('userInfo',null); // 用户退出销毁cookie
+    req.session.destroy() // 销毁session
     res.json(result);
 })
 module.exports = router;
