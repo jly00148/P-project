@@ -46,7 +46,7 @@ UserModel.findOne({username}) // 返回一个promise
     }else{// 表示用户注册通过
         UserModel.insertMany({
             username,
-            password:hmac(password)
+            password:hmac(password),
         })
         .then((user)=>{
             result.msg = '注册成功,请登录!'

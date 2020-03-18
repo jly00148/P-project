@@ -75,6 +75,7 @@ app.use((req,res,next)=>{
 app.use('/',require('./route/index.js'));
 // 3.6 请求/user的路由:
 app.use('/user',require('./route/user.js')); 
+app.use('/admin',require('./route/admin.js')); 
 
 
 // 连接数据库：
