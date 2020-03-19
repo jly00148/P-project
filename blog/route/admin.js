@@ -6,12 +6,15 @@ router.use((req,res,next)=>{
     if(req.userInfo.isAdmin){
         next()
     }else{
-        res.send('<h1>请用管理员账号登录</h1>')
+        res.send('<h1>请用管理员账号登录</h1>');
+        return;
     }
 })
 
 router.get('/',(req,res)=>{
-    res.send('admin');
+    res.render('admin/index',{
+        userInfo:req.userInfo
+    });
 });
 
 module.exports = router;

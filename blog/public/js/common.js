@@ -131,8 +131,8 @@
             type:'get'
         })
         .done(function(result){
-            if(result.status == 0){
-                window.location.reload();
+            if(result.status == 0){ 
+                window.location.href = '/';
             }
         })
         .fail(function(result){
