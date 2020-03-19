@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const UserModel = require('../modules/user.js');
 
 // 权限验证：
 router.use((req,res,next)=>{
@@ -17,4 +18,15 @@ router.get('/',(req,res)=>{
     });
 });
 
+router.get('/users',(req,res)=>{
+    UserModel.find({},'-password -__v') // 数据库查找并循环到用户列表
+    .then(users=>{
+        // console.log(user);
+        res.render('admin/user-list',{
+            userInfo:req.userInfo,
+            users
+        });        
+    })
+
+});
 module.exports = router;

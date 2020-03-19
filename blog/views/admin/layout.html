@@ -12,9 +12,9 @@
     <title>个人博客后台管理系统</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/admin.css">
+    <link href="/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/admin.css">
   </head>
 
   <body>
@@ -50,7 +50,7 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">用户列表</a></li>
+            <li class="active"><a href="/admin/users">用户列表</a></li>
             <li><a href="#">分类管理</a></li>
           </ul>
         </div>
@@ -60,10 +60,12 @@
             {% block head %}{% endblock %}
           </h1>
           {% block content %}{% endblock %}
-
+        </div>
+      </div>
+    </div>  
   </body>
-  <script src="lib/jquery/jquery-1.12.4.min.js"></script>
-  <script src="lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-  <script src="js/admin.js"></script>
-  <script src="js/common.js"></script> <!-- <script src="js/common.js"></script>是admin用户退出登录，和普通用户退出登录逻辑一样 -->
+  <script src="/lib/jquery/jquery-1.12.4.min.js"></script>
+  <script src="/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <script src="/js/admin.js"></script>
+  <script src="/js/common.js"></script> <!-- <script src="js/common.js"></script>是admin用户退出登录，和普通用户退出登录逻辑一样 -->
 </html>
