@@ -12,19 +12,50 @@ router.use((req,res,next)=>{
     }
 })
 
+// 后台管理：
 router.get('/',(req,res)=>{
     res.render('admin/index',{
         userInfo:req.userInfo
     });
 });
 
+// 显示用户列表：
 router.get('/users',(req,res)=>{
-    UserModel.find({},'-password -__v') // 数据库查找并循环到用户列表
+     /*
+        分页约定：每页只显示2条调用limit(2)方法
+        第1页:显示2条，跳过0条
+        第2页:显示2条，跳过2条
+        第3页:显示2条，跳过4条
+        第page页，显示2条，跳过(page-1) *2  运用等比数列知识
+     */
+
+    let { page } = req.query; // 用户列表页数，通过传参数在req.query上接收  // console.log(typeof page) string
+    // console.log(page); 未传值时，req.query获取不到，undefined，有传值时，数据类型是string，如上
+    page = parseInt(page);
+    if(isNaN(page)){
+        page = 1; // 
+    }
+    let limit = 2;
+    let skip = (page -1)*limit;
+
+    UserModel.find({})
+    .then(users=>{
+        let pages = Math.ceil(users.length / limit);
+        // console.log(pages); 5
+        console.log(page)
+        if(page > pages){
+            page = pages;
+        }
+        
+    })
+
+    UserModel.find({},'-password -__v').skip(skip).limit(limit)// 数据库查找并循环遍历到用户列表
     .then(users=>{
         // console.log(user);
         res.render('admin/user-list',{
             userInfo:req.userInfo,
-            users
+            users,// 传值遍历对象显示用户列表
+            page // 传页数
         });        
     })
 

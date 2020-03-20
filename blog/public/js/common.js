@@ -7,6 +7,7 @@
     $('#go-register').on('click',function(){
         $register.show();
         $login.hide();
+        $register.find('.err').html('')
     })
     //1.2注册页面跳转到登录页面
     $('#go-login').on('click',function(){

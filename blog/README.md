@@ -43,6 +43,9 @@ example:mongod --dbpath ./db/(当前文件夹数据库)
 ### `模板的继承`：
 以'layout.html'为模板继承，带下划线页面是原始页面。
 
+### `用户列表传值`：
+在网址传值，在router文件的admin.js文件用req.query接收，初始要显示第一页，在req,query获取的是undefined，undefined无法转数字，显示NaN，用isNaN(page)方法判断，令page=1，即可让初始页面传值到user_list.html。
+
 ### `通过express中间件获取前台传过来的数据`：
 app.use(bodyParser.urlencoded({ extended:false })); 
 app.use(bodyParser.json());

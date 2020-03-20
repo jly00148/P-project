@@ -29,7 +29,7 @@ router.post('/register',(req,res)=>{
 // 2.1通过req函数上的body方法获得前台注册返回来的数据
 // 3.测试是否注册过：
 // 3.1 通过解构赋值获取username,password
-const {username,password} = req.body;
+const {username,password} = req.body; // 在app.js文件中设置中间件，可直接在req.body上获得在common.js文件里传来的参数。
 
 // 3.2 返回给前台数据和判断result
 const result = {
