@@ -40,24 +40,29 @@ router.get('/users',(req,res)=>{
 
     UserModel.find({})
     .then(users=>{
-        let pages = Math.ceil(users.length / limit);
-        // console.log(pages); 5
-        console.log(page)
-        if(page > pages){
-            page = pages;
+        let pages = Math.ceil(users.length / limit); // 定义页数
+        // console.log(pages); 5  
+
+        //传有多少个页码，在user-list.html文件中循环遍历
+        let list = [];
+        for(var i = 1;i<=pages;i++){
+            list.push(i);
         }
-        
+
+        UserModel.find({},'-password -__v').skip(skip).limit(limit)// 数据库查找并循环遍历到用户列表
+        .then(users=>{
+            // console.log(user);
+            res.render('admin/user-list',{
+                userInfo:req.userInfo,
+                users,// 传值遍历对象显示用户列表
+                page ,// 传页数
+                pages,
+                list
+            });        
+        })   
     })
 
-    UserModel.find({},'-password -__v').skip(skip).limit(limit)// 数据库查找并循环遍历到用户列表
-    .then(users=>{
-        // console.log(user);
-        res.render('admin/user-list',{
-            userInfo:req.userInfo,
-            users,// 传值遍历对象显示用户列表
-            page // 传页数
-        });        
-    })
+
 
 });
 module.exports = router;
