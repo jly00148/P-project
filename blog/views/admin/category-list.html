@@ -1,0 +1,22 @@
+{% extends './layout.html' %}
+{% block head %}
+    分类管理
+{% endblock %}
+
+{% block content %}
+
+
+<div class="table-box">
+    <a href="/category/add" class="btn btn-primary btn-add">新增分类</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>用户ID</th>
+                <th>用户名</th>
+                <th>是否管理员</th>
+            </tr>
+        </thead>
+    </table>
+</div>    
+   
+{% endblock %}

@@ -72,10 +72,10 @@ app.use((req,res,next)=>{
 })
 
 // 3.5 渲染index.html使用express.Router()方法,同理下
-app.use('/',require('./route/index.js'));
-// 3.6 请求/user的路由:
-app.use('/user',require('./route/user.js')); 
-app.use('/admin',require('./route/admin.js')); 
+app.use('/',require('./route/index.js')); // 请求首页
+app.use('/user',require('./route/user.js')); // 请求用户登录路由
+app.use('/admin',require('./route/admin.js'));  // 请求用户后台管理路由
+app.use('/category',require('./route/category.js'));  // 请求用户后台管理路由
 
 
 // 连接数据库：
