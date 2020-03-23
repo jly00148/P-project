@@ -34,9 +34,9 @@
         <ul class="pagination">
           <li>
               {% if page == 1 %}
-            <a href="/admin/users?page={{ page }}" aria-label="Previous">
+            <a href="javascript:;" aria-label="Previous"> <!-- 防多次点击发送ajax -->
                 {% else %}
-            <a href="/admin/users?page={{ page - 1 }}" aria-label="Previous">
+                <a href="/admin/users?page={{ page - 1 }}" aria-label="Previous">
                 {% endif %}
               <span aria-hidden="true">&laquo;</span>
             </a>
@@ -44,7 +44,7 @@
 
           {% for i in list %}
           {% if i == page %}
-          <li class="active"><a href="/admin/users?page={{ i }}">{{ i }}</a></li>
+          <li class="active"><a href="javascript:;">{{ i }}</a></li> <!-- 防多次点击发送ajax -->
           {% else %}
           <li><a href="/admin/users?page={{ i }}">{{ i }}</a></li>
           {% endif %}
@@ -52,7 +52,7 @@
 
           <li>
             {% if page == pages %}
-            <a href="/admin/users?page={{ page }}" aria-label="Next">
+            <a href="javascript:;" aria-label="Next"> <!-- 防多次点击发送ajax -->
                 {% else %}
             <a href="/admin/users?page={{ page +1 }}" aria-label="Next">
                 {% endif %}

@@ -8,8 +8,7 @@ const MongoStore = require('connect-mongo')(session);
 const app = express();
 const port = 3000;
 
-app.use(express.static('public'))
-
+app.use(express.static('public')) // 请求静态资源
 
 //1.设置缓存：
 swig.setDefaults({
@@ -75,25 +74,24 @@ app.use((req,res,next)=>{
 app.use('/',require('./route/index.js')); // 请求首页
 app.use('/user',require('./route/user.js')); // 请求用户登录路由
 app.use('/admin',require('./route/admin.js'));  // 请求用户后台管理路由
-app.use('/category',require('./route/category.js'));  // 请求用户后台管理路由
+app.use('/category',require('./route/category.js'));  // 请求用户分页相关路由
 
-
-// 连接数据库：
 //连接数据库服务：
 mongoose.connect('mongodb://localhost/blog',{ useUnifiedTopology: true, useNewUrlParser: true  });
 const db = mongoose.connection;
 
+ // 连接数据库失败
 db.on('error',(err)=>{
     console.log('connect err...');
     throw err;
 })
 
+ // 连接数据库成功
 db.on('open',()=>{
     console.log('connect successful...');
 })
 
-
-
+// 监听
 app.listen(port,()=>{
     console.log(`server is running at:127.0.0.1:${port}`)
 })
