@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const CategorySchema = require('../modules/category.js');
-
+const categoryModel = require('../modules/category.js');
+const pagination = require('../util/pagination.js');
 // 权限验证：
 router.use((req,res,next)=>{
     if(req.userInfo.isAdmin){
@@ -14,9 +14,32 @@ router.use((req,res,next)=>{
 
 // 显示分类管理页面：
 router.get('/',(req,res)=>{
-    res.render('admin/category-list.html',{
-        userInfo:req.userInfo
-    });
+    const options = {
+        page:req.query.page,
+        model:categoryModel,
+        projection:' -__v',
+        query:{},
+        sort:{orderd:1}
+    }
+
+    pagination(options)
+    .then(data=>{
+        res.render('admin/category-list.html',{
+            userInfo:req.userInfo,
+            categories:data.users,
+            page:data.page,
+            pages:data.pages,
+            list:data.list,
+            url:'/category',
+        })
+    })
+    .catch(err=>{
+        throw err;
+    })
+
+    // res.render('admin/category-list.html',{
+    //     userInfo:req.userInfo
+    // });
 });
 
 // 显示新增分类页面
@@ -29,10 +52,10 @@ router.get('/add',(req,res)=>{
 // 向后台添加数据逻辑页面：
 router.post('/add',(req,res)=>{
     const {name,order} = req.body;
-    CategorySchema.findOne({name})
+    categoryModel.findOne({name})
     .then(categories=>{
         if(!categories){ // 新增分类成功
-            CategorySchema.insertMany({name,order})
+            categoryModel.insertMany({name,order})
             .then(categories=>{ 
                 res.render('admin/success.html',{
                     userInfo:req.userInfo,

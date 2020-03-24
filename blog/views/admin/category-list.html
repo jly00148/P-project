@@ -11,12 +11,24 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>用户ID</th>
-                <th>用户名</th>
-                <th>是否管理员</th>
+                <th>内容id</th>
+                <th>分类名称</th>
+                <th>排序</th>
+                <th>操作</th>
             </tr>
         </thead>
-    </table>
-</div>    
-   
+        <tbody>
+            {% for val in categories %}
+            <tr>
+                <td>{{ val._id.toString() }}</td>
+                <td>{{ val.name }}</td>
+                <td>{{ val.order }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>     
+</div>
+{% if pages > 1 %}
+{% include 'pagination.html' %}<!-- 合并相同部分 -->
+{% endif %}
 {% endblock %}
