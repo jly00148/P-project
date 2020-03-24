@@ -82,6 +82,25 @@ router.post('/add',(req,res)=>{
         });
     })
 
-
 });
+
+// 编辑分类
+router.get('/edit/:id',(req,res)=>{
+    const { id } = req.params;
+    categoryModel.findById(id)
+    .then(category=>{
+        res.render('admin/category-edit.html',{
+            userInfo:req.userInfo,
+            name:category.name,
+            order:category.order,
+            id:category._id // 传id到hidden的input框
+        });
+    })
+})
+
+// 删除分页
+router.post('/edit',(req,res)=>{
+    const {name,order,id} = req.body;
+    console.log(name,order,id);
+})
 module.exports = router;
