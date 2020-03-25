@@ -8,6 +8,10 @@
     {{ msg }}
 </div>
 
+{% if category %}
+<a href="/category/edit/{{ category._id.toString() }}">返回</a><!-- 返回失败处理 -->
+{% else %}
 <a href="{{ window.history.back() }}">返回</a>
+{% endif %}
 
 {% endblock %}

@@ -4,7 +4,11 @@
 {% endblock %}
 
 {% block content %}
-
-    <div class="alert alert-success" role="alert">添加分类成功</div>
+{% if category %}
+    <div class="alert alert-success" role="alert">修改成功</div>
     <a href="{{ url }}">返回到分类管理</a>
+{% else %}
+    <div class="alert alert-success" role="alert">添加分类成功</div>
+    <a href="{{ url }}">返回到分类管理</a> 
+{% endif %}   
 {% endblock %}
