@@ -1,28 +1,46 @@
 {% extends './layout.html' %}
+
 {% block head %}
+{% if category %}
     编辑分类
+{% else %}
+    添加分类
+{% endif %}
 {% endblock %}
 
 {% block content %}
-
+{% if category %}
 <form class="form-horizontal" action="/category/edit" method="POST">
+{% else %}
+<form class="form-horizontal" action="/category/add" method="POST">
+ {% endif %} 
     <div class="form-group">
       <label for="name" class="col-sm-2 control-label">分类名称</label>
       <div class="col-sm-3">
+        {% if category %}
         <input type="text" class="form-control" id="name" name="name" placeholder="分类名称" value="{{ category.name }}">
+        {% else %}
+        <input type="text" class="form-control" id="name" name="name" placeholder="分类名称">
+        {% endif %}
       </div>
     </div>
 
     <div class="form-group">
         <label for="order" class="col-sm-2 control-label">排序</label>
         <div class="col-sm-3">
+          {% if category %}
           <input type="number" class="form-control" id="order" name="order" placeholder="0" value="{{ category.order }}">
+          {% else %}
+          <input type="number" class="form-control" id="order" name="order" value="0">
+          {% endif %}
         </div>
       </div>
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
+        {% if category %}
         <input type="hidden" name="id" value="{{ category._id.toString() }}"> <!-- 隐形input框用于传id值 -->
+        {% endif %}
         <button type="submit" class="btn btn-primary">提交</button>
       </div>
     </div>

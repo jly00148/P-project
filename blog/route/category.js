@@ -45,7 +45,7 @@ router.get('/',(req,res)=>{
 
 // 显示新增分类页面
 router.get('/add',(req,res)=>{
-    res.render('admin/category-add.html',{
+    res.render('admin/category-edit-add.html',{
         userInfo:req.userInfo
     });
 });
@@ -96,11 +96,9 @@ router.get('/edit/:id',(req,res)=>{
     const { id } = req.params;
     categoryModel.findById(id)
     .then(category=>{
-        res.render('admin/category-edit.html',{
+        res.render('admin/category-edit-add.html',{
             userInfo:req.userInfo,
-            name:category.name,
-            order:category.order,
-            id:category._id // 传id到hidden的input框
+            category
         });
     })
 })
