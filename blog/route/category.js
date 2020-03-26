@@ -103,7 +103,7 @@ router.get('/edit/:id',(req,res)=>{
     })
 })
 
-// 修改分页
+// 修改分类
 router.post('/edit',(req,res)=>{
     const {name,order,id} = req.body;
     // console.log(name,order,id); css 1 5e7a259e25113b08808961cf
@@ -149,6 +149,20 @@ router.post('/edit',(req,res)=>{
             userInfo:req.userInfo,
             msg:'操作数据库出错，请稍后再试'
         }); 
+    })
+})
+
+// 删除分类
+router.get('/delete/:id',(req,res)=>{
+    const { id } = req.params;
+    categoryModel.deleteOne({_id:id})
+    .then(category=>{
+        res.render('admin/success.html',{
+            userInfo:req.userInfo,
+            mag:'删除成功',
+            category,
+            url:'/category'
+        });
     })
 })
 
