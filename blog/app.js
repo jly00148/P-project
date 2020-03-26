@@ -75,6 +75,7 @@ app.use('/',require('./route/index.js')); // 请求首页
 app.use('/user',require('./route/user.js')); // 请求用户登录路由
 app.use('/admin',require('./route/admin.js'));  // 请求用户后台管理路由
 app.use('/category',require('./route/category.js'));  // 请求用户分页相关路由
+app.use('/article',require('./route/article.js')) // 请求文章相关路由
 
 //连接数据库服务：
 mongoose.connect('mongodb://localhost/blog',{ useUnifiedTopology: true, useNewUrlParser: true  });

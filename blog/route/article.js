@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const categoryModel = require('../modules/category.js');
+const carticleModel = require('../modules/article.js');
 const pagination = require('../util/pagination.js');
 
 // 权限验证：
@@ -13,21 +14,21 @@ router.use((req,res,next)=>{
     }
 })
 
-// 显示分类管理页面：
+// 显示文章列表：
 router.get('/',(req,res)=>{
     const options = {
         page:req.query.page,
-        model:categoryModel,
+        model:carticleModel,
         projection:' -__v',
         query:{},
-        sort:{orderd:1}
+        sort:{_id:1}
     }
 
     pagination(options)
     .then(data=>{
-        res.render('admin/category-list.html',{
+        res.render('admin/article-list.html',{
             userInfo:req.userInfo,
-            categories:data.users,
+            articles:data.users,
             page:data.page,
             pages:data.pages,
             list:data.list,
