@@ -43,9 +43,9 @@ router.get('/',(req,res)=>{
     // });
 });
 
-// 显示新增分类页面
+// 显示新增文章页面
 router.get('/add',(req,res)=>{
-    res.render('admin/category-edit-add.html',{
+    res.render('admin/article-add.html',{
         userInfo:req.userInfo
     });
 });
