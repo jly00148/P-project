@@ -56,3 +56,9 @@ post请求发送数据，后台路由用req.body接收，get用req.query接收�
 
 ### `为什么后台返回给前台的数据是json格式？`：
 因为从后台传给前台只能是以字符串形式传输，但是前台必需要获取相关数据，字符串则不行，通过后台字符串格式数据转换json格式，前台就可获取到。
+
+### `bootstrap相关`：
+class="form-control"是给input框添加样式，与父元素div的class标签col-sm-2保持一致长
+label标签中的for的值与input框中的id值保持一致，为了能够点击label选中input框
+placeholder与value相冲突，有value值时placeholder不起作用
+下拉框用select标签

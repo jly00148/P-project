@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const categoryModel = require('../modules/category.js');
-const carticleModel = require('../modules/article.js');
+const articleModel = require('../modules/article.js');
 const pagination = require('../util/pagination.js');
 
 // 权限验证：
@@ -18,7 +18,7 @@ router.use((req,res,next)=>{
 router.get('/',(req,res)=>{
     const options = {
         page:req.query.page,
-        model:carticleModel,
+        model:articleModel,
         projection:' -__v',
         query:{},
         sort:{_id:1}
@@ -45,48 +45,44 @@ router.get('/',(req,res)=>{
 
 // 显示新增文章页面
 router.get('/add',(req,res)=>{
-    res.render('admin/article-add.html',{
-        userInfo:req.userInfo
-    });
+    categoryModel.find({},"name").sort({order:-1})
+    .then(categories=>{
+        res.render('admin/article-add.html',{
+            userInfo:req.userInfo,
+            categories
+        });
+    })
+
 });
 
 // 向后台添加数据逻辑页面：
 router.post('/add',(req,res)=>{
-    const {name,order} = req.body;
-    if(name == ''){ //分类名称内容为空时逻辑
+    const {title,intro,content} = req.body;
+    if(title == '' || intro == '' || content == ''){ //分类名称内容为空时逻辑
         res.render('admin/error.html',{
             userInfo:req.userInfo,
-            msg:'分类名称为空,请输入分类名称!'
+            msg:'有内容为空,请检查后输入内容!',
+            url:'/article'
         })
     }else{
-        categoryModel.findOne({name})
-        .then(categories=>{
-            if(!categories){ // 新增分类成功
-                categoryModel.insertMany({name,order})
-                .then(categories=>{ 
-                    res.render('admin/success.html',{
-                        userInfo:req.userInfo,
-                        url:'/category'
-                    });
-                })
-                .catch(err=>{
-                    res.render('admin/error.html',{
-                        userInfo:req.userInfo,
-                        msg:'操作数据库出错，请稍后再试'
-                    });
-                })
-            }else{ // 新增分类失败，数据库里内容已经存在
-                res.render('admin/error.html',{
-                    userInfo:req.userInfo,
-                    msg:'分类名称已存在，请重新输入!'
-                });
-            }
+        articleModel.insertMany({
+            title,
+            intro,
+            content,
+            user:req.userInfo._id
         })
-        .catch((err)=>{
-            res.render('admin/error.html',{
-                userInfo:req.userInfo,
-                msg:'操作数据库出错，请稍后再试'
-            });
+        .then(articles=>{
+            res.render('admin/success.html',{
+                title:articles.title,
+                intro:articles.intro,
+                user:req.userInfo,
+                articles,
+                msg:'添加文章成功',
+                url:'/article'
+            })
+        })
+        .catch(err=>{
+            throw err;
         })
     }
 });

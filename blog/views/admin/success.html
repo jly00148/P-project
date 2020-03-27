@@ -8,7 +8,14 @@
     <div class="alert alert-success" role="alert">修改成功</div>
     <a href="{{ url }}">返回到分类管理</a>
 {% else %}
+    {% if articles %}
+    <div class="alert alert-success" role="alert">添加成功</div>
+    <a href="{{ url }}">返回到文章列表</a>
+    {% else %}
     <div class="alert alert-success" role="alert">添加分类成功</div>
-    <a href="{{ url }}">返回到分类管理</a> 
+    <a href="{{ url }}">返回到分类管理</a>     
+    {% endif %}
 {% endif %}   
+
+ 
 {% endblock %}
