@@ -11,7 +11,7 @@
       <div class="col-sm-4">
         <select class="form-control" name="category" id="category">
           {% for category in categories %}
-            <option value="{{ category._id.toString() }} ">{{ category.name }}</option>
+            <option value="{{ category._id.toString() }}">{{ category.name }}</option>
           {% endfor %}
         </select>
       </div>

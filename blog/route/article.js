@@ -58,7 +58,7 @@ router.get('/add',(req,res)=>{
 // 向后台添加数据逻辑页面：
 router.post('/add',(req,res)=>{
     const { title,intro,content,category } = req.body;
-    console.log(category)
+    console.log(category);
     if(title == '' || intro == '' || content == ''){ //分类名称内容为空时逻辑
         res.render('admin/error.html',{
             userInfo:req.userInfo,
@@ -67,7 +67,7 @@ router.post('/add',(req,res)=>{
         })
     }else{
         articleModel.insertMany({
-            category:(category),
+            category,
             title,
             intro,
             content,
