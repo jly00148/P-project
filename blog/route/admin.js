@@ -1,5 +1,10 @@
 const express = require('express');
 const router = express.Router();
+
+const multer = require('multer');
+const upload = multer({ dest:'public/uploads/' }); // 接收上传的图片文件地址。前台上传的图片要保存到服务器,然后把图片保存的路径回传给编辑器，编辑器拿到路径以img标签显示在富文本内
+//upload接收前台发过来的图片文件,没有uploads文件会自动创建一个,upload放在post请求地址和请求函数和返回函数的中间。
+
 const UserModel = require('../modules/user.js');
 const pagination = require('../util/pagination.js');
 // 权限验证：
@@ -86,5 +91,13 @@ router.get('/users',(req,res)=>{
 
 });
 
+router.post('/uploadImage',upload.single('upload'),(req,res)=>{ // upload为前台From Data发送的数据
+    // console.log(req.file) //req.file接收
+    const uploadFilePath = '/uploads/'+ req.file.filename;
+    res.json({
+        uploaded:true,
+        url:uploadFilePath
+    })
+})
 
 module.exports = router

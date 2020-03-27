@@ -36,6 +36,8 @@ req.session.destroy();
 ### `管理员权限`：
 在admin.js文件中，跳转管理中心只能是管理员，用户无法登录，需要通过中间件在前面设置权限。
 
+### `富文本编辑器地址`: https://ckeditor.com/
+
 ## 二、`相关注意点`：
 ### `连接数据库`：
 example:mongod --dbpath ./db/(当前文件夹数据库)

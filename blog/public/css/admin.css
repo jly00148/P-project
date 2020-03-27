@@ -11,3 +11,6 @@
 .btn-add{
     margin-bottom: 10px;
 }
+.ck-editor__editable{
+    height:200px;
+}
