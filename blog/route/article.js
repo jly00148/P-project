@@ -47,7 +47,7 @@ router.get('/',(req,res)=>{
 router.get('/add',(req,res)=>{
     categoryModel.find({},"name").sort({order:1})
     .then(categories=>{
-        res.render('admin/article-add.html',{
+        res.render('admin/article-edit-add.html',{
             userInfo:req.userInfo,
             categories
         });
@@ -96,7 +96,7 @@ router.get('/edit/:id',(req,res)=>{
     .then(categories=>{
         articleModel.findById(id)
         .then(articles=>{
-            res.render('admin/article-edit.html',{
+            res.render('admin/article-edit-add.html',{
                 userInfo:req.userInfo,
                 articles,
                 categories

@@ -1,11 +1,19 @@
 {% extends './layout.html' %}
 {% block head %}
+{% if articles %}
     编辑文章
+    {% else %}
+    新增文章
+{% endif %}
 {% endblock %}
 
 {% block content %}
 
+{% if articles %}
 <form class="form-horizontal" action="/article/edit" method="POST">
+    {% else %}
+<form class="form-horizontal" action="/article/add" method="POST">
+{% endif %}
     <div class="form-group">
       <label for="category" class="col-sm-1 control-label">分类名称</label>
       <div class="col-sm-4">
