@@ -91,6 +91,7 @@ router.get('/users',(req,res)=>{
 
 });
 
+//处理上传图片
 router.post('/uploadImage',upload.single('upload'),(req,res)=>{ // upload为前台From Data发送的数据
     // console.log(req.file) //req.file接收
     const uploadFilePath = '/uploads/'+ req.file.filename;
