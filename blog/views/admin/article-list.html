@@ -23,9 +23,9 @@
             {% for val in articles %}
             <tr>
                 <td>{{ val.title }}</td>
-                <td>{{ val.category }}</td>
-                <td>{{ val.user }}</td>
-                <td>{{ val.createAt | date('Y年m月d日 H:m:i',-8*60)}}</td>
+                <td>{{ val.category.name }}</td>
+                <td>{{ val.user.username }}</td>
+                <td>{{ val.createAt | date('Y年m月d日 H:i:s',-8*60) }}</td>
                 <td>{{ val.click }}</td>
                 <td>
                     <a href="/article/view/{{ val._id.toString() }}">查看</a>

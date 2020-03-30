@@ -109,3 +109,6 @@ footer{
 	min-height: 300px;
 }
 
+.panel-footer-text:hover{
+	text-decoration: none;
+}

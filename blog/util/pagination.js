@@ -3,10 +3,12 @@
         model：模型
         projection：投影
         query:查询条件
-        sort：排序
+        sort：排序,
+        populates:关联的数组
+
     */
 async function pagination(options){
-    let {page,model,projection,query,sort} = options;
+    let {page,model,projection,query,sort,populates} = options;
     page = parseInt(page);
     if(isNaN(page)){
         page = 1;
@@ -22,7 +24,15 @@ async function pagination(options){
         list.push(i);
     }
 
-    const users = await model.find(query,projection).sort(sort).skip(skip).limit(limit)
+    let result =model.find(query,projection);
+    if(populates){
+        populates.forEach(populate=>{
+            result = result.populate(populate);
+        })
+    }
+    const users = await result.sort(sort).skip(skip).limit(limit)
+
+    // const users = await model.find(query,projection).sort(sort).skip(skip).limit(limit)
 
     return {
         page,

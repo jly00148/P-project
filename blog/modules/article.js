@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const pagination = require('../util/pagination.js');
 // 1.定义Schema
 const articleSchema = new mongoose.Schema({
     title:{
@@ -12,10 +12,12 @@ const articleSchema = new mongoose.Schema({
         type:String
     },
     user:{
-        type:mongoose.Schema.Types.ObjectId
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User' //关联相应模型
     },
     category:{
-        type:mongoose.Schema.Types.ObjectId
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Category'
     },
     click:{
         type:Number,
@@ -23,10 +25,23 @@ const articleSchema = new mongoose.Schema({
     },
     createAt:{
         type:Date,
-        default:Date.now()
+        default:Date.now
     }
 
 })
+
+articleSchema.statics.getPaginationArticls = function(req,query={}){
+    const options = {
+        page:req.query.page,
+        model:articleModel,
+        projection:' -__v',
+        query:query,
+        sort:{_id:1},
+        populates:[{path:'user',select:'username'},{path:'category',select:'name'}] //1-30
+    }
+    return pagination(options);
+    
+}
 
 // 2生成模型Model：
 const articleModel = mongoose.model('Article',articleSchema);

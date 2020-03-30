@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const categoryModel = require('../modules/category.js');
 const articleModel = require('../modules/article.js');
-const pagination = require('../util/pagination.js');
 
 // 权限验证：
 router.use((req,res,next)=>{
@@ -16,12 +15,14 @@ router.use((req,res,next)=>{
 
 // 显示文章列表：
 router.get('/',(req,res)=>{
+    /*
     const options = {
         page:req.query.page,
         model:articleModel,
         projection:' -__v',
         query:{},
-        sort:{_id:1}
+        sort:{_id:1},
+        populates:[{path:'user',select:'username'},{path:'category',select:'name'}] //1-30
     }
 
     pagination(options)
@@ -38,9 +39,24 @@ router.get('/',(req,res)=>{
         throw err;
     })
 
-    // res.render('admin/category-list.html',{
-    //     userInfo:req.userInfo
-    // });
+    */
+// articleModel.find({})
+// .then(categories=>{
+//     console.log(categories);
+// })
+
+   articleModel.getPaginationArticls(req)
+   .then(data=>{
+            let length = data.users.length;
+            res.render('admin/article-list.html',{
+                userInfo:req.userInfo,
+                articles:data.users,
+                page:data.page,
+                pages:data.pages,
+                list:data.list,
+                length
+            })
+   })
 });
 
 // 显示新增文章页面
@@ -74,6 +90,7 @@ router.post('/add',(req,res)=>{
             user:req.userInfo._id
         })
         .then(articles=>{
+            console.log(articles);
             res.render('admin/success.html',{
                 title:articles.title,
                 intro:articles.intro,
@@ -86,7 +103,8 @@ router.post('/add',(req,res)=>{
         .catch(err=>{
             throw err;
         })
-    }
+    } 
+
 });
 
 // 编辑分类:(分类名称需要从category集合来)
