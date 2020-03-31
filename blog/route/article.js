@@ -90,7 +90,6 @@ router.post('/add',(req,res)=>{
             user:req.userInfo._id
         })
         .then(articles=>{
-            console.log(articles);
             res.render('admin/success.html',{
                 title:articles.title,
                 intro:articles.intro,

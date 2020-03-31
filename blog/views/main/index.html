@@ -44,7 +44,7 @@
 <div class="panel panel-default content-item">
   <div class="panel-heading">
     <h3 class="panel-title">
-      <a href="detail.html" class="link" target="_blank">{{ article.title }}</a>
+      <a class="link" target="_blank" href="/article/view/{{ article._id.toString()}}">{{ article.title }}</a>
     </h3>
   </div>
   <div class="panel-body">
@@ -54,7 +54,7 @@
     <span class="glyphicon glyphicon-user"></span>
     <span class="panel-footer-text text-muted">{{ article.user.username }}</span>
     <span class="glyphicon glyphicon-th-list"></span>
-    <span class="panel-footer-text text-muted"><a href="/article/view/{{ article._id.toString() }}">{{ article.category.name }}</a></span>
+    <span class="panel-footer-text text-muted">{{ article.category.name }}</span>
     <span class="glyphicon glyphicon-time"></span>
     <span class="panel-footer-text text-muted">{{ article.createAt | date('Y年m月d日 H:i:s',-8*60) }}</span>
     <span class="glyphicon glyphicon-eye-open"></span>

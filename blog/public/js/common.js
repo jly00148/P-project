@@ -141,5 +141,9 @@
         })
     })
 
-
+    //文章列表分页
+    var $articlesPagination = $('#article-list');
+    $articlesPagination.pagination({
+        url:'/articles'
+    })
 })(jQuery)
