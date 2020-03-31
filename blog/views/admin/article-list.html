@@ -7,8 +7,16 @@
 
 
 <div class="table-box">
-    <a href="/article/add" class="btn btn-primary btn-add">新增文章</a>
-    <table class="table table-striped">
+    <a href="/article/add" class="btn btn-primary btn-add alert-link">新增文章</a>
+    {% if length == 0 %}
+    <table class="table table-striped1">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>提示!</strong> 没有添加的文章,请点击新增文章！
+          </div>          
+        {% else %}
+    <table class="table">
+        {% endif %}
         <thead>
             <tr>
                 <th>标题</th>
