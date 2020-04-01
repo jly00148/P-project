@@ -45,4 +45,16 @@ router.get('/',(req,res)=>{
     })
 });
 
+// 接收pagination.js文件局部发送ajax
+router.get('/articles',(req,res)=>{
+    articleModel.getPaginationArticls(req)
+    .then(data=>{
+        res.json({
+            status:0,
+            data
+        })
+    })    
+
+})
+
 module.exports = router;

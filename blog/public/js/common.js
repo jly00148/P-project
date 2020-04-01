@@ -143,6 +143,11 @@
 
     //文章列表分页
     var $articlesPagination = $('#article-list');
+    $articlesPagination.on('get-data',function(ev,data){
+        // console.log(data);
+        // 1.构建文章列表
+        // 2.构建分分页器
+    })
     $articlesPagination.pagination({
         url:'/articles'
     })
