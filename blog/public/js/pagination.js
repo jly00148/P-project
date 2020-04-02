@@ -18,7 +18,7 @@
                 else{
                     page = $this.html();
                 }
-                if(page == currentPage){
+                if(page == currentPage || page <=0){
                     return false;
                 }
 
@@ -29,7 +29,7 @@
                 .done(function(result){
                     if(result.status == 0){
                         // console.log(result);  {status: 0, data: "test"}
-                        _this.trigger('get-data',result.data); // 传值result.data到common.js文件的$articlesPagination.on('get-data',function(ev,data)......
+                        _this.trigger('get-data',result.data); // 传值result.data到common.js文件的$articlesPagination.on('get-data',function(ev,data)... ...
                     }
                 })
                 .fail(err=>{

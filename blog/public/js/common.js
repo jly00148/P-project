@@ -1,4 +1,4 @@
-(function(){
+(function($){
     var $register = $('#register');
     var $login = $('#login');
 
@@ -211,6 +211,7 @@
         }
     })
     
+
     $articlesPagination.pagination({
         url:'/articles'
     })
