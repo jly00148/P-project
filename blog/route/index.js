@@ -7,12 +7,16 @@ const articleModel = require('../modules/article.js');
 async function commonData(req){
     const categoriesPromise = categoryModel.find({},'name').sort({order:1});
     const articlesPromise = articleModel.getPaginationArticls(req);
+    const topArticlesPromise = articleModel.find({},'_id title click').sort({click:-1}).limit(10);
 
     const categories = await categoriesPromise; // 如果直接写ategoryModel.find({},'name').sort({order:1});后面无法解析，这样写同时进行
-    const  pageArticles= await articlesPromise;
+    const pageArticles= await articlesPromise; // 首页内容展示
+    const topArticles = await topArticlesPromise; //点击拍行
+
     return {
         categories,
-        pageArticles
+        pageArticles,
+        topArticles
     }
 }
 
@@ -30,14 +34,15 @@ router.get('/',(req,res)=>{
 // 前台显示文章列表调用commonData
     commonData(req)
     .then(data=>{
-        const { categories,pageArticles } = data;
+        const { categories,pageArticles,topArticles } = data;
         res.render('main/index.html',{
             userInfo:req.userInfo,
             articles:pageArticles.users,
             page:pageArticles.page,
             pages:pageArticles.pages,
             list:pageArticles.list,
-            categories
+            categories,
+            topArticles
         })
     })
     .catch(err=>{
