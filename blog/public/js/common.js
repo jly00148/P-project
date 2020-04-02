@@ -143,11 +143,74 @@
 
     //文章列表分页
     var $articlesPagination = $('#article-list');
+        function buildArticleListHtml(articles){
+            var html = '';
+            articles.forEach(function(article){
+            var createAt = moment(article.createAt).format('YYYY年MM月DD日 HH:mm:ss');
+                html += `
+                <div class="panel panel-default content-item">
+                <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a class="link" target="_blank" href="/article/view/${ article._id.toString()}">${ article.title }</a>
+                </h3>
+                </div>
+                <div class="panel-body">
+                ${ article.intro }
+                </div>
+                <div class="panel-footer">
+                <span class="glyphicon glyphicon-user"></span>
+                <span class="panel-footer-text text-muted">${ article.user.username }</span>
+                <span class="glyphicon glyphicon-th-list"></span>
+                <span class="panel-footer-text text-muted">${ article.category.name }</span>
+                <span class="glyphicon glyphicon-time"></span>
+                <span class="panel-footer-text text-muted">${ createAt }</span>
+                <span class="glyphicon glyphicon-eye-open"></span>
+                <span class="panel-footer-text text-muted"><em>${ article.click }</em>已阅读</span>
+                </div>
+            </div>
+                `
+            })
+            return html;
+        }
+
+        function buildArticlePaginationHtml(list,page){
+            var html = '';
+            html += `<li>
+                    <a href="javascript:;" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li> `
+
+            list.forEach(function(i){
+                if(i == page){
+                    html += `<li class="active"><a href="javascript:;">${ i }</a></li>`;
+                }else{
+                    html += `<li><a href="javascript:;">${ i }</a></li>`;
+                }
+            })
+
+            html += ` <li>
+                        <a href="javascript:;" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>`;
+
+            return html;
+        }
+
     $articlesPagination.on('get-data',function(ev,data){
-        // console.log(data);
         // 1.构建文章列表
+        $('#article-wrap').html(buildArticleListHtml(data.users));
+
         // 2.构建分分页器
+        var $pagination = $articlesPagination.find('.pagination');
+        if(data.pages > 1){
+            $pagination.html(buildArticlePaginationHtml(data.list,data.page));
+        }else{
+            $pagination.html('');
+        }
     })
+    
     $articlesPagination.pagination({
         url:'/articles'
     })
