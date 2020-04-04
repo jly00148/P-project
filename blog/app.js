@@ -1,8 +1,8 @@
-const express = require('express');
+const express = require('express'); // 基于 Node.js 平台，快速、开放、极简的 Web 开发框架Web 应用程序。//Express 是一个保持最小规模的灵活的 Node.js Web 应用程序开发框架，为 Web 和移动应用程序提供一组强大的功能
 const swig = require('swig');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const Cookies = require('cookies');
+const cookies = require('cookies');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const app = express();
@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 
 // 3.3设置cookies中间件：
 // app.use((req,res,next)=>{
-//     req.cookies = new Cookies(req,res);
+//     req.cookies = new cookies(req,res);
 //     // console.log(req.cookies.get('userInfo')); // 接收到user.js文件req.cookies.set的键：userInfo,他的值是{"isAdmin":false,"_id":"5e6e4265a1ded954342b0579","username":"a123"} string
   
 //     req.userInfo = {}
