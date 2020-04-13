@@ -10,3 +10,7 @@
 .Login .login-form-button{
   width: 100%;
 }
+
+body{
+  height: 450px;
+}
