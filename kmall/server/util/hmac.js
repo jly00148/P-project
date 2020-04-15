@@ -14,7 +14,7 @@ console.log(hmac.digest('hex'));
 */
 
 module.exports = (str)=>{
-	const hmac = crypto.createHmac('sha256', 'sdjfkdsjfkdsfj2');
+	const hmac = crypto.createHmac('sha256', 'secret');
 	hmac.update(str);
 	return hmac.digest('hex');
 }

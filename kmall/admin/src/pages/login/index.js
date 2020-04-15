@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { Form, Icon, Input, Button, message,loading } from 'antd';
+import { Form, Icon, Input, Button, message } from 'antd';
 import axios from 'axios';
 import './index.css';
 
@@ -18,7 +18,7 @@ class NormalLoginForm extends Component {
         if (!err) {
             // console.log('Received values of form: ', values);
             this.setState(()=>({
-                isLoading:true
+                isLoading:true;
             }))
 
             axios({
@@ -27,9 +27,10 @@ class NormalLoginForm extends Component {
                 data:values
             })
             .then(result=>{
-                // console.log(data);
+                console.log(result);
                 if(result.data.code == 0){
                     window.location.href = '/';
+                    message.success(result.data.message);
                 }else if(result.data.code == 1){
                     message.error(result.data.message);
                 }

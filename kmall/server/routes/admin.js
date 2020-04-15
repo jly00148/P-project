@@ -47,7 +47,7 @@ router.post("/login",(req,res)=>{
 	let body = req.body;
 	//定义返回数据
 	let result  = {
-		code:0,// 0 代表成功 
+		code:0,// 0 代表成功
 		message:''
 	}
 	UserModel
@@ -62,6 +62,7 @@ router.post("/login",(req,res)=>{
 			 result.data = {
 			 	username:user.username
 			 }
+			 result.message = '登录成功';
 			 res.json(result);
 		}else{
 			result.code = 1;
