@@ -18,7 +18,7 @@ class NormalLoginForm extends Component {
         if (!err) {
             // console.log('Received values of form: ', values);
             this.setState(()=>({
-                isLoading:true;
+                isLoading:true,
             }))
 
             axios({
@@ -66,7 +66,7 @@ class NormalLoginForm extends Component {
                     })(
                         <Input
                         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                        placeholder="用户名"
+                        placeholder="用户名" autoComplete="off"
                         />,
                     )}
                 </Form.Item>
