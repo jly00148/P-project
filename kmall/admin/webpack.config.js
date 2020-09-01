@@ -66,7 +66,8 @@ module.exports = {
                         //不必加载全部cssnpm 需要安装:install babel-plugin-import --save-dev
 
                         plugins:[["import",{"libraryName":"antd","libraryDirectory":"es","style":true}]] //用babel-plugin-import的style配制引入
-                        //样式，需要将配制值style从'css'变为true，这样会有引入less文件，除此之外还需要在rules中配置,见4.定制主题配置
+                        //样式，需要修改配制值:style从'css'变为true，这样会有引入less文件。除此之外还需要在rules中配制添加配置,配制之前要安装less less-loader,
+                        //为什么要安装？因为antd内部css预处理是less,见4.定制主题添加配置。
                     }
                 }
             },
