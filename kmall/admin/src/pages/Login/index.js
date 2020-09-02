@@ -5,13 +5,13 @@ import './index.css';
 import  { actions } from './store/index.js';
 import store from '../../store/index'
 // 容器组件
-class Login extends Component{
+class Todolist extends Component{
     componentDidMount(){
         this.props.handInitData()
     }
     render(){
         const { task,list,handChange,handAdd,handDel } = this.props;
-        return  <div className="Login">
+        return  <div className="todolist">
                     <Row>
                         <Col span={18}> 
                             <Input 
@@ -47,8 +47,8 @@ class Login extends Component{
 const mapStateToProps = (state)=>{
     console.log('state',state)
     return {
-        list:state.get('Login').get('list'),
-        task:state.get('Login').get('task')
+        list:state.get('todolist').get('list'),
+        task:state.get('todolist').get('task')
     }
 }
 
@@ -72,4 +72,4 @@ const mapDispatchToProps = (dispatch)=>{
         }
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
+export default connect(mapStateToProps,mapDispatchToProps)(Todolist);

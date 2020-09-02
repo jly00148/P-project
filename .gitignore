@@ -5,4 +5,7 @@ bootstrap-3.3.7-dist/
 bootstrap-3.3.7/
 node_modules/
 *json
+*img
 db/
+translations/
+uploads/

@@ -11,7 +11,7 @@ class Todolist extends Component{
     }
     render(){
         const { task,list,handChange,handAdd,handDel } = this.props;
-        return  <div className="Todolist">
+        return  <div className="todolist">
                     <Row>
                         <Col span={18}> 
                             <Input 
