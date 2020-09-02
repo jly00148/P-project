@@ -3,18 +3,20 @@
     padding: 0;
 }
 
-.todolist{
-    width: 600px;
-    margin: 100px auto;
-    border:1px solid #000;
+body{
+    /* 在这里处理margin值溢出 */
+    overflow: hidden;
+}
+.Login{
+    width: 350px;
+    border-radius: 5px;
+    margin: 200px auto;
+    padding: 10px;
+    box-shadow: 0.5px 0px 5px rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
-ul{
-    padding:10px;
+.login-form-button{
+    width: 100%;
 }
-li{
-    list-style: none;
-    height: 20px;
-    line-height: 20px;
-    border-bottom:1px dashed #000;
-}
+

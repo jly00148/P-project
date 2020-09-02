@@ -1,54 +1,90 @@
 import React, { Component } from 'react';
-import { Button,Input,Row,Col,List } from 'antd'
+import { Form, Input, Button, Checkbox } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import './index.css';
 import  { actions } from './store/index.js';
 import store from '../../store/index'
-// 容器组件
-class Todolist extends Component{
-    componentDidMount(){
-        this.props.handInitData()
-    }
-    render(){
-        const { task,list,handChange,handAdd,handDel } = this.props;
-        return  <div className="todolist">
-                    <Row>
-                        <Col span={18}> 
-                            <Input 
-                                onChange={handChange} 
-                                value={task} 
-                            />
-                    </Col>
-                    <Col span={6}>
-                            <Button 
-                            className="btn" 
-                                type="primary"
-                                onClick={handAdd}>
-                                按钮
-                            </Button>
-                        </Col>
-                    </Row>
-                    <List
-                        style={{marginTop:10}}
-                        bordered
-                        dataSource={list}
-                        renderItem={(item,index)=>(
-                            <List.Item
-                                onClick={()=>{handDel(index)}}
-                            >
-                                {item}
-                            </List.Item>
-                        )}
+
+
+
+  
+const NormalLoginForm = () => {
+    const onFinish = values => {
+      console.log('Received values of form: ', values);
+    };
+  
+    return (
+        <div className="Login">
+            <Form
+                name="normal_login"
+                className="login-form"
+                initialValues={{
+                remember: true,
+                }}
+                onFinish={onFinish}
+                >
+
+                {/* 用户名 */}
+                <Form.Item
+                    name="username"
+                    rules={[
+                        {
+                        required: true,
+                        message: '请输入用户名',
+                        },
+                    ]}
+                    >
+                    <Input 
+                    prefix={<UserOutlined className="site-form-item-icon" />}
+                    placeholder="用户名" 
+                    autoComplete="off"
+
                     />
-                </div>
-    }
-}
+                </Form.Item>
+
+                {/* 密码 */}
+                <Form.Item
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: '请输入密码',
+                        },
+                    ]}
+                    >
+                    <Input
+                        prefix={<LockOutlined className="site-form-item-icon" />}
+                        type="password"
+                        placeholder="密码"
+                        autoComplete='off'
+                    />
+                </Form.Item>
+
+                <Form.Item>
+                    <Form.Item name="remember" valuePropName="checked" noStyle>
+                        <Checkbox>保存密码</Checkbox>
+                    </Form.Item>
+                    <a className="login-form-forgot" href="">
+                       忘记密码？
+                    </a>
+                </Form.Item>
+        
+                {/* 登录按钮 */}
+                <Form.Item>
+                <Button type="primary" htmlType="submit" className="login-form-button">
+                    登录
+                </Button>
+                </Form.Item>
+            </Form>
+        </div>
+    );
+  };
 
 const mapStateToProps = (state)=>{
-    console.log('state',state)
     return {
-        list:state.get('todolist').get('list'),
-        task:state.get('todolist').get('task')
+        list:state.get('login').get('list'),
+        task:state.get('login').get('task')
     }
 }
 
@@ -72,4 +108,4 @@ const mapDispatchToProps = (dispatch)=>{
         }
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Todolist);
+export default connect(mapStateToProps,mapDispatchToProps)(NormalLoginForm);
