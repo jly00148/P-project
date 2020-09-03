@@ -28,14 +28,20 @@ export function getInitDataCreator(payload){
     }
 }
 
-export const getRequestInitData = ()=>{
+export const getLoginAction = (values)=>{
     return (dispatch)=>{
-        axios.get('http://127.0.0.1:3000')
-            .then(result=>{
-                dispatch(getInitDataCreator(result.data))
-            })
-            .catch(err=>{
-                console.log(err);
-            })
+        values.role = 'admin';
+        console.log('values',values)
+        axios({
+            method:'post',
+            url:'http://127.0.0.1:3000/session/users',
+            data:values
+        })
+        .then(result=>{
+            console.log(result);
+        })
+        .catch(err=>{
+            console.log('err',err);
+        })
     }
 }

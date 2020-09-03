@@ -9,76 +9,84 @@ import store from '../../store/index'
 
 
   
-const NormalLoginForm = () => {
-    const onFinish = values => {
-      console.log('Received values of form: ', values);
+// const NormalLoginForm = () => {
+class NormalLoginForm extends Component{
+    constructor(props){
+        super(props);
+        this.onFinish = this.onFinish.bind(this);
+    }
+     onFinish(values){
+        this.props.handleLogin(values);
     };
   
-    return (
-        <div className="Login">
-            <Form
-                name="normal_login"
-                className="login-form"
-                initialValues={{
-                remember: true,
-                }}
-                onFinish={onFinish}
-                >
-
-                {/* 用户名 */}
-                <Form.Item
-                    name="username"
-                    rules={[
-                        {
-                        required: true,
-                        message: '请输入用户名',
-                        },
-                    ]}
+    render(){
+        return (
+            <div className="Login">
+                <Form
+                    name="normal_login"
+                    className="login-form"
+                    initialValues={{
+                    remember: true,
+                    }}
+                    onFinish={this.onFinish}
                     >
-                    <Input 
-                    prefix={<UserOutlined className="site-form-item-icon" />}
-                    placeholder="用户名" 
-                    autoComplete="off"
 
-                    />
-                </Form.Item>
-
-                {/* 密码 */}
-                <Form.Item
-                    name="password"
-                    rules={[
-                        {
+                    {/* 用户名 */}
+                    <Form.Item
+                        name="username"
+                        rules={[
+                            {
                             required: true,
-                            message: '请输入密码',
-                        },
-                    ]}
-                    >
-                    <Input
-                        prefix={<LockOutlined className="site-form-item-icon" />}
-                        type="password"
-                        placeholder="密码"
-                        autoComplete='off'
-                    />
-                </Form.Item>
+                            message: '请输入用户名',
+                            },
+                            {pattern:/^[a-z][a-z0-9_]{3,6}$/,message:'首字母必需是字母，3至6位'}
+                        ]}
+                        >
+                        <Input 
+                        prefix={<UserOutlined className="site-form-item-icon" />}
+                        placeholder="用户名" 
+                        autoComplete="off"
 
-                <Form.Item>
-                    <Form.Item name="remember" valuePropName="checked" noStyle>
-                        <Checkbox>保存密码</Checkbox>
+                        />
                     </Form.Item>
-                    <a className="login-form-forgot" href="">
-                       忘记密码？
-                    </a>
-                </Form.Item>
-        
-                {/* 登录按钮 */}
-                <Form.Item>
-                <Button type="primary" htmlType="submit" className="login-form-button">
-                    登录
-                </Button>
-                </Form.Item>
-            </Form>
-        </div>
-    );
+
+                    {/* 密码 */}
+                    <Form.Item
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: '请输入密码',
+                            },
+                            {pattern:/^[a-z0-9]{3,6}$/,message:'密码3至6位'}
+                        ]}
+                        >
+                        <Input
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            type="password"
+                            placeholder="密码"
+                            autoComplete='off'
+                        />
+                    </Form.Item>
+
+                    <Form.Item>
+                        <Form.Item name="remember" valuePropName="checked" noStyle>
+                            <Checkbox>保存密码</Checkbox>
+                        </Form.Item>
+                        <a className="login-form-forgot" href="">
+                        忘记密码？
+                        </a>
+                    </Form.Item>
+            
+                    {/* 登录按钮 */}
+                    <Form.Item>
+                    <Button type="primary"  htmlType="submit" className="login-form-button">
+                        登录
+                    </Button>
+                    </Form.Item>
+                </Form>
+            </div>
+        )};
   };
 
 const mapStateToProps = (state)=>{
@@ -90,21 +98,8 @@ const mapStateToProps = (state)=>{
 
 const mapDispatchToProps = (dispatch)=>{
     return {
-        handChange:(ev)=>{
-            const task = ev.target.value;
-            dispatch(actions.getChangeCreator(task))
-        },
-        handAdd:()=>{
-            const payload = store.getState().task;
-            dispatch(actions.getAddCreator(payload));
-
-        },
-        handDel:(index)=>{
-            const payload = index;
-            dispatch(actions.getDelCreator(payload))
-        },
-        handInitData:()=>{
-            dispatch(actions.getRequestInitData())
+        handleLogin:(values)=>{
+            dispatch(actions.getLoginAction(values));
         }
     }
 }
