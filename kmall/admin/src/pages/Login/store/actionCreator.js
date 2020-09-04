@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import axios from 'axios';
+import { message } from 'antd';
 export function getChangeCreator(task){
     return {
         type:types.CHANGE_ITEM,
@@ -37,10 +38,21 @@ export const getLoginAction = (values)=>{
             data:values
         })
         .then(result=>{
-            console.log(result);
+            console.log('result',result);
+            const data = result.data;
+            if(data.code == 0){//登录成功
+                //做两件事：
+                //1.在前端保存登录信息
+
+                //2.跳转管理系统界面
+                message.success(data.message);
+                window.location.href = '/';
+            }else{//代表失败
+                message.error(data.message);
+            }
         })
         .catch(err=>{
-            console.log('err:::',err);
+                message.error('网络错误，请稍后再试！');
         })
     }
 }
