@@ -104,6 +104,7 @@ module.exports = {
     resolve:{
         alias:{//配制别名
             pages:path.resolve(__dirname,'./src/pages'),
+            util:path.resolve(__dirname,'./src/util')
         }
     },
 

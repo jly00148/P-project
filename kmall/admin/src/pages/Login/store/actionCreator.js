@@ -1,6 +1,8 @@
 import * as types from './actionTypes';
 import axios from 'axios';
 import { message } from 'antd';
+import { saveUsername } from 'util';
+
 export function getChangeCreator(task){
     return {
         type:types.CHANGE_ITEM,
@@ -42,11 +44,12 @@ export const getLoginAction = (values)=>{
             const data = result.data;
             if(data.code == 0){//登录成功
                 //做两件事：
-                //1.在前端保存登录信息
-
+                //1.在前端保存登录信息(local Storage);
+                saveUsername(data.username);
+                
                 //2.跳转管理系统界面
                 message.success(data.message);
-                window.location.href = '/';
+                // window.location.href = '/';
             }else{//代表失败
                 message.error(data.message);
             }

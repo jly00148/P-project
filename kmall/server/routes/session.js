@@ -15,7 +15,8 @@ router.post('/users',(req,res)=>{
     .findOne({username:body.username,password:hmac(body.password)})
     .then(user=>{
         if(user){//登录成功
-            result.message = '登录成功'
+            result.message = '登录成功',
+            result.username = body.username
             res.json(result);
         }else{
             result.code = 1;
