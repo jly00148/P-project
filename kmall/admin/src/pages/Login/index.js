@@ -39,7 +39,7 @@ class NormalLoginForm extends Component{
                             required: true,
                             message: '请输入用户名',
                             },
-                            {pattern:/^[a-z][a-z0-9_]{3,6}$/,message:'首字母必需是字母，3至6位'}
+                            {pattern:/^[a-z][a-z0-9_]{3,6}$/,message:'首字母必需是字母，4至6位'}
                         ]}
                         >
                         <Input 

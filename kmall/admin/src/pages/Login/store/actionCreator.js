@@ -31,7 +31,6 @@ export function getInitDataCreator(payload){
 export const getLoginAction = (values)=>{
     return (dispatch)=>{
         values.role = 'admin';
-        console.log('values',values)
         axios({
             method:'post',
             url:'http://127.0.0.1:3000/session/users',
@@ -41,7 +40,7 @@ export const getLoginAction = (values)=>{
             console.log(result);
         })
         .catch(err=>{
-            console.log('err',err);
+            console.log('err:::',err);
         })
     }
 }

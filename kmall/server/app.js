@@ -71,14 +71,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //处理路由
-app.use("/admin",require('./routes/admin.js'));
-app.use("/user",require('./routes/user.js'));
-app.use("/category",require('./routes/category.js'));
-app.use("/product",require('./routes/product.js'));
-app.use("/cart",require('./routes/cart.js'));
-app.use("/shipping",require('./routes/shipping.js'));
-app.use("/order",require('./routes/order.js'));
-app.use("/payment",require('./routes/payment.js'));
+app.use("/user",require('./routes/user.js'))
+app.use("/session",require('./routes/session.js'));
+
 
 app.listen(3000,()=>{
 	console.log('server is running at 127.0.0.1:3000')
