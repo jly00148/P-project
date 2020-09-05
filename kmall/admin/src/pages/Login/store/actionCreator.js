@@ -3,36 +3,22 @@ import axios from 'axios';
 import { message } from 'antd';
 import { saveUsername } from 'util';
 
-export function getChangeCreator(task){
+const getLoginRequestStartAction = ()=>{//用户登录前loading出现
     return {
-        type:types.CHANGE_ITEM,
-        payload:task
+        type:types.LOGIN_REQUEST_START_ACTION,
     }
 }
 
-export function getAddCreator(payload){
-    return {
-        type:types.ADD_ITEM,
-        payload:payload
-    }
-}
 
-export function getDelCreator(payload){
+const getLoginRequestEndAction = ()=>{//用户登录前loading消失
     return {
-            type:types.DEL_ITEM,
-            payload
-        }
-}
-
-export function getInitDataCreator(payload){
-    return {
-        type:types.INIT_ITEM,
-        payload
+        type:types.LOGIN_REQUEST_END_ACTION,
     }
 }
 
 export const getLoginAction = (values)=>{
     return (dispatch)=>{
+        dispatch(getLoginRequestStartAction())//登录前派发action，改变state中的isFatching属性为true，loading显示出来
         values.role = 'admin';
         axios({
             method:'post',
@@ -49,13 +35,16 @@ export const getLoginAction = (values)=>{
                 
                 //2.跳转管理系统界面
                 message.success(data.message);
-                // window.location.href = '/';
+                window.location.href = '/';
             }else{//代表失败
                 message.error(data.message);
             }
         })
         .catch(err=>{
                 message.error('网络错误，请稍后再试！');
+        })
+        .finally(()=>{
+            dispatch(getLoginRequestEndAction())//无论是否登录成功都要消掉loading
         })
     }
 }

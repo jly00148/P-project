@@ -80,7 +80,12 @@ class NormalLoginForm extends Component{
             
                     {/* 登录按钮 */}
                     <Form.Item>
-                    <Button type="primary"  htmlType="submit" className="login-form-button">
+                    <Button
+                     type="primary"  
+                     htmlType="submit" 
+                     className="login-form-button"
+                     loading={this.props.isFetching}//处理loading
+                     >
                         登录
                     </Button>
                     </Form.Item>
@@ -91,8 +96,7 @@ class NormalLoginForm extends Component{
 
 const mapStateToProps = (state)=>{
     return {
-        list:state.get('login').get('list'),
-        task:state.get('login').get('task')
+        isFetching:state.get('login').get('isFetching'),
     }
 }
 
