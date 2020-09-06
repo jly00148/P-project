@@ -4,7 +4,7 @@ export const saveUsername = (username)=>{//设置登录信息
 }
 
 export const getUsername = (username)=>{//获取信息
-    window.localStorage.getItem('username',username);
+    return window.localStorage.getItem('username',username);
 }
 
 export const removeUsername = (username)=>{//删除信息
