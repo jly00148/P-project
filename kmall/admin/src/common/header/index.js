@@ -1,22 +1,52 @@
 import React,{ Component } from 'react';
-import { Layout, Menu } from 'antd';
+import axios from 'axios';
+import { Layout,Menu,Icon,Dropdown } from 'antd';
 const { Header } = Layout;
+import { getUsername,removeUsername } from 'util';
 import './index.css';
   
 class AdminHeader extends Component{
+    constructor(props){
+        super(props);
+        this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    handleLogout(){
+        axios({
+            method:'delete',
+            url:'http://127.0.0.1:3000/session/users'
+        })
+        .then(result=>{
+            if(result.data.code === 0){
+                removeUsername()
+                window.location.href = '/login';
+            }
+        })
+        .catch(err=>{
+            console.log("err::",err);
+        })
+    }
     render(){
+        const menu = (
+            <Menu onClick={this.handleLogout}>
+                <Menu.Item key="1">
+                    <Icon type="" />退出
+                </Menu.Item>
+            </Menu>
+        )
         return (
-            <div className="Layout">
-                <Layout>
-                    <Header className="header">
-                    <div className="logo" />
-                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-                        <Menu.Item key="1">nav 1</Menu.Item>
-                        <Menu.Item key="2">nav 2</Menu.Item>
-                        <Menu.Item key="3">nav 3</Menu.Item>
-                    </Menu>
-                    </Header>
-                </Layout>
+            <div className="AdminHeader">
+                <Header className="header">
+                    <div className="logo">
+                        KMALL
+                    </div>
+                    <Dropdown overlay={ menu } trigger={['click']}>
+                        <a className="ant-dropdown-link" href="#">
+                            {getUsername()} <Icon type="down" />
+                        </a>
+                        
+                    </Dropdown>
+                </Header>
             </div>
         )};
   };

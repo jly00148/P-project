@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Breadcrumb } from 'antd';
 const {  Content } = Layout;
 import AdminHeader from '../header/index.js';
 import AdminSider from '../sider/index.js';

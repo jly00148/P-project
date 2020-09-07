@@ -26,4 +26,11 @@ router.post('/users',(req,res)=>{
     })
 })
 
+//用户退出
+router.delete('/users',(req,res)=>{
+    req.session.destroy();
+    res.json({
+        code:0
+    })
+})
 module.exports = router;
