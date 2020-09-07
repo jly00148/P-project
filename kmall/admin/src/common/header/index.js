@@ -12,14 +12,14 @@ class AdminHeader extends Component{
     }
 
     handleLogout(){
-        axios({
+        axios({//发送ajax删除session
             method:'delete',
             url:'http://127.0.0.1:3000/session/users'
         })
-        .then(result=>{
+        .then(result=>{//删除成功
             if(result.data.code === 0){
-                removeUsername()
-                window.location.href = '/login';
+                removeUsername();//删除local Storage
+                window.location.href = '/login';//回到登录页
             }
         })
         .catch(err=>{
