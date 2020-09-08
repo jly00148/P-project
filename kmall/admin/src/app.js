@@ -36,6 +36,7 @@ class App extends Component{
                 <div>
                     <Switch>{/* 加Switch的目的是匹配/就不往下匹配了，不然无效页面后去访问主页会出现err页面提示信息 */}                                                   
                         <ProtectLogin exact path="/"  component={Home} />
+                        <ProtectLogin exact path="/user"  component={Home} />
                         <ProtectHome path="/login" component={Login} />
                         <Route component={Err}/>{/* 不加路径是代表所有，所以也包括主页路径/ */}
                     </Switch>

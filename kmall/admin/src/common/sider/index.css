@@ -1,0 +1,6 @@
+.AdminSider a.active{/*精确选中不然优先不够被覆盖*/
+    color: #1DA57A;
+}
+.AdminSider{
+    background-color:white;
+}

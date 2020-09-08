@@ -1,6 +1,11 @@
 import React,{ Component } from 'react';
 import axios from 'axios';
-import { Layout,Menu,Icon,Dropdown } from 'antd';
+import { Layout,Menu,Dropdown } from 'antd';
+import {
+    DownCircleTwoTone,
+    ShopTwoTone,
+    CloseCircleTwoTone 
+  } from '@ant-design/icons';
 const { Header } = Layout;
 import { getUsername,removeUsername } from 'util';
 import './index.css';
@@ -30,7 +35,7 @@ class AdminHeader extends Component{
         const menu = (
             <Menu onClick={this.handleLogout}>
                 <Menu.Item key="1">
-                    <Icon type="" />退出
+                    退出 <CloseCircleTwoTone />
                 </Menu.Item>
             </Menu>
         )
@@ -38,11 +43,11 @@ class AdminHeader extends Component{
             <div className="AdminHeader">
                 <Header className="header">
                     <div className="logo">
-                        KMALL
+                        <ShopTwoTone />KMALL
                     </div>
                     <Dropdown overlay={ menu } trigger={['click']}>
                         <a className="ant-dropdown-link" href="#">
-                            {getUsername()} <Icon type="down" />
+                            {getUsername()} <DownCircleTwoTone />
                         </a>
                         
                     </Dropdown>
