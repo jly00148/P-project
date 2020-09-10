@@ -21,17 +21,17 @@ class AdminLayout extends Component{
                             <Row>
                                 <Col span={4}>
                                     <Card title="用户数" bordered={false} style={{ width:300 }}>
-                                        af
+                                        <p>{this.props.usernum}</p>
                                     </Card>
                                 </Col>
                                 <Col span={4}>
                                     <Card title="商品数" bordered={false} style={{ width:300 }}>
-                                        af
+                                        <p>{this.props.ordernum}</p>
                                     </Card>
                                 </Col>
                                 <Col span={4}>
                                     <Card title="订单数" bordered={false} style={{ width:300 }}>
-                                        af
+                                        <p>{this.props.productnum}</p>
                                     </Card>
                                 </Col>                                                                
                             </Row>

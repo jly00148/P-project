@@ -11,16 +11,21 @@ class Home extends Component{
     render(){
         return (
             <div className="Home">
-                <Layout>
-                    <h1>首页</h1>
-                </Layout>
+                <Layout  
+                    usernum={this.props.usernum}
+                    ordernum={this.props.ordernum}
+                    productnum={this.props.productnum}
+                />
+
             </div>
         )};
   };
 
 const mapStateToProps = (state)=>{
     return {
-
+        usernum:state.get('home').get('usernum'),
+        ordernum:state.get('home').get('ordernum'),
+        productnum:state.get('home').get('productnum')
     }
 }
 
