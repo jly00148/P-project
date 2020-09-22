@@ -1,4 +1,7 @@
-import reducer from './reducer';
-import * as actions from './actionCreator.js';
+import reducer from './reducer.js'
+import * as actionCreator from './actionCreator.js'
 
-export {reducer,actions}
+export {
+    actionCreator,
+    reducer
+}

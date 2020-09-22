@@ -1,20 +1,17 @@
-import { fromJS, set } from 'immutable'
-import {
-    LOGIN_REQUEST_START_ACTION,
-    LOGIN_REQUEST_END_ACTION
-} from './actionTypes';
+import * as types  from './actionTypes.js'
 
- const defaultState = fromJS({
-   isFetching:false//处理loading
- })
+import { fromJS } from 'immutable'
 
+const defaultState = fromJS({
+    isFetching:false
+})
 
- export default (state=defaultState,action)=>{
-    if(action.type === LOGIN_REQUEST_START_ACTION){
-        return state.set('isFetching',true);//显示loading
+export default (state=defaultState,action)=>{
+    if(action.type == types.LOGIN_REQEST_START){
+        return state.set('isFetching',true)
     }
-    if(action.type === LOGIN_REQUEST_END_ACTION){
-      return state.set('isFetching',false);//去掉loading
-  }
-   return state
+    if(action.type == types.LOGIN_REQEST_DONE){
+        return state.set('isFetching',false)
+    }    
+    return state
 }

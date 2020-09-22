@@ -1,10 +1,8 @@
-// import { combineReducers } from 'redux'; // 合并reducer
-import { combineReducers } from 'redux-immutable'; // 合并reducer
-import { reducer as loginReducer } from '../pages/login/store/index.js';
-import { reducer as homeReducer } from '../pages/home/store/index.js';
-
+import { combineReducers } from 'redux-immutable'
+import { reducer as loginReducer } from 'pages/login/store'
+import { reducer as homeReducer } from 'pages/home/store'
 
 export default combineReducers({
     login:loginReducer,
-    home:homeReducer
+    home:homeReducer,
 })

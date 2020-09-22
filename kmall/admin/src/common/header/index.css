@@ -1,12 +1,9 @@
 .AdminHeader .logo{
-    color:#1DA57A;
-    font-weight: 600px;
     float: left;
+    color: #1DA57A;
+    font-size: 24px;
+    font-weight: 600;
 }
-.AdminHeader .logo:hover{
-    cursor: pointer;
-}
-
 .AdminHeader .ant-dropdown-link{
     float: right;
 }

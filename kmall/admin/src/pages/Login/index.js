@@ -1,110 +1,95 @@
-import React, { Component } from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { connect } from 'react-redux';
-import './index.css';
-import  { actions } from './store/index.js';
-import store from '../../store/index'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
+import "./index.css"
+import { actionCreator } from './store'
 
-
-  
-// const NormalLoginForm = () => {
-class NormalLoginForm extends Component{
+class NormalLoginForm extends Component {
     constructor(props){
-        super(props);
-        this.onFinish = this.onFinish.bind(this);
+        super(props)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
-     onFinish(values){
-        this.props.handleLogin(values);
-    };
-  
-    render(){
+    handleSubmit(e) {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                //console.log('Received values of form: ', values);
+                this.props.handleLogin(values)
+            }
+        })
+    }
+    render() {
+        const { getFieldDecorator } = this.props.form;
         return (
-            <div className="Login">
-                <Form
-                    name="normal_login"
-                    className="login-form"
-                    initialValues={{
-                    remember: true,
-                    }}
-                    onFinish={this.onFinish}
-                    >
-
-                    {/* 用户名 */}
-                    <Form.Item
-                        name="username"
-                        rules={[
-                            {
-                            required: true,
-                            message: '请输入用户名',
-                            },
-                            {pattern:/^[a-z][a-z0-9_]{3,6}$/,message:'首字母必需是字母，4至6位'}
-                        ]}
-                        >
-                        <Input 
-                        prefix={<UserOutlined className="site-form-item-icon" />}
-                        placeholder="用户名" 
-                        autoComplete="off"
-
-                        />
-                    </Form.Item>
-
-                    {/* 密码 */}
-                    <Form.Item
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请输入密码',
-                            },
-                            {pattern:/^[a-z0-9]{3,6}$/,message:'密码3至6位'}
-                        ]}
-                        >
-                        <Input
-                            prefix={<LockOutlined className="site-form-item-icon" />}
-                            type="password"
-                            placeholder="密码"
-                            autoComplete='off'
-                        />
-                    </Form.Item>
-
-                    <Form.Item>
-                        <Form.Item name="remember" valuePropName="checked" noStyle>
-                            <Checkbox>保存密码</Checkbox>
-                        </Form.Item>
-                        <a className="login-form-forgot" href="">
-                        忘记密码？
-                        </a>
-                    </Form.Item>
-            
-                    {/* 登录按钮 */}
-                    <Form.Item>
-                    <Button
-                     type="primary"  
-                     htmlType="submit" 
-                     className="login-form-button"
-                     loading={this.props.isFetching}//处理loading
-                     >
-                        登录
-                    </Button>
-                    </Form.Item>
-                </Form>
-            </div>
-        )};
-  };
-
-const mapStateToProps = (state)=>{
-    return {
-        isFetching:state.get('login').get('isFetching'),
+        <div className="Login">
+        <Form className="login-form">
+            <Form.Item>
+              {getFieldDecorator('username', {
+                rules: [
+                    {
+                       required: true,
+                        message: '请输入用户名' 
+                    },
+                    {
+                      pattern:/^[a-z][a-z0-9_]{3,6}$/,
+                      message:'首字母必需是字母，4至6位'
+                    }
+                  ],
+              })(
+                <Input
+                  prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  placeholder="用户名"
+                  autoComplete="off"
+                />,
+              )}
+            </Form.Item>
+            <Form.Item>
+              {getFieldDecorator('password', {
+                rules: [
+                  { required: true, 
+                    message: '密码为3-6位任意字符!' 
+                  },
+                  {
+                    pattern:/^[a-z0-9]{3,6}$/,
+                    message:'密码3至6位'
+                  }
+                  ],
+              })(
+                <Input
+                  prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  type="password"
+                  placeholder="密码"
+                />,
+              )}
+            </Form.Item>
+            <Form.Item>
+                <Button 
+                    type="primary"  
+                    className="login-form-button"
+                    onClick={this.handleSubmit}
+                    loading={this.props.isFetching}
+                >
+                    登录
+                </Button>
+            </Form.Item>
+        </Form>
+        </div>
+        );
     }
 }
 
-const mapDispatchToProps = (dispatch)=>{
-    return {
-        handleLogin:(values)=>{
-            dispatch(actions.getLoginAction(values));
-        }
+const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
+
+//映射属性到组件
+const mapStateToProps = (state) => ({
+    isFetching: state.get('login').get('isFetching')
+})
+//映射方法到组件
+const mapDispatchToProps = (dispatch) => ({
+    handleLogin: (values) => {
+        dispatch(actionCreator.getLoginAction(values))
     }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(NormalLoginForm);
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(WrappedNormalLoginForm)

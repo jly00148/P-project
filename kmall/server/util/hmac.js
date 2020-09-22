@@ -4,7 +4,9 @@ const crypto = require('crypto');
 // const hash = crypto.createHash('sha256');
 /*
 const hash = crypto.createHash('sha512');
+
 hash.update('test');
+
 console.log(hash.digest('hex'));
 */
 /*
@@ -14,7 +16,7 @@ console.log(hmac.digest('hex'));
 */
 
 module.exports = (str)=>{
-	const hmac = crypto.createHmac('sha256', 'secret');
+	const hmac = crypto.createHmac('sha256', 'sdjfkdsjfkdsfj2');
 	hmac.update(str);
 	return hmac.digest('hex');
 }

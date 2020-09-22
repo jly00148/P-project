@@ -1,59 +1,60 @@
-import React,{ Component } from 'react';
+/*
+* @Author: TomChen
+* @Date:   2019-08-15 16:55:33
+* @Last Modified by:   TomChen
+* @Last Modified time: 2019-08-16 11:17:55
+*/
+import React, { Component } from 'react'
 import axios from 'axios';
-import { Layout,Menu,Dropdown } from 'antd';
-import {
-    DownCircleTwoTone,
-    ShopTwoTone,
-    CloseCircleTwoTone 
-  } from '@ant-design/icons';
+import { Layout, Menu, Icon, Dropdown } from 'antd'
 const { Header } = Layout;
-import { getUsername,removeUsername } from 'util';
-import './index.css';
-  
-class AdminHeader extends Component{
-    constructor(props){
-        super(props);
-        this.handleLogout = this.handleLogout.bind(this);
-    }
 
+import { getUsername,removeUsername } from 'util'
+
+import "./index.css"
+
+class AdminHeader extends Component {
+    constructor(props){
+        super(props)
+        this.handleLogout = this.handleLogout.bind(this)
+    }
     handleLogout(){
-        axios({//发送ajax删除session
-            method:'delete',
-            url:'http://127.0.0.1:3000/session/users'
+        axios({
+            method: 'delete',
+            url:'http://127.0.0.1:3000/sessions/users',
         })
-        .then(result=>{//删除成功
-            if(result.data.code === 0){
-                removeUsername();//删除local Storage
-                window.location.href = '/login';//回到登录页
+        .then(result=>{
+            if(result.data.code == 0){
+                removeUsername()
+                window.location.href = '/login'
             }
         })
-        .catch(err=>{
-            console.log("err::",err);
-        })
+        
     }
-    render(){
+    render() {
         const menu = (
-            <Menu onClick={this.handleLogout}>
-                <Menu.Item key="1">
-                    退出 <CloseCircleTwoTone />
-                </Menu.Item>
-            </Menu>
-        )
+          <Menu onClick={this.handleLogout}>
+            <Menu.Item key="1">
+                <Icon type="logout" /> 退出
+            </Menu.Item>
+          </Menu>
+        )     
         return (
             <div className="AdminHeader">
                 <Header className="header">
-                    <div className="logo">
-                        <ShopTwoTone />KMALL
-                    </div>
-                    <Dropdown overlay={ menu } trigger={['click']}>
+                  <div className="logo">
+                    KMALL
+                  </div>
+                    <Dropdown overlay={menu} trigger={['click']}>
                         <a className="ant-dropdown-link" href="#">
-                            {getUsername()} <DownCircleTwoTone />
+                          {getUsername()} <Icon type="down" />
                         </a>
-                        
                     </Dropdown>
                 </Header>
             </div>
-        )};
-  };
+        );
+    }
+}
 
-export default AdminHeader;
+
+export default AdminHeader

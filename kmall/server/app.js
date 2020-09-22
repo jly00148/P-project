@@ -7,7 +7,7 @@ const session = require('express-session');
 const MongoStore = require("connect-mongo")(session);
 
 //启动数据库
-mongoose.connect('mongodb://localhost:27017/kmall',{ useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/kmall',{ useNewUrlParser: true,useUnifiedTopology: true  });
 
 const db = mongoose.connection;
 
@@ -24,7 +24,7 @@ const app = express();
 
 //跨域设置
 app.use((req,res,next)=>{
-	res.append("Access-Control-Allow-Origin","http://localhost:8080");
+	res.append("Access-Control-Allow-Origin","http://127.0.0.1:3001");
 	res.append("Access-Control-Allow-Credentials",true);
 	res.append("Access-Control-Allow-Methods","GET, POST, PUT,DELETE");
 	res.append("Access-Control-Allow-Headers", "Content-Type, X-Requested-With,X-File-Name"); 
@@ -62,8 +62,8 @@ app.use(session({
 }))
 
 app.use((req,res,next)=>{
-	req.userInfo  = req.session.userInfo || {};
-	next();	
+	req.userInfo = req.session.userInfo || {};
+	next();
 });
 
 //添加处理post请求的中间件
@@ -71,9 +71,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //处理路由
-app.use("/user",require('./routes/user.js'))
-app.use("/session",require('./routes/session.js'));
-
+app.use("/sessions",require('./routes/sessions.js'));
+app.use("/counts",require('./routes/counts.js'));
+app.use("/users",require('./routes/users.js'));
 
 app.listen(3000,()=>{
 	console.log('server is running at 127.0.0.1:3000')

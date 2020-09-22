@@ -1,8 +1,2 @@
-const LOGIN_REQUEST_START_ACTION = 'login@login_request_start_action';//加login@是精确匹配到reducer中的if判断(来自login组件)
-const LOGIN_REQUEST_END_ACTION = 'login@login_request_end_action';
-
-
-export {
-    LOGIN_REQUEST_START_ACTION,
-    LOGIN_REQUEST_END_ACTION
-}
+export const LOGIN_REQEST_START = "login@login_reqest_start"
+export const LOGIN_REQEST_DONE = "login@login_reqest_done"
