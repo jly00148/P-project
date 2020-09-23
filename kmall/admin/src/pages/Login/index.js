@@ -7,14 +7,13 @@ import { actionCreator } from './store'
 
 class NormalLoginForm extends Component {
     constructor(props){
-        super(props)
+        super(...props)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
     handleSubmit(e) {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                //console.log('Received values of form: ', values);
                 this.props.handleLogin(values)
             }
         })
@@ -23,7 +22,7 @@ class NormalLoginForm extends Component {
         const { getFieldDecorator } = this.props.form;
         return (
         <div className="Login">
-        <Form className="login-form">
+        <Form className="login-form" autoComplete="off">
             <Form.Item>
               {getFieldDecorator('username', {
                 rules: [
@@ -40,7 +39,6 @@ class NormalLoginForm extends Component {
                 <Input
                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                   placeholder="用户名"
-                  autoComplete="off"
                 />,
               )}
             </Form.Item>
@@ -65,7 +63,7 @@ class NormalLoginForm extends Component {
             </Form.Item>
             <Form.Item>
                 <Button 
-                    type="primary"  
+                    type="primary"
                     className="login-form-button"
                     onClick={this.handleSubmit}
                     loading={this.props.isFetching}

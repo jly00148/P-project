@@ -1,9 +1,3 @@
-/*
-* @Author: TomChen
-* @Date:   2019-08-15 16:55:33
-* @Last Modified by:   TomChen
-* @Last Modified time: 2019-08-16 11:17:55
-*/
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Layout, Menu, Icon, Dropdown } from 'antd'
@@ -15,7 +9,7 @@ import "./index.css"
 
 class AdminHeader extends Component {
     constructor(props){
-        super(props)
+        super(...props)
         this.handleLogout = this.handleLogout.bind(this)
     }
     handleLogout(){

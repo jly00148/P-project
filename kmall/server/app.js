@@ -7,7 +7,7 @@ const session = require('express-session');
 const MongoStore = require("connect-mongo")(session);
 
 //启动数据库
-mongoose.connect('mongodb://localhost:27017/kmall',{ useNewUrlParser: true,useUnifiedTopology: true  });
+mongoose.connect('mongodb://localhost:27017/kmall',{ useNewUrlParser: true,useUnifiedTopology: true  });//配制参数,否侧每次重启服务器都有提示
 
 const db = mongoose.connection;
 
@@ -25,7 +25,7 @@ const app = express();
 //跨域设置
 app.use((req,res,next)=>{
 	res.append("Access-Control-Allow-Origin","http://127.0.0.1:3001");
-	res.append("Access-Control-Allow-Credentials",true);
+	res.append("Access-Control-Allow-Credentials",true);//这个是服务端下发到客户端的 response 中头部字段，意义是允许客户端携带验证信息，例如 cookie 之类的
 	res.append("Access-Control-Allow-Methods","GET, POST, PUT,DELETE");
 	res.append("Access-Control-Allow-Headers", "Content-Type, X-Requested-With,X-File-Name"); 
 	next();
@@ -56,17 +56,17 @@ app.use(session({
     //如果为true,则每次请求都更新cookie的过期时间
     rolling:true,
     //cookie过期时间 1天
-    cookie:{maxAge:1000*60*60*24},    
+    cookie:{maxAge:1000*60*60*24},
     //设置session存储在数据库中
     store:new MongoStore({ mongooseConnection: mongoose.connection })   
 }))
 
-app.use((req,res,next)=>{
+app.use((req,res,next)=>{//初始启动app,req.userInfo = {},用户登录设置req.session.userInfo = user,再次请求服务器req.userInfo = user
 	req.userInfo = req.session.userInfo || {};
 	next();
 });
 
-//添加处理post请求的中间件
+//添加处理post请求的中间件(通过req.body获取前端post请求data数据)
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

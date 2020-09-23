@@ -30,7 +30,7 @@ class Home extends Component {
                         </Card>
                       </Col>
                       <Col span={8}>
-                        <Card title="商品数" bordered={false} style={{ width: 300 }}>
+                        <Card title="商品数"  bordered={false} style={{ width: 300 }}>
                           <p>{productnum}</p>
                         </Card>                      
                       </Col>
