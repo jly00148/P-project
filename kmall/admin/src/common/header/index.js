@@ -27,9 +27,9 @@ class AdminHeader extends Component {
     }
     render() {
         const menu = (
-          <Menu onClick={this.handleLogout}>
-            <Menu.Item key="1">
-                <Icon type="logout" /> 退出
+          <Menu>
+            <Menu.Item key="1" onClick={this.handleLogout}>{/*  onClick={this.handleLogout}也可以添加在Menu标签里 */}
+                <Icon type="logout"/> 退出
             </Menu.Item>
           </Menu>
         )     

@@ -63,6 +63,7 @@ class NormalLoginForm extends Component {
             </Form.Item>
             <Form.Item>
                 <Button 
+                htmlType="submit" //回车触发登录按钮
                     type="primary"
                     className="login-form-button"
                     onClick={this.handleSubmit}

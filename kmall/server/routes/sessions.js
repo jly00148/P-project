@@ -24,14 +24,14 @@ router.post("/users",(req,res)=>{
 			 	isAdmin:isAdmin
 			 }
 			 res.json({
-			 	code:0,
+			 	code:1,
 			 	data:{
 			 		username:username
 			 	}
 			 });
 		}else{
 			res.json({
-			 	code:1,
+			 	code:0,
 			 	message:"用户名和密码错误",
 			 	data:{
 			 		username:username
@@ -43,53 +43,10 @@ router.post("/users",(req,res)=>{
 
 //用户退出
 router.delete('/users',(req,res)=>{
-	req.session.destroy();
+	req.session.destroy();//销毁前台session数据
 	res.json({
 		code:0,
 	})
 })
-
-//获取登录用户的用户名
-// router.get("/username",(req,res)=>{
-// 	if(req.userInfo._id){
-// 		res.json({
-// 			code:0,
-// 			data:{
-// 				username:req.userInfo.username
-// 			}
-// 		})
-// 	}else{
-// 		res.json({
-// 			code:1
-// 		});
-// 	}
-// });
-
-//登录权限控制
-// router.use((req,res,next)=>{
-// 	if(req.userInfo._id){
-// 		next()
-// 	}else{
-// 		res.json({
-// 			code:10
-// 		})
-// 	}
-// })
-
-// //获取登录用户的信息
-// router.get("/users",(req,res)=>{
-// 	UserModel.findById(req.userInfo._id,"username phone email")
-// 	.then(user=>{
-// 		res.json({
-// 			code:0,
-// 			data:user
-// 		})
-// 	})
-// 	.catch(e=>{
-// 		res.json({
-// 			code:1
-// 		});			
-// 	})
-// })
 
 module.exports = router;

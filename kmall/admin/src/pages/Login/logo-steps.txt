@@ -1,0 +1,8 @@
+一映射：
+    1.映射属性isFetching: state.get('login').get('isFetching')和
+    2.方法handleLogin: (values) => {dispatch(actionCreator.getLoginAction(values))}到组件
+二登录：
+    1.点击登录按钮触发handleSubmit函数，获得用户和密码后再触发handleLogin方法发送action，
+        发送到actionActor文件getLoginAction
+    2.getLoginAction.发送ajax到后台,另一个是发送action到reducer改变loading为登录状态
+    3.发送ajax完毕后，无论成功与否都要发送action改变loading状态

@@ -12,7 +12,7 @@ router.use((req,res,next)=>{
         next()
     }else{
         res.send({
-            code:10
+            code:0
         });
     }
 })

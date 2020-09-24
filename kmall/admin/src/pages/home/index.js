@@ -9,7 +9,7 @@ import { actionCreator } from './store'
 
 class Home extends Component {
     constructor(props){
-        super(props)
+        super(...props)
     }
     componentDidMount(){
         this.props.handleCount()
