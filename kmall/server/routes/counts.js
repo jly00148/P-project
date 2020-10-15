@@ -20,7 +20,7 @@ router.use((req,res,next)=>{
 async function getCounts(){
     try{
         //不存在继发关系,同时触发
-        const userPromise = UserModel.estimatedDocumentCount()
+        const userPromise = UserModel.estimatedDocumentCount() //count({})方法已弃用。如果要计算集合中的文档数(例如count ({})),请改用estimatedDocumentCount()函数
         const orderPromise = OrderModel.estimatedDocumentCount()
         const productPromise = ProductModel.estimatedDocumentCount()
         
@@ -44,7 +44,7 @@ router.get('/',(req,res)=>{
     getCounts()
     .then(data=>{
         res.json({
-            code:0,
+            code:1,
             data:data
         })
     })

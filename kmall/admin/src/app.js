@@ -7,7 +7,11 @@ import {
     Switch,
     Redirect,//路由重定向
 } from "react-router-dom"//h5路由会向后台发送请求,配制文件添加historyApiFallback:true
-// import { HashRouter as Router,Route, Link } from 'react-router-dom';//hash路由并不会向后台发送请求
+
+// import {
+//     HashRouter as Router,Route, Link 
+//  } from 'react-router-dom';//hash路由并不会向后台发送请求
+
 import Login from 'pages/login'//别名配制
 import Home from 'pages/home'
 import Err from 'common/err'//引入路由访问无效页面组件

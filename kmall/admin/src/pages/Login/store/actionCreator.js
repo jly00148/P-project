@@ -23,13 +23,12 @@ export const getLoginAction = (values)=>{
             withCredentials:true
         })
         .then(result=>{
-            // console.log(result)
-            const data  = result.data
-            if(data.code == 0){
-                //1.在前端保存登录信息
-                saveUsername(data.data.username)
+            const data  = result.data;
+            if(data.code == 1){
                 //2.跳转到后台首页
-                window.location.href = "/"
+                window.location.href = "/";
+                //1.在前端保存登录信息
+                saveUsername(data.data.username);
             }else{
                 message.error(data.message)
             }

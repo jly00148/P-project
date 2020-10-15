@@ -24,14 +24,14 @@ router.post("/users",(req,res)=>{
 			 	isAdmin:isAdmin
 			 }
 			 res.json({
-			 	code:1,
+				code:1,
+				message:"登录成功",
 			 	data:{
 			 		username:username
 			 	}
 			 });
 		}else{
 			res.json({
-			 	code:0,
 			 	message:"用户名和密码错误",
 			 	data:{
 			 		username:username
