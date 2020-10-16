@@ -12,7 +12,7 @@ export const getCountAction = (values)=>{
         axios({
             method: 'get',
             url:'http://127.0.0.1:3000/counts/',
-            withCredentials:true// 携带cookie
+            withCredentials:true// 默认情况下，跨源请求不提供凭据(cookie、HTTP认证及客户端SSL证明等)。通过将withCredentials属性设置为true，可以指定某个请求应该发送凭据。
         })
         .then(result=>{
             const data  = result.data
