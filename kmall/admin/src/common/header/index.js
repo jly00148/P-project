@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Layout, Menu, Icon, Dropdown } from 'antd'
+import { Layout, Menu, Icon, Dropdown } from 'antd';
+import api from 'api';
 const { Header } = Layout;
 
 import { getUsername,removeUsername } from 'util'
@@ -10,19 +11,29 @@ import "./index.css"
 class AdminHeader extends Component {
     constructor(props){
         super(...props)
-        this.handleLogout = this.handleLogout.bind(this)
+        this.handleLogout = this.handleLogout.bind(this);
     }
     handleLogout(){
-        axios({
-            method: 'delete',
-            url:'http://127.0.0.1:3000/sessions/users',
-        })
+        api.logout('')
         .then(result=>{
-            if(result.data.code == 0){
-                removeUsername()
-                window.location.href = '/login'
+            if(result.code == 0){
+                removeUsername();
+                window.location.href = '/login';
             }
         })
+        .catch(err=>{
+            console.log(err)
+        })
+        // axios({
+        //     method: 'delete',
+        //     url:'http://127.0.0.1:3000/sessions/users',
+        // })
+        // .then(result=>{
+        //     if(result.data.code == 0){
+        //         removeUsername()
+        //         // window.location.href = '/login'
+        //     }
+        // })
         
     }
     render() {

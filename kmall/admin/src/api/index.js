@@ -13,19 +13,19 @@ const getApiObj = (apiConfig)=>{
             return request(url,method,data);
         }
     }
-    // console.log(apiObj); {login: ƒ, logout: ƒ}
-    return apiObj;
+    return apiObj;// {login: ƒ, logout: ƒ}
 }
 
 const request = (url,method,data)=>{
     return new Promise((resolve,reject)=>{
-        axios.ajax({
-            method: method,
+        axios({
+            method:method,
             url:url,
             data:data,
             withCredentials:true    
         })
         .then(result=>{
+            console.log(result)
             const data  = result.data;
             resolve(data);
         })

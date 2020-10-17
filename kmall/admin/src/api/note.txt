@@ -1,0 +1,11 @@
+一.配置文件config.js
+1.SERVER:export const SERVER = 'http://127.0.0.1:3000';
+2.export const API_CONFIG = {
+    login:['/sessions/users','post'],//登录
+    logout:['/sessions/users','delete']//退出
+}
+
+在index.js文件接收
+
+二.index.js文件for循环导入的对象(API_CONFIG)，得到新的对象里的两个方法
+三.登录或者退出操作调用以上的方法，return一个函数的调用返回Promise

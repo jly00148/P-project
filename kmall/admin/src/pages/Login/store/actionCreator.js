@@ -1,10 +1,8 @@
-import axios from 'axios'
+// import axios from 'axios'
 import { message } from 'antd'
 import api from 'api';
 import * as types  from './actionTypes.js'
-
 import { saveUsername } from 'util'
-
 const getLoginReqestStartAction = ()=>({
     type:types.LOGIN_REQEST_START,
 })
@@ -19,22 +17,19 @@ export const getLoginAction = (values)=>{
         api.login(values)
         .then(result=>{
             const data  = result.data;
-            if(data.code == 1){
+            if(result.code == 1){
                 //2.跳转到后台首页
                 window.location.href = "/";
                 //1.在前端保存登录信息
                 saveUsername(result.data.username);
+
             }else{
                 message.error(result.message)
-            } 
+            }
         })
-         .catch(err=>{
+        .catch(err=>{
             message.error('网络错误,请稍后再试')
         })
-        .finally(()=>{
-            dispatch(getLoginReqestDoneAction())
-        })
-
 
         // axios({
         //     method: 'post',
