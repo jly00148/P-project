@@ -1,7 +1,6 @@
 //目标：导出一个对象，对象的属性是方法名，对象的值是方法
 import { API_CONFIG,SERVER } from './config.js';
 import axios from 'axios';
-
 const getApiObj = (apiConfig)=>{
     const apiObj = {};
 
@@ -25,7 +24,6 @@ const request = (url,method,data)=>{
             withCredentials:true    
         })
         .then(result=>{
-            console.log(result)
             const data  = result.data;
             resolve(data);
         })
