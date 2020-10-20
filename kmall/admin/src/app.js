@@ -1,21 +1,22 @@
-import React, { Component } from 'react'
-import './App.css'
+import React, { Component } from 'react';
+import './App.css';
 import { 
     BrowserRouter as Router, 
     Route, 
     Link,
     Switch,
     Redirect,//路由重定向
-} from "react-router-dom"//h5路由会向后台发送请求,配制文件添加historyApiFallback:true
+} from "react-router-dom";//h5路由会向后台发送请求,配制文件添加historyApiFallback:true
 
 // import {
 //     HashRouter as Router,Route, Link 
 //  } from 'react-router-dom';//hash路由并不会向后台发送请求
 
-import Login from 'pages/login'//别名配制
-import Home from 'pages/home'
-import Err from 'common/err'//引入路由访问无效页面组件
-import { getUsername } from 'util'//获取用户名(getUsername要return)
+import Login from 'pages/login';//别名配制
+import Home from 'pages/home';
+import User from 'pages/user';
+import Err from 'common/err';//引入路由访问无效页面组件
+import { getUsername } from 'util';//获取用户名(getUsername要return)
 
 class App extends Component {    
     render() {
@@ -39,6 +40,7 @@ class App extends Component {
                     <Switch>{/* 加Switch的目的是匹配/就不往下匹配了，不然无效页面后去访问主页会出现err页面提示信息 */}  
                         <ProtectRoute exact path="/" component={Home} />
                         <LoginRoute path="/login" component={Login} />
+                        <Route component={User} />
                         <Route component={Err} />{/* 不加路径是代表所有，所以也包括主页路径/ */}
                     </Switch>
                 </div>
