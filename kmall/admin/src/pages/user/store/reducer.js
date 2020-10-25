@@ -3,24 +3,19 @@ import { fromJS } from 'immutable'
 
 const defaultState = fromJS({
     list:[
-            {
-                _id:1,//人为传key
-                username:'admin',
-                isAdmin:false,
-                phone:12345678900,
-                email:'jly00148@sina.com',
-                createdAt:'2020-10-01 12:00:00'
-            }
-    ]
+        // {   _id:1,//需要一个key
+        //     username:'admin',
+        //     isAdmin:true,
+        //     email:'jly00148@163.com',
+        //     phone:11111111111,
+        //     createdAt:'2020-10-10 12:00:00'
+        // }
+    ]  
 })
 
 export default (state=defaultState,action)=>{
-    if(action.type == types.SET_COUNT){
-        return state.merge({
-            usernum:action.payload.usernum,
-            ordernum:action.payload.ordernum,
-            productnum:action.payload.productnum,  
-        })
+    if(action.type == types.PAGE){
+        return state.set('list',fromJS(action.payload.list))
     }
     return state
 }

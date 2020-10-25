@@ -1,1 +1,1 @@
-export const SET_COUNT = "home@set_count"
+export const PAGE = "user@set_page"

@@ -1,91 +1,88 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Breadcrumb,Table } from 'antd';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Breadcrumb,Table } from 'antd'
 
-import Layout from 'common/layout';
-import "./index.css";
-import { actionCreator } from './store';
-import { get } from 'immutable';
+import Layout from 'common/layout'
 
+import "./index.css"
+import { actionCreator } from './store'
 // const dataSource = [
 //   {
-//     key:'1',
-//     name:'前端',
-//     age:18,
-//     address:'西湖公园',
+//     key: '1',
+//     name: '胡彦斌',
+//     age: 32,
+//     address: '西湖区湖底公园1号',
 //   },
 //   {
-//     key:'2',
-//     name:'后端',
-//     age:18,
-//     address:'西湖公园',
-//   }
+//     key: '2',
+//     name: '胡彦祖',
+//     age: 42,
+//     address: '西湖区湖底公园1号',
+//   },
 // ];
 
 const columns = [
   {
-    title:'用户名',
-    dataIndex:'username',
-    key:'username'
+    title: '用户名',
+    dataIndex: 'username',
+    key: 'username',
   },
   {
-    title:'是否管理员',
-    dataIndex:'isAdmin',
-    key:'isAdmin',
-    render:(isAdmin)=>{return isAdmin ? '是' : '否'}
+    title: '是否管理员',
+    dataIndex: 'isAdmin',
+    key: 'isAdmin',
+    render:(isAdmin)=>{//是布尔值费非字符串，需要在这用render方法根据布尔值显示相应想要的值
+      return isAdmin ? '是' : '否'
+    }
   },
   {
-    title:'email',
-    dataIndex:'email',
-    key:'email'
+    title: 'email',
+    dataIndex: 'email',
+    key: 'email',
   },
   {
-    title:'手机号',
-    dataIndex:'phone',
-    key:'phone'
+    title: '手机',
+    dataIndex: 'phone',
+    key: 'phone',
   },
   {
-    title:'注册时间',
-    dataIndex:'createdAt',
-    key:'createdAt'
-  }
-]
-
+    title: '注册时间',
+    dataIndex: 'createdAt',
+    key: 'createdAt',
+  },  
+];
 class User extends Component {
     constructor(props){
         super(...props)
     }
-
+    componentDidMount(){
+      this.props.handleUserList(1)
+  }
     render() {
-        const { list } = this.props;
-        // console.log(list); 拿到的数据应该是immutable数据，需要转换成数组
-        const dataSource = list.map(user=>{//数组map方法：遍历循环数组并且把每一项返回出去，直到返回新的数组
-          // console.log(user);还是immutable数据如何获取？
+      const { list } = this.props;
+      const dataSource = list.map(user=>{
           return {
-              key:user.get('_id'),//需要添加唯一的key
+              key:user.get('_id'),
               username:user.get('username'),
               isAdmin:user.get('isAdmin'),
               phone:user.get('phone'),
               email:user.get('email'),
-              createdAt:user.get('createdAt'),
-            }
-        }).toJS()
-
+              createdAt:user.get('createdAt')
+          }
+        }).toJS()//需要用toJS()方法转为数组
 
         return (
-          <div className="Home">
+          <div className="User">
               <Layout>
                   <Breadcrumb style={{ margin: '16px 0' }}>
-                      <Breadcrumb.Item>首页</Breadcrumb.Item>
-                      <Breadcrumb.Item>用户管理</Breadcrumb.Item>
-                      <Breadcrumb.Item>用户列表</Breadcrumb.Item>
+                    <Breadcrumb.Item>首页</Breadcrumb.Item>
+                    <Breadcrumb.Item>用户管理</Breadcrumb.Item>
+                    <Breadcrumb.Item>用户列表</Breadcrumb.Item>
                   </Breadcrumb>
-                  <div className="content">
-                    <Table dataSource={dataSource} columns={columns} />
-                  </div>
+                  <Table dataSource={dataSource} columns={columns} />;
               </Layout>
           </div>
-          );
+        );
     }
 }
 
@@ -95,7 +92,9 @@ const mapStateToProps = (state) => ({
 })
 //映射方法到组件
 const mapDispatchToProps = (dispatch) => ({
-
+  handleUserList: (values) => {
+    dispatch(actionCreator.getUserListAction(values))
+}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(User)
