@@ -56,10 +56,10 @@ class User extends Component {
         super(...props)
     }
     componentDidMount(){
-      this.props.handleUserList(1)
+      this.props.handleUserList(1);
   }
     render() {
-      const { list } = this.props;
+      const { list,current,total,pageSize } = this.props;
       const dataSource = list.map(user=>{
           return {
               key:user.get('_id'),
@@ -79,7 +79,15 @@ class User extends Component {
                     <Breadcrumb.Item>用户管理</Breadcrumb.Item>
                     <Breadcrumb.Item>用户列表</Breadcrumb.Item>
                   </Breadcrumb>
-                  <Table dataSource={dataSource} columns={columns} />;
+                  <Table 
+                    dataSource={dataSource} 
+                    columns={columns} 
+                    pagination={{
+                      current:current,
+                      total:total,
+                      pageSize:pageSize
+                    }}
+                    />
               </Layout>
           </div>
         );
@@ -88,7 +96,10 @@ class User extends Component {
 
 //映射属性到组件
 const mapStateToProps = (state) => ({
-    list:state.get('user').get('list')
+    list:state.get('user').get('list'),
+    current:state.get('user').get('current'),
+    total:state.get('user').get('total'),
+    pageSize:state.get('user').get('pageSize')
 })
 //映射方法到组件
 const mapDispatchToProps = (dispatch) => ({
