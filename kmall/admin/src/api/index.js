@@ -67,4 +67,6 @@ const request = (url,method,data)=>{
     })
 }
 
+
+
 export default getApiObj(API_CONFIG);//apiConfig参数接收API_CONFIG
