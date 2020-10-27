@@ -32,13 +32,12 @@ class NormalLoginForm extends Component {
                     },
                     {
                       pattern:/^[a-z][a-z0-9_]{3,6}$/,
-                      message:'首字母必需是字母，4至6位'
+                      message:'首字母必需是字母，4至6位',
                     }
                   ],
               })(
                 <Input
                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                  placeholder="用户名"
                 />,
               )}
             </Form.Item>

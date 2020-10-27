@@ -10,9 +10,7 @@ const getSetPageAction = (payload)=>({
 
 export const getUserListAction = (page)=>{
     return (dispatch,getState)=>{
-        api.getUsersList({
-            page:page
-        })
+        api.getUsersList(page)
         .then(result=>{
             if(result.code == 1){
                 for(let i = 0;i<result.data.list.length;i++){

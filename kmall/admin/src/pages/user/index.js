@@ -87,6 +87,11 @@ class User extends Component {
                       total:total,
                       pageSize:pageSize
                     }}
+                    onChange={//Table自带属性,点击触发打印pagination
+                      (page)=>{
+                        this.props.handleUserList(page.current);
+                      }
+                    }
                     />
               </Layout>
           </div>

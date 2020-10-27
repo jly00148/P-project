@@ -11,6 +11,6 @@ export default (state=defaultState,action)=>{
     }
     if(action.type == types.LOGIN_REQEST_DONE){
         return state.set('isFetching',false)
-    }    
+    }
     return state
 }

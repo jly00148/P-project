@@ -11,7 +11,7 @@ const getApiObj = (apiConfig)=>{
             let url = apiConfig[key][0] || '';
             url = SERVER + url;
             let method = apiConfig[key][1] || 'get';
-            return request(url,method,data);
+            return request(url,method,data);//每个函数体分配一个返回值
         }
     }
     return apiObj;// {login: ƒ, logout: ƒ}
@@ -19,11 +19,35 @@ const getApiObj = (apiConfig)=>{
 
 const request = (url,method,data)=>{
     return new Promise((resolve,reject)=>{
+        // 方法一:针对data是对象的处理方法，处理后请求会把页码发送到后台，req.query.page接收
+        // const options = {
+        //     method:method,
+        //     url:url,
+        //     withCredentials:true
+        // }
+
+        //switch(options.method.toUpperCase()){
+        // case 'GET':
+        // case 'DELETE':
+        // options.params = data
+        // break
+        // default:
+        // options.data = data
+        // }
+
+        // axios(options).....
+
+
+        //方法二：
+        if(!isNaN(data)){
+            url = url +'?'+ 'page'+'='+data;//传页码
+        }
+
         axios({
             method:method,
             url:url,
             data:data,
-            withCredentials:true    
+            withCredentials:true
         })
         .then(result=>{
             const data  = result.data;
@@ -43,4 +67,4 @@ const request = (url,method,data)=>{
     })
 }
 
-export default getApiObj(API_CONFIG);
+export default getApiObj(API_CONFIG);//apiConfig参数接收API_CONFIG

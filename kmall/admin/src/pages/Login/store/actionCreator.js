@@ -12,7 +12,7 @@ const getLoginReqestDoneAction = ()=>({
 
 export const getLoginAction = (values)=>{
     return (dispatch,getState)=>{
-        dispatch(getLoginReqestStartAction())
+        dispatch(getLoginReqestStartAction())//把loading值变为true
         values.role = 'admin';
         api.login(values)
         .then(result=>{
@@ -24,11 +24,12 @@ export const getLoginAction = (values)=>{
                 saveUsername(result.data.username);
 
             }else{
-                message.error(result.message)
+                message.error(result.message);
+                dispatch(getLoginReqestDoneAction())//把loading值变为false
             }
         })
         .catch(err=>{
-            message.error('网络错误,请稍后再试')
+            message.error('网络错误,请稍后再试');
         })
 
         // axios({
