@@ -40,6 +40,7 @@ let pagination = (options)=>{
 		综上发现规律:
 		(page - 1) * limit
 		*/
+		console.log(options.model)
 
 		options.model.countDocuments(options.query)
 		.then((count)=>{
@@ -52,9 +53,8 @@ let pagination = (options)=>{
 			}
 
 			let skip = (page - 1)*limit;
-
 			let query = options.model.find(options.query,options.projection);
-			
+
 			if(options.populate){
 				for(let i = 0;i<options.populate.length;i++){
 					query = query.populate(options.populate[i])

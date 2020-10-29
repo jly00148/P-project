@@ -7,9 +7,17 @@ const getSetPageAction = (payload)=>({
     type:types.PAGE,
     payload
 })
+const getLoadingReqestStartAction = ()=>({
+    type:types.LOADING_REQEST_START,
+})
+const getLoadingReqestDoneAction = ()=>({
+    type:types.LOADING_REQEST_DONE,
+})
+
 
 export const getUserListAction = (page)=>{
     return (dispatch,getState)=>{
+        dispatch(getLoadingReqestStartAction())//获取数据之前发送dispatch改变isFetching的值为true
         api.getUsersList(page)
         .then(result=>{
             if(result.code == 1){
@@ -24,6 +32,9 @@ export const getUserListAction = (page)=>{
         })
         .catch(err=>{
             message.error('网络错误，请稍后再试！');
+        })
+        .finally(()=>{
+            dispatch(getLoadingReqestDoneAction())///获取数据完毕后发送dispatch改变isFetching的值false
         })
 
     }

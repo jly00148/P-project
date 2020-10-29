@@ -59,7 +59,7 @@ class User extends Component {
       this.props.handleUserList(1);
   }
     render() {
-      const { list,current,total,pageSize } = this.props;
+      const { list,current,total,pageSize,isFetching } = this.props;
       const dataSource = list.map(user=>{
           return {
               key:user.get('_id'),
@@ -92,6 +92,12 @@ class User extends Component {
                         this.props.handleUserList(page.current);
                       }
                     }
+                    loading={
+                      {
+                        spinning:isFetching,
+                        tip:'数据正在玩命加载中...'
+                      }
+                    }
                     />
               </Layout>
           </div>
@@ -104,7 +110,8 @@ const mapStateToProps = (state) => ({
     list:state.get('user').get('list'),
     current:state.get('user').get('current'),
     total:state.get('user').get('total'),
-    pageSize:state.get('user').get('pageSize')
+    pageSize:state.get('user').get('pageSize'),
+    isFetching:state.get('user').get('isFetching')
 })
 //映射方法到组件
 const mapDispatchToProps = (dispatch) => ({

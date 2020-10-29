@@ -14,6 +14,7 @@ const defaultState = fromJS({
     // current:1,
     // total:100,
     // pageSize:10
+    isFetching:false
 })
 
 export default (state=defaultState,action)=>{
@@ -26,5 +27,12 @@ export default (state=defaultState,action)=>{
             pageSize:action.payload.pageSize
         })
     }
+    if(action.type == types.LOADING_REQEST_START){
+        return state.set('isFetching',true)
+    }
+    if(action.type == types.LOADING_REQEST_DONE){
+        return state.set('isFetching',false)
+        
+    }    
     return state
 }
