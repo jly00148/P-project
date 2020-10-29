@@ -15,6 +15,7 @@ import {
 import Login from 'pages/login';//别名配制
 import Home from 'pages/home';
 import User from 'pages/user';
+import Category from 'pages/Category';
 import Err from 'common/err';//引入路由访问无效页面组件
 import { getUsername } from 'util';//获取用户名(getUsername要return)
 
@@ -40,7 +41,8 @@ class App extends Component {
                     <Switch>{/* 加Switch的目的是匹配/就不往下匹配了，不然无效页面后去访问主页会出现err页面提示信息 */}  
                         <ProtectRoute exact path="/" component={Home} />
                         <LoginRoute path="/login" component={Login} />
-                        <Route component={User} />
+                        <Route path="/user" component={User} />
+                        <Route path="/category" component={Category} />
                         <Route component={Err} />{/* 不加路径是代表所有，所以也包括主页路径/ */}
                     </Switch>
                 </div>

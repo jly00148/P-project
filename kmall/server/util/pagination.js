@@ -40,7 +40,6 @@ let pagination = (options)=>{
 		综上发现规律:
 		(page - 1) * limit
 		*/
-		console.log(options.model)
 
 		options.model.countDocuments(options.query)
 		.then((count)=>{

@@ -19,8 +19,11 @@ class AdminSider extends Component {
                       <NavLink exact to="/"><Icon type="home" />首页</NavLink>
                     </Menu.Item>
                     <Menu.Item key="2">
-                      <NavLink exact to="/user"><Icon type="user" />用户列表</NavLink>
-                    </Menu.Item>                    
+                      <NavLink exact to="/user"><Icon type="user" />用户管理</NavLink>
+                    </Menu.Item>
+                    <Menu.Item key="3">
+                      <NavLink exact to="/category"><Icon type="unordered-list" />分类管理</NavLink>
+                    </Menu.Item>                                   
                 </Menu>
               </Sider>
           </div>
