@@ -1,13 +1,11 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Breadcrumb,Table,Button } from 'antd'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Breadcrumb,Table,Button } from 'antd';
 
-import Layout from 'common/layout'
+import Layout from 'common/layout';
 
-import "./index.css"
-import { 
- Link
-} from "react-router-dom";
+import "./index.css";
+
 
 const columns = [
   {
@@ -51,8 +49,6 @@ class CategoryList extends Component {
                     <Breadcrumb.Item>分类管理</Breadcrumb.Item>
                     <Breadcrumb.Item>分类列表</Breadcrumb.Item>
                   </Breadcrumb>
-                  {/* <Link to="/category/add">添加分类</Link>
-                   */}
                    <Button type="primary" shape="round" href="/category/add">添加分类</Button>
                   <Table 
                     dataSource={dataSource} 
