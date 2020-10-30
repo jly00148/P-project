@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Form, Input, Button, Select,Breadcrumb } from 'antd';
 const { Option } = Select;
+import { actionCreator } from './store'
 import Layout from 'common/layout';
 
 
@@ -12,11 +14,12 @@ class CategoryAdd extends Component {
 
     }    
     handleSubmit(e) {
+        
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            console.log(values)
           if (!err) {
             console.log('Received values of form: ', values);
+            this.props.handleAddCategory(values);
           }
         });
       };
@@ -37,7 +40,7 @@ class CategoryAdd extends Component {
                 <Form labelCol={{ span: 5 }} wrapperCol={{ span: 6 }}>
                     <Form.Item label="父级分类">
                         {
-                            getFieldDecorator('根分类', {
+                            getFieldDecorator('pid', {
                             rules: [
                                 { 
                                     required: true, message: '请输入根分类!' 
@@ -48,7 +51,7 @@ class CategoryAdd extends Component {
                                     placeholder="请输入根分类"
                                     onChange={this.handleSelectChange}
                                     >
-                                    <Option value="根分类">根分类</Option>
+                                    <Option value="0">根分类</Option>
                                 </Select>
                             )
                         }
@@ -56,7 +59,7 @@ class CategoryAdd extends Component {
 
                     <Form.Item label="分类名称">
                         {
-                            getFieldDecorator('分类名称', {
+                            getFieldDecorator('name', {
                             rules: [
                                 { 
                                     required: true, message: '请输入分类名称!' ,
@@ -71,7 +74,7 @@ class CategoryAdd extends Component {
                     </Form.Item>
                     <Form.Item label="手机分类名称">
                         {
-                            getFieldDecorator('手机分类分类名称', {
+                            getFieldDecorator('mobileName', {
                             rules: [
                                 { 
                                     required: true, message: '请输入手机分类名称!' ,
@@ -100,7 +103,18 @@ class CategoryAdd extends Component {
     }
 }
 
+
 const WrappedCategoryAdd = Form.create({ name: 'coordinated' })(CategoryAdd);
 
+//映射属性到组件
+const mapStateToProps = (state) => ({
 
-export default WrappedCategoryAdd;
+})
+//映射方法到组件
+const mapDispatchToProps = (dispatch) => ({
+    handleAddCategory:(values)=>{
+        dispatch(actionCreator.getAddAction(values));
+    }
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(WrappedCategoryAdd);

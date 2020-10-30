@@ -74,6 +74,7 @@ app.use(bodyParser.json());
 app.use("/sessions",require('./routes/sessions.js'));
 app.use("/counts",require('./routes/counts.js'));
 app.use("/users",require('./routes/users.js'));
+app.use("/categories",require('./routes/categories.js'));
 
 app.listen(3000,()=>{
 	console.log('server is running at 127.0.0.1:3000')

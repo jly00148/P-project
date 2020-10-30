@@ -15,7 +15,7 @@ import {
 import Login from 'pages/login';//别名配制
 import Home from 'pages/home';
 import User from 'pages/user';
-import Category from 'pages/Category';
+import Category from 'pages/category';
 import Err from 'common/err';//引入路由访问无效页面组件
 import { getUsername } from 'util';//获取用户名(getUsername要return)
 

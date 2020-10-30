@@ -60,13 +60,6 @@ class CategoryList extends Component {
     }
 }
 
-//映射属性到组件
-const mapStateToProps = (state) => ({
 
-})
-//映射方法到组件
-const mapDispatchToProps = (dispatch) => ({
 
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryList)
+export default CategoryList;
