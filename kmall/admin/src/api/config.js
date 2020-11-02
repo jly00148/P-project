@@ -5,5 +5,6 @@ export const API_CONFIG = {
     logout:['/sessions/users','delete'],//退出
     count:['/counts/','get'],//请求数据库资源
     getUsersList:['/users/list','get'],//请求数据库资源
-    addCategories:['/categories','post']//请求数据库资源
+    addCategories:['/categories','post'],//请求数据库资源
+    getLevelCategories:['/categories/levelCategories','get'],//请求数据库资源
 }

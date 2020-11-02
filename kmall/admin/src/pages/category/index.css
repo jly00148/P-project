@@ -1,9 +1,8 @@
-.content{
-    text-align: center;
+.anticon-spin{
+    position: absolute;
+    right: 132px;
 }
-body .ant-table-thead > tr > th {
-    text-align: center;
-}
-.ant-table-tbody{
-    text-align: center;
+.ant-spin-text{
+    position: absolute;
+    right: 132px;
 }

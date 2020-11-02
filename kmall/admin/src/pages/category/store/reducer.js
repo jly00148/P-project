@@ -3,18 +3,11 @@ import { fromJS } from 'immutable'
 
 const defaultState = fromJS({
     list:[
-        // {   _id:1,//需要一个key
-        //     username:'admin',
-        //     isAdmin:true,
-        //     email:'jly00148@163.com',
-        //     phone:11111111111,
-        //     createdAt:'2020-10-10 12:00:00'
-        // }
+
     ],
-    // current:1,
-    // total:100,
-    // pageSize:10
-    isFetching:false
+
+    isFetching:false,
+    categories:[]
 })
 
 export default (state=defaultState,action)=>{
@@ -32,7 +25,9 @@ export default (state=defaultState,action)=>{
     }
     if(action.type == types.LOADING_REQEST_DONE){
         return state.set('isFetching',false)
-        
-    }    
+    }
+    if(action.type == types.ADD_CATEGORIES){
+        return state.set('categories',fromJS(action.payload))
+    }
     return state
 }

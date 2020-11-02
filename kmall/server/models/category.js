@@ -3,17 +3,17 @@ const pagination = require('../util/pagination.js');
 const { unlimitedForTree } = require('../util/unlimitedCategory.js');
 
 const CategorySchema = new mongoose.Schema({
-    name: {
+    name: {//分类名称
         type: String
     },
-    mobileName:{
+    mobileName:{//手机分类名称
         type: String
     },
     pid: {
         type: String,
         default: 0 //0-顶级分类
     },
-    level:{
+    level:{//当前分类的级数
         type:Number,
         default:1
     },

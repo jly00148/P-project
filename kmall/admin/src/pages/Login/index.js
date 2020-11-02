@@ -22,7 +22,7 @@ class NormalLoginForm extends Component {
         const { getFieldDecorator } = this.props.form;
         return (
         <div className="Login">
-        <Form className="login-form" autoComplete="off">
+        <Form className="login-form">
             <Form.Item>
               {getFieldDecorator('username', {
                 rules: [
@@ -37,7 +37,9 @@ class NormalLoginForm extends Component {
                   ],
               })(
                 <Input
-                  prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  prefix={<Icon type="user" 
+                  style={{ color: 'rgba(0,0,0,.25)' }} 
+                  />}
                 />,
               )}
             </Form.Item>
@@ -54,15 +56,18 @@ class NormalLoginForm extends Component {
                   ],
               })(
                 <Input
-                  prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  prefix={<Icon type="lock" 
+                  style={{ color: 'rgba(0,0,0,.25)' }} 
+                  />}
                   type="password"
                   placeholder="密码"
+                  autoComplete="new-password"
                 />,
               )}
             </Form.Item>
             <Form.Item>
                 <Button 
-                htmlType="submit" //回车触发登录按钮
+                    htmlType="submit" //回车触发登录按钮
                     type="primary"
                     className="login-form-button"
                     onClick={this.handleSubmit}

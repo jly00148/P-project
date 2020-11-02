@@ -1,7 +1,7 @@
 const Router = require('express').Router;
 const CategoryModel = require('../models/category.js');
 const pagination = require('../util/pagination.js');
-const {unlimitedForLevel} = require('../util/unlimitedCategory.js');
+const { unlimitedForLevel } = require('../util/unlimitedCategory.js');
 
 const router = Router();
 
@@ -81,16 +81,13 @@ router.get("/list",(req,res)=>{
 
 //添加分类
 router.post("/",(req,res)=>{
-	
-	const {mobileName,name,pid} = req.body
-	console.log(mobileName,name,pid)
-	
+	const { mobileName,name,pid } = req.body
 	CategoryModel
 	.findOne({name:name,pid:pid})
 	.then((cate)=>{
 		if(cate){
 	 		res.json({
-	 			code:1,
+	 			code:11,
 	 			message:"添加分类失败,分类已存在"
 	 		})
 		}else{
@@ -99,7 +96,7 @@ router.post("/",(req,res)=>{
 			.then(cate2=>{
 				if(cate2){
 			 		res.json({
-			 			code:1,
+			 			code:12,
 			 			message:"添加分类失败,手机分类已存在"
 			 		})
 			 	}else{
@@ -118,22 +115,23 @@ router.post("/",(req,res)=>{
 								CategoryModel.find({},"-createdAt -updatedAt -__v")
 								.then((categories)=>{
 									res.json({
-										code:0,
-										data:unlimitedForLevel(categories,'|--')
+										code:1,
+										data:unlimitedForLevel(categories,'|--'),
+										message:'添加成功'
 									})	
 								})	
 							}
 						})
 						.catch((e)=>{
 					 		res.json({
-					 			code:1,
+					 			code:13,
 					 			message:"添加分类失败,服务器端错误"
 					 		})
 						})
 			 		})
 			 		.catch(e=>{
 				 		res.json({
-				 			code:1,
+				 			code:04,
 				 			message:"添加分类失败,"+e.message
 				 		})			 			
 			 		})
@@ -150,13 +148,13 @@ router.get("/levelCategories",(req,res)=>{
 	CategoryModel.find({},"-createdAt -updatedAt -__v")
 	.then((categories)=>{
 		res.json({
-			code:0,
+			code:1,
 			data:unlimitedForLevel(categories,'|--',0,level)
 		})	
 	})
 	.catch(e=>{
  		res.json({
- 			code:1,
+ 			code:0,
  			message:"获取分类失败,服务器端错误"
  		})		
 	})	
