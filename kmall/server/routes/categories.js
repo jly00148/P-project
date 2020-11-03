@@ -62,7 +62,7 @@ router.get("/list",(req,res)=>{
 	.getPaginationCategories(page)
 	.then((result)=>{
 		res.json({
-			code:0,
+			code:1,
 			data:{
 				current:result.current,
 				total:result.total,
@@ -73,7 +73,7 @@ router.get("/list",(req,res)=>{
 	})
 	.catch(e=>{
  		res.json({
- 			code:1,
+ 			code:0,
  			message:"获取分类失败,服务器端错误"
  		})		
 	})		

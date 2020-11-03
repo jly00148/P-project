@@ -12,8 +12,13 @@ const addCategoriesAction = (payload)=>({
     type:types.ADD_CATEGORIES,
     payload
 })
+const getSetPageAction = (payload)=>({
+    type:types.ADD_CATEGORIES_LIST,
+    payload
+})
 
 
+//添加分类
 export const getAddAction = (values)=>{
     return (dispatch,getState)=>{
         dispatch(getLoadingReqestStartAction())
@@ -36,6 +41,8 @@ export const getAddAction = (values)=>{
         })
     }
 }
+
+//将添加好的分类映射到form表单里
 export const getLevelCategories = (level)=>{
     return (dispatch,getState)=>{
         api.getLevelCategories(level)
@@ -46,5 +53,27 @@ export const getLevelCategories = (level)=>{
         .catch(err=>{
             message.error('网络错误，请稍后再试！');
         })
+    }
+}
+
+//将上述的内容添加到展示页面
+export const getCategoriesListAction = (page)=>{
+    return (dispatch,getState)=>{
+        dispatch(getLoadingReqestStartAction())//获取数据之前发送dispatch改变isFetching的值为true
+        api.getCategoriesList(page)
+        .then(result=>{
+            if(result.code == 1){
+                dispatch(getSetPageAction(result.data))
+            }else{
+            message.error('获取首页数据失败，请稍后再试！');
+            }
+        })
+        .catch(err=>{
+            message.error('网络错误，请稍后再试！');
+        })
+        .finally(()=>{
+            dispatch(getLoadingReqestDoneAction())///获取数据完毕后发送dispatch改变isFetching的值false
+        })
+
     }
 }

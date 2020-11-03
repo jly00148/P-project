@@ -1,46 +1,48 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Breadcrumb,Table,Button } from 'antd';
-
+import { Breadcrumb,Table,Button, Result } from 'antd';
 import Layout from 'common/layout';
+import './index.css';
+import {actionCreator} from './store';
 
-import "./index.css";
 
-
-const columns = [
+const columns = [ 
   {
-    title: '用户名',
-    dataIndex: 'username',
-    key: 'username',
+    title: '分类名称',
+    dataIndex: 'name',
+    key: 'name',
   },
   {
-    title: '是否管理员',
-    dataIndex: 'isAdmin',
-    key: 'isAdmin',
+    title: '分类名称',
+    dataIndex: 'mobileName',
+    key: 'mobileName',
   },
   {
-    title: 'email',
-    dataIndex: 'email',
-    key: 'email',
+    title: '是否显示',
+    dataIndex: 'isShow',
+    key: 'isShow',
   },
   {
-    title: '手机',
-    dataIndex: 'phone',
-    key: 'phone',
-  },
-  {
-    title: '注册时间',
-    dataIndex: 'createdAt',
-    key: 'createdAt',
-  },  
+    title: '排序',
+    dataIndex: 'order',
+    key: 'order',
+  }
 ];
 class CategoryList extends Component {
     constructor(props){
         super(...props)
     }
 
+    componentDidMount(){
+      this.props.handleCategoriesList(1)//请求第几页，不传后台默认请求第一页
+    }
+
     render() {
-      const dataSource = []
+      const { list,current,total,pageSize,isFetching } = this.props;
+
+      const dataSource = list.map(list=>{
+        return list
+      }).toJS()
         return (
           <div className="User">
               <Layout>
@@ -52,7 +54,23 @@ class CategoryList extends Component {
                    <Button type="primary" shape="round" href="/category/add">添加分类</Button>
                   <Table 
                     dataSource={dataSource} 
-                    columns={columns} 
+                    columns={columns}
+                    pagination={{
+                      current:current,
+                      total:total,
+                      pageSize:pageSize
+                    }}
+                    onChange={//Table自带属性,点击触发打印pagination
+                      (page)=>{
+                        this.props.handleCategoriesList(page.current);
+                      }
+                    }
+                    loading={
+                      {
+                        spinning:isFetching,
+                        tip:'数据正在玩命加载中...'
+                      }
+                    }
                     />
               </Layout>
           </div>
@@ -61,5 +79,20 @@ class CategoryList extends Component {
 }
 
 
+//映射属性到组件
+const mapStateToProps = (state) => ({
+  isFetching:state.get('category').get('isFetching'),
+  categories:state.get('category').get('categories'),
+  list:state.get('category').get('list'),
+  current:state.get('category').get('current'),
+  total:state.get('category').get('total'),
+  pageSize:state.get('category').get('pageSize'),
+})
+//映射方法到组件
+const mapDispatchToProps = (dispatch) => ({
+  handleCategoriesList: (page) => {
+    dispatch(actionCreator.getCategoriesListAction(page))
+  },
+})
 
-export default CategoryList;
+export default connect(mapStateToProps,mapDispatchToProps)(CategoryList);
