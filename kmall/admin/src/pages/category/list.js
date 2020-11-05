@@ -1,33 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Breadcrumb,Table,Button, Result } from 'antd';
+import { Breadcrumb,Table,Button, Input } from 'antd';
 import Layout from 'common/layout';
 import './index.css';
 import {actionCreator} from './store';
 
 
-const columns = [ 
-  {
-    title: '分类名称',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: '分类名称',
-    dataIndex: 'mobileName',
-    key: 'mobileName',
-  },
-  {
-    title: '是否显示',
-    dataIndex: 'isShow',
-    key: 'isShow',
-  },
-  {
-    title: '排序',
-    dataIndex: 'order',
-    key: 'order',
-  }
-];
+// const columns = [ 
+//   {
+//     title: '分类名称',
+//     dataIndex: 'name',
+//     key: 'name',
+//     width:'20%',
+//     render:(name)=>{
+//       return <Input 
+//       style={{width:'80%'}}
+//       defaultValue={name}
+//       />
+//     }
+//   },
+//   {
+//     title: '手机分类名称',
+//     dataIndex: 'mobileName',
+//     key: 'mobileName',
+//   },
+//   {
+//     title: '是否显示',
+//     dataIndex: 'isShow',
+//     key: 'isShow',
+//   },
+//   {
+//     title: '排序',
+//     dataIndex: 'order',
+//     key: 'order',
+//   }
+// ];
 class CategoryList extends Component {
     constructor(props){
         super(...props)
@@ -38,7 +45,51 @@ class CategoryList extends Component {
     }
 
     render() {
-      const { list,current,total,pageSize,isFetching } = this.props;
+      const { 
+        list,
+        current,
+        total,
+        pageSize,
+        isFetching,
+        handleUpdateName
+      } = this.props;
+
+      const columns = [ 
+        {
+          title: '分类名称',
+          dataIndex: 'name',
+          key: 'name',
+          width:'20%',
+          render:(name,record)=>{
+            return <Input 
+            style={{width:'80%'}}
+            defaultValue={name}
+            onBlur={
+              (ev)=>{
+                if(ev.target.value != name){
+                  handleUpdateName(ev.target.value,record._id)
+                }
+              }
+            }
+            />
+          }
+        },
+        {
+          title: '手机分类名称',
+          dataIndex: 'mobileName',
+          key: 'mobileName',
+        },
+        {
+          title: '是否显示',
+          dataIndex: 'isShow',
+          key: 'isShow',
+        },
+        {
+          title: '排序',
+          dataIndex: 'order',
+          key: 'order',
+        }
+      ];
 
       const dataSource = list.map(list=>{
         return list
@@ -51,7 +102,14 @@ class CategoryList extends Component {
                     <Breadcrumb.Item>分类管理</Breadcrumb.Item>
                     <Breadcrumb.Item>分类列表</Breadcrumb.Item>
                   </Breadcrumb>
-                   <Button type="primary" shape="round" href="/category/add">添加分类</Button>
+                  <div className="addBtn">
+                    <Button 
+                      type="primary" 
+                      shape="round" 
+                      href="/category/add"
+                      >添加分类
+                      </Button>
+                    </div>
                   <Table 
                     dataSource={dataSource} 
                     columns={columns}
@@ -93,6 +151,9 @@ const mapDispatchToProps = (dispatch) => ({
   handleCategoriesList: (page) => {
     dispatch(actionCreator.getCategoriesListAction(page))
   },
+  handleUpdateName: (name,id) => {
+    dispatch(actionCreator.handleUpdateNameAction(name,id))
+  },  
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(CategoryList);

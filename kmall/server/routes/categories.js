@@ -163,24 +163,25 @@ router.get("/levelCategories",(req,res)=>{
 //更新名称
 router.put("/name",(req,res)=>{
 	const {name,id,page} = req.body
+	console.log(name,id,page)
 	CategoryModel
 	.findOne({name:name})
 	.then((cate)=>{
 		if(cate){
 	 		res.json({
-	 			code:1,
+	 			code:0,
 	 			message:"更新分类失败,分类已存在"
 	 		})
 		}else{
 			CategoryModel
-			.update({_id:id},{name:name})
+			.updateOne({_id:id},{name:name})
 			.then((cate)=>{
 				if(cate){
 					CategoryModel
 					.getPaginationCategories(page)
 					.then((result)=>{
 						res.json({
-							code:0,
+							code:10,
 							data:{
 								current:result.current,
 								total:result.total,
@@ -191,14 +192,14 @@ router.put("/name",(req,res)=>{
 					})					
 				}else{
 			 		res.json({
-			 			code:1,
+			 			code:0,
 			 			message:"更新分类失败,数据操作失败"
 			 		})					
 				}
 			})
 			.catch((e)=>{
 		 		res.json({
-		 			code:1,
+		 			code:0,
 		 			message:"添加分类失败,服务器端错误"
 		 		})
 			})
@@ -289,7 +290,7 @@ router.put("/isShow",(req,res)=>{
 			.getPaginationCategories(page)
 			.then((result)=>{
 				res.json({
-					code:0,
+					code:1,
 					data:{
 						current:result.current,
 						total:result.total,
@@ -300,7 +301,7 @@ router.put("/isShow",(req,res)=>{
 			})					
 		}else{
 	 		res.json({
-	 			code:1,
+	 			code:0,
 	 			message:"更新排序失败,数据操作失败"
 	 		})					
 		}

@@ -1,0 +1,12 @@
+.ant-table-thead > tr span{
+    text-align: center;
+}
+body .ant-table-thead > tr th{
+    text-align: center;
+}
+.ant-table-thead > tr, .ant-table-tbody > tr{
+    text-align: center;
+}
+.ant-table-thead > tr:first-child > th:first-child{
+    text-align: center;
+}

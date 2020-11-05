@@ -26,31 +26,38 @@ const columns = [
     title: '用户名',
     dataIndex: 'username',
     key: 'username',
+    width:'8%'
   },
   {
     title: '是否管理员',
     dataIndex: 'isAdmin',
     key: 'isAdmin',
+    width:'20%',
     render:(isAdmin)=>{//是布尔值费非字符串，需要在这用render方法根据布尔值显示相应想要的值
       return isAdmin ? '是' : '否'
     }
   },
   {
     title: 'email',
+    width:'20%',
     dataIndex: 'email',
     key: 'email',
   },
   {
     title: '手机',
+    width:'20%',
     dataIndex: 'phone',
     key: 'phone',
   },
   {
     title: '注册时间',
+    width:'20%',
     dataIndex: 'createdAt',
     key: 'createdAt',
   },  
 ];
+
+
 class User extends Component {
     constructor(props){
         super(...props)

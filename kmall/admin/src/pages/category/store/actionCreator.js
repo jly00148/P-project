@@ -59,10 +59,11 @@ export const getLevelCategories = (level)=>{
 //将上述的内容添加到展示页面
 export const getCategoriesListAction = (page)=>{
     return (dispatch,getState)=>{
-        dispatch(getLoadingReqestStartAction())//获取数据之前发送dispatch改变isFetching的值为true
+        dispatch(getLoadingReqestStartAction())
         api.getCategoriesList(page)
         .then(result=>{
             if(result.code == 1){
+                // console.log(result)
                 dispatch(getSetPageAction(result.data))
             }else{
             message.error('获取首页数据失败，请稍后再试！');
@@ -72,7 +73,31 @@ export const getCategoriesListAction = (page)=>{
             message.error('网络错误，请稍后再试！');
         })
         .finally(()=>{
-            dispatch(getLoadingReqestDoneAction())///获取数据完毕后发送dispatch改变isFetching的值false
+            dispatch(getLoadingReqestDoneAction())
+        })
+
+    }
+}
+
+//更新分类名称
+export const handleUpdateNameAction = (name,id)=>{
+    return (dispatch,getState)=>{
+        const current = getState().get('category').get('current');
+        dispatch(getLoadingReqestStartAction())
+        api.updateCategoriesList({name,id,current})
+        .then(result=>{
+            if(result.code == 10){
+                console.log(result)
+                message.success('更新分类名称成功');
+            }else{
+            message.error('获取首页数据失败，请稍后再试！');
+            }
+        })
+        .catch(err=>{
+            message.error('网络错误，请稍后再试！');
+        })
+        .finally(()=>{
+            dispatch(getLoadingReqestDoneAction())
         })
 
     }
