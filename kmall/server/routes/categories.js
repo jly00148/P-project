@@ -163,13 +163,12 @@ router.get("/levelCategories",(req,res)=>{
 //更新名称
 router.put("/name",(req,res)=>{
 	const {name,id,page} = req.body
-	console.log(name,id,page)
 	CategoryModel
 	.findOne({name:name})
 	.then((cate)=>{
 		if(cate){
 	 		res.json({
-	 			code:0,
+	 			code:11,
 	 			message:"更新分类失败,分类已存在"
 	 		})
 		}else{
@@ -187,25 +186,28 @@ router.put("/name",(req,res)=>{
 								total:result.total,
 								pageSize:result.pageSize,
 								list:result.list					
-							}
+							},
+							message:'更新分类名称成功'
 						})	
 					})					
 				}else{
 			 		res.json({
-			 			code:0,
+			 			code:11,
 			 			message:"更新分类失败,数据操作失败"
 			 		})					
 				}
 			})
 			.catch((e)=>{
 		 		res.json({
-		 			code:0,
+		 			code:11,
 		 			message:"添加分类失败,服务器端错误"
 		 		})
 			})
 		}
 	})
 })
+
+
 //更新手机名称
 router.put("/mobileName",(req,res)=>{
 	const {mobileName,id,page} = req.body
@@ -214,19 +216,19 @@ router.put("/mobileName",(req,res)=>{
 	.then((cate)=>{
 		if(cate){
 	 		res.json({
-	 			code:1,
+	 			code:11,
 	 			message:"更新分类失败,分类已存在"
 	 		})
 		}else{
 			CategoryModel
-			.update({_id:id},{mobileName:mobileName})
+			.updateOne({_id:id},{mobileName:mobileName})
 			.then((cate)=>{
 				if(cate){
 					CategoryModel
 					.getPaginationCategories(page)
 					.then((result)=>{
 						res.json({
-							code:0,
+							code:10,
 							data:{
 								current:result.current,
 								total:result.total,
@@ -237,32 +239,34 @@ router.put("/mobileName",(req,res)=>{
 					})					
 				}else{
 			 		res.json({
-			 			code:1,
+			 			code:11,
 			 			message:"更新分类失败,数据操作失败"
 			 		})					
 				}
 			})
 			.catch((e)=>{
 		 		res.json({
-		 			code:1,
+		 			code:11,
 		 			message:"添加分类失败,服务器端错误"
 		 		})
 			})
 		}
 	})
 })
+
+
 //更新排序
 router.put("/order",(req,res)=>{
 	const {order,id,page} = req.body
 	CategoryModel
-	.update({_id:id},{order:order})
+	.updateOne({_id:id},{order:order})
 	.then((cate)=>{
 		if(cate){
 			CategoryModel
 			.getPaginationCategories(page)
 			.then((result)=>{
 				res.json({
-					code:0,
+					code:10,
 					data:{
 						current:result.current,
 						total:result.total,
@@ -273,24 +277,26 @@ router.put("/order",(req,res)=>{
 			})					
 		}else{
 	 		res.json({
-	 			code:1,
+	 			code:11,
 	 			message:"更新排序失败,数据操作失败"
 	 		})					
 		}
 	})
 })
+
+
 //更新显示
 router.put("/isShow",(req,res)=>{
 	const {isShow,id,page} = req.body
 	CategoryModel
-	.update({_id:id},{isShow:isShow})
+	.updateOne({_id:id},{isShow:isShow})
 	.then((cate)=>{
 		if(cate){
 			CategoryModel
 			.getPaginationCategories(page)
 			.then((result)=>{
 				res.json({
-					code:1,
+					code:10,
 					data:{
 						current:result.current,
 						total:result.total,
@@ -301,10 +307,12 @@ router.put("/isShow",(req,res)=>{
 			})					
 		}else{
 	 		res.json({
-	 			code:0,
+	 			code:11,
 	 			message:"更新排序失败,数据操作失败"
 	 		})					
 		}
 	})
 })
+
+
 module.exports = router;

@@ -9,4 +9,7 @@ export const API_CONFIG = {
     getLevelCategories:['/categories/levelCategories','get'],
     getCategoriesList:['/categories/list','get'],
     updateCategoriesList:['/categories/name','put'],
+    updateCategoriesMobileList:['/categories/mobileName','put'],
+    updateCategoriesOrderList:['/categories/order','put'],
+    updateCategoriesIsShowList:['/categories/isShow','put'],
 }

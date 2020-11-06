@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Breadcrumb,Table,Button, Input } from 'antd';
+import { Breadcrumb,Table,Button,Input,InputNumber,Switch } from 'antd';
 import Layout from 'common/layout';
 import './index.css';
 import {actionCreator} from './store';
@@ -51,7 +51,10 @@ class CategoryList extends Component {
         total,
         pageSize,
         isFetching,
-        handleUpdateName
+        handleUpdateName,
+        handleUpdateMobileName,
+        handleUpdateOrder,
+        handleIsShow
       } = this.props;
 
       const columns = [ 
@@ -78,16 +81,55 @@ class CategoryList extends Component {
           title: '手机分类名称',
           dataIndex: 'mobileName',
           key: 'mobileName',
+          width:'20%',
+          render:(mobileName,record)=>{
+            return <Input 
+            defaultValue={mobileName}
+            onBlur={
+              (ev)=>{
+                if(ev.target.value != mobileName){
+                  handleUpdateMobileName(ev.target.value,record._id)
+                }
+              }
+            }
+            />
+          }          
         },
         {
           title: '是否显示',
           dataIndex: 'isShow',
           key: 'isShow',
+          width:'20%',
+          render:(isShow,record)=>{
+            return <Switch
+              checkedChildren="显示"
+              unCheckedChildren="隐藏"
+              checked={isShow == '0' ? false : true }
+              onChange={
+                (checked)=>{
+                  handleIsShow(checked ? '1' : '0',record._id)
+                }
+              }
+            />
+          }
         },
         {
           title: '排序',
           dataIndex: 'order',
           key: 'order',
+          width:'20%',
+          render:(order,record)=>{
+            return <InputNumber 
+            defaultValue={order}
+            onBlur={
+              (ev)=>{
+                if(ev.target.value != order){
+                  handleUpdateOrder(ev.target.value,record._id)
+                }
+              }
+            }
+            />
+          }            
         }
       ];
 
@@ -153,7 +195,15 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleUpdateName: (name,id) => {
     dispatch(actionCreator.handleUpdateNameAction(name,id))
-  },  
+  },
+  handleUpdateMobileName: (mobileName,id) => {
+    dispatch(actionCreator.handleUpdateMobileNameAction(mobileName,id))
+  },
+  handleUpdateOrder: (newOrder,id) => {
+    dispatch(actionCreator.handleUpdateOrderAction(newOrder,id))
+  },
+  handleIsShow: (checked,id) => {
+    dispatch(actionCreator.handleIsShowAction(checked,id))
+  }   
 })
-
 export default connect(mapStateToProps,mapDispatchToProps)(CategoryList);

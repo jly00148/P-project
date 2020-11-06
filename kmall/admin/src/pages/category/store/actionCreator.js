@@ -87,10 +87,9 @@ export const handleUpdateNameAction = (name,id)=>{
         api.updateCategoriesList({name,id,current})
         .then(result=>{
             if(result.code == 10){
-                console.log(result)
-                message.success('更新分类名称成功');
+                message.success('更新分类名称成功',2);
             }else{
-            message.error('获取首页数据失败，请稍后再试！');
+                message.error('获取首页数据失败，请稍后再试！');
             }
         })
         .catch(err=>{
@@ -100,5 +99,83 @@ export const handleUpdateNameAction = (name,id)=>{
             dispatch(getLoadingReqestDoneAction())
         })
 
+    }
+}
+
+//更新手机分类名称
+export const handleUpdateMobileNameAction = (mobileName,id)=>{
+    return (dispatch,getState)=>{
+        const current = getState().get('category').get('current');
+        dispatch(getLoadingReqestStartAction())
+        api.updateCategoriesMobileList({mobileName,id,current})
+        .then(result=>{
+            if(result.code == 10){
+                message.success('更新手机分类名称成功',2);
+            }else{
+                message.error('获取首页数据失败，请稍后再试！');
+            }
+        })
+        .catch(err=>{
+            message.error('网络错误，请稍后再试！');
+        })
+        .finally(()=>{
+            dispatch(getLoadingReqestDoneAction())
+        })
+
+    }
+}
+
+//更新排序
+export const handleUpdateOrderAction = (newOrder,id)=>{
+    return (dispatch,getState)=>{
+        const page = getState().get('category').get('current');
+        dispatch(getLoadingReqestStartAction())
+        api.updateCategoriesOrderList(
+            {
+                order:newOrder,
+                id:id,
+                page:page
+            }
+            )
+        .then(result=>{
+            if(result.code == 10){
+                message.success('更新排序成功',2,function(){
+                    window.location.reload()
+                });
+            }else{
+                message.error('获取排序数据失败，请稍后再试！');
+            }
+        })
+        .catch(err=>{
+            message.error('网络错误，请稍后再试！');
+        })
+        .finally(()=>{
+            dispatch(getLoadingReqestDoneAction())
+        })
+
+    }
+}
+
+//更新排序
+export const handleIsShowAction = (checked,id)=>{
+    return (dispatch,getState)=>{
+        const page = getState().get('category').get('current');
+        api.updateCategoriesIsShowList(
+            {
+                isShow:checked,
+                id:id,
+                page:page
+            }
+            )
+        .then(result=>{
+            if(result.code == 10){
+                dispatch(getSetPageAction(result.data))
+            }else{
+                message.error('获取排序数据失败，请稍后再试！');
+            }
+        })
+        .catch(err=>{
+            message.error('网络错误，请稍后再试！');
+        })
     }
 }
