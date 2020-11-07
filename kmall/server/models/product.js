@@ -7,24 +7,24 @@ const ProductSchema = new mongoose.Schema({
     ref:'Category'
   },
   detail:{
-  	type:String
+  	type:String//详情
   },
   description:{
     type:String
   },
-  mainImage:{
+  mainImage:{//商品封面图片
     type:String
   },
-  images:{
+  images:{//轮播图
     type:String
   },
   price:{
     type:Number
   }, 
-  stock:{
+  stock:{//商品的库存
     type:Number
   },
-  name:{
+  name:{//商品的名称
     type:String
   },
   status:{

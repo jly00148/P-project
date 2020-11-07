@@ -142,17 +142,17 @@ class CategoryList extends Component {
               <Layout>
                   <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>首页</Breadcrumb.Item>
-                    <Breadcrumb.Item>分类管理</Breadcrumb.Item>
-                    <Breadcrumb.Item>分类列表</Breadcrumb.Item>
+                    <Breadcrumb.Item>商品管理</Breadcrumb.Item>
+                    <Breadcrumb.Item>商品列表</Breadcrumb.Item>
                   </Breadcrumb>
                   <Link 
-                    to="/category/add"
+                    to="/product/add"
                     >
                     <Button 
                     className="addBtn"
                       type="primary" 
                       shape="round" 
-                      >添加分类
+                      >添加商品
                       </Button>
                     </Link>
                   <Table 

@@ -23,7 +23,10 @@ class AdminSider extends Component {
                     </Menu.Item>
                     <Menu.Item key="3">
                       <NavLink exact to="/category"><Icon type="unordered-list" />分类管理</NavLink>
-                    </Menu.Item>                                   
+                    </Menu.Item>      
+                    <Menu.Item key="4">
+                      <NavLink exact to="/product"><Icon type="appstore" />商品管理</NavLink>
+                    </Menu.Item>                                                  
                 </Menu>
               </Sider>
           </div>

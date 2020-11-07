@@ -1,4 +1,5 @@
 export const SERVER = 'http://127.0.0.1:3000';
+export const UPLOAD_PRODUCT_IMAGE = SERVER + '/products/images';
 
 export const API_CONFIG = {
     login:['/sessions/users','post'],//登录
