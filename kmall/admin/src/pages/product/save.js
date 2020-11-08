@@ -128,7 +128,7 @@ class CategoryAdd extends Component {
                             }
                         </Form.Item>
 
-                        <Form.Item label="商品价格">
+                        <Form.Item label="价格(元)">
                             {
                                 getFieldDecorator('price', {
                                 rules: [
@@ -145,11 +145,26 @@ class CategoryAdd extends Component {
                         </Form.Item>
 
                         <Form.Item label="封面图片">
-                            <UploadImage max={1} action={UPLOAD_PRODUCT_IMAGE} />
+                            <UploadImage max={1} 
+                            action={UPLOAD_PRODUCT_IMAGE} 
+                            getFileList={
+                                ()=>{
+                                    console.log('getFileList')
+                                }
+                            }
+                            />
                         </Form.Item>
 
                         <Form.Item label="商品图片">
-                            <UploadImage max={8} action={UPLOAD_PRODUCT_IMAGE}/>
+                            <UploadImage 
+                            max={8} 
+                            action={UPLOAD_PRODUCT_IMAGE}
+                            getFileList={
+                                (fileList)=>{
+                                    console.log('!::',fileList)
+                                }
+                            }
+                            />
                         </Form.Item>
 
                         <Form.Item label="商品详情">
@@ -162,7 +177,7 @@ class CategoryAdd extends Component {
                                 shape="round"
                                 onClick={this.handleSubmit}
                             >
-                            添加分类
+                            添加商品
                             </Button>
                         </Form.Item>
                     </Form>

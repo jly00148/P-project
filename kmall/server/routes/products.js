@@ -142,7 +142,8 @@ router.use((req,res,next)=>{
 		next()
 	}else{
 		res.send({
-			code:10
+			code:0,
+			message:'没有权限'
 		});
 	}
 })
@@ -154,7 +155,7 @@ router.post("/images",upload.single('file'),(req,res)=>{
     	"name": req.file.originalname,
     	"status": "done",
     	"url": filePath,
-    	"thumbUrl": filePath
+    	"thumbUrl": filePath//缩略图地址(和url一样)
 	});
 	
 })

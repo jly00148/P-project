@@ -28,7 +28,14 @@ class UploadImage extends Component{
       };
     
       handleChange({ fileList }){
-          this.setState({ fileList })
+          console.log(fileList)
+          this.setState({ fileList },()=>{
+            this.props.getFileList(fileList.map(fileUrl=>{
+              if(fileUrl.response){
+                return fileUrl.response.url
+              }
+            }).join(','))//将获得的数组以逗号隔开转化成字符串
+          })
         };
     
       render() {
@@ -37,7 +44,7 @@ class UploadImage extends Component{
         const uploadButton = (
           <div>
             <Icon type="plus" />
-            <div className="ant-upload-text">Upload</div>
+            <div className="ant-upload-text">上传</div>
           </div>
         );
         return (
