@@ -6,7 +6,8 @@ const { Option } = Select;
 import UploadImage from 'common/upload-image';
 import { actionCreator } from './store';
 import Layout from 'common/layout';
-import { UPLOAD_PRODUCT_IMAGE } from 'api/config.js';
+import { UPLOAD_PRODUCT_IMAGE,UPLOAD_PRODUCT_DATAILIMAGES } from 'api/config.js';
+import RichEditor from 'common/richEditor';
 
 class CategoryAdd extends Component {
     constructor(props){
@@ -46,8 +47,8 @@ class CategoryAdd extends Component {
                 >
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>首页</Breadcrumb.Item>
-                        <Breadcrumb.Item>用户管理</Breadcrumb.Item>
-                        <Breadcrumb.Item>添加分类</Breadcrumb.Item>
+                        <Breadcrumb.Item>商品管理</Breadcrumb.Item>
+                        <Breadcrumb.Item>添加商品</Breadcrumb.Item>
                     </Breadcrumb>
                     <div className="container">
                     <Form labelCol={{ span: 5 }} wrapperCol={{ span: 8 }}>
@@ -168,7 +169,14 @@ class CategoryAdd extends Component {
                         </Form.Item>
 
                         <Form.Item label="商品详情">
-                            <UploadImage max={1}/>
+                            <RichEditor 
+                                url={UPLOAD_PRODUCT_DATAILIMAGES}
+                                getValue={
+                                    (value)=>{
+                                        console.log(value)
+                                    }
+                                }
+                            />
                         </Form.Item>
 
                         <Form.Item wrapperCol={{ span: 12, offset: 5 }}>

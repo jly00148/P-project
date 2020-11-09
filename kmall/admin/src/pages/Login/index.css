@@ -12,7 +12,5 @@
 .Login .login-form-button{
     width: 100%;
 }
-body{
-    overflow: hidden;
-}
+
 input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}/*关闭输入框填充颜色*/

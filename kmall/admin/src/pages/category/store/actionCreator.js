@@ -29,7 +29,8 @@ export const getAddAction = (values)=>{
                 message.success(result.message,2,function(){
                     window.location.reload()//添加完分类后重新刷新使form表单清空
                 });//数字代表秒,数字后可传回调
-            }else{
+            }
+            else{
                 message.error(result.message,2);
             }
         })
