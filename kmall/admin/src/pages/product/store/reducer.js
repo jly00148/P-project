@@ -7,7 +7,10 @@ const defaultState = fromJS({
     ],
 
     isFetching:false,
-    categories:[]
+    categories:[],
+    mainImage:'',
+    images:'',
+    detail:''
 })
 
 export default (state=defaultState,action)=>{
@@ -37,5 +40,14 @@ export default (state=defaultState,action)=>{
             pageSize:action.payload.pageSize
         })
     }
+    if(action.type == types.HAND_MAIN_IMAGE){
+        return state.set('mainImage',fromJS(action.payload))
+    }
+    if(action.type == types.HAND_IMAGES){
+        return state.set('images',fromJS(action.payload))
+    }
+    if(action.type == types.HAND_DETAIL){
+        return state.set('detail',fromJS(action.payload))
+    }        
     return state
 }

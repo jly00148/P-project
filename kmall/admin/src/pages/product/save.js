@@ -9,7 +9,7 @@ import Layout from 'common/layout';
 import { UPLOAD_PRODUCT_IMAGE,UPLOAD_PRODUCT_DATAILIMAGES } from 'api/config.js';
 import RichEditor from 'common/richEditor';
 
-class CategoryAdd extends Component {
+class ProductSave extends Component {
     constructor(props){
         super(...props)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,7 +23,8 @@ class CategoryAdd extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
           if (!err) {
-            this.props.handleAddCategory(values);
+            //   console.log('values::',values)
+            this.props.handleSave(values);
           }
         });
       };
@@ -35,7 +36,13 @@ class CategoryAdd extends Component {
     render(){
         const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
         const { getFieldDecorator } = this.props.form;
-        const { isFetching,categories } = this.props
+        const { 
+            isFetching,
+            categories,
+            handleMainImage,
+            handleImages,
+            handleDetail
+        } = this.props
 
         return(
             <Layout className="content">
@@ -141,45 +148,47 @@ class CategoryAdd extends Component {
                             )(<InputNumber 
                                 placeholder="商品价格" 
                                 autoComplete="off"
+                                min={0}
                                 />)
                             }
                         </Form.Item>
 
-                        <Form.Item label="封面图片">
+                        <Form.Item label="封面图片" required={true}>
                             <UploadImage max={1} 
                             action={UPLOAD_PRODUCT_IMAGE} 
                             getFileList={
-                                ()=>{
-                                    console.log('getFileList')
+                                (getFileList)=>{
+                                    handleMainImage(getFileList)
                                 }
                             }
+                            
                             />
                         </Form.Item>
 
-                        <Form.Item label="商品图片">
+                        <Form.Item label="商品图片" required={true}>
                             <UploadImage 
                             max={8} 
                             action={UPLOAD_PRODUCT_IMAGE}
                             getFileList={
                                 (fileList)=>{
-                                    console.log('!::',fileList)
+                                    handleImages(fileList)
                                 }
                             }
                             />
                         </Form.Item>
 
-                        <Form.Item label="商品详情">
+                        <Form.Item label="商品详情" required={true}>
                             <RichEditor 
                                 url={UPLOAD_PRODUCT_DATAILIMAGES}
                                 getValue={
                                     (value)=>{
-                                        console.log(value)
+                                        handleDetail(value)
                                     }
                                 }
                             />
                         </Form.Item>
 
-                        <Form.Item wrapperCol={{ span: 12, offset: 5 }}>
+                        <Form.Item wrapperCol={{ span: 12, offset: 5 }} required={true}>
                             <Button 
                                 type="primary" 
                                 shape="round"
@@ -197,22 +206,31 @@ class CategoryAdd extends Component {
 }
 
 
-const WrappedCategoryAdd = Form.create({ name: 'coordinated' })(CategoryAdd);
+const WrappedProductSave = Form.create({ name: 'coordinated' })(ProductSave);
 
 //映射属性到组件
 const mapStateToProps = (state) => ({
-    isFetching:state.get('category').get('isFetching'),
-    categories:state.get('category').get('categories')
-
+    categories:state.get('product').get('categories'),
+    isFetching:state.get('product').get('isFetching')
 })
+
 //映射方法到组件
 const mapDispatchToProps = (dispatch) => ({
-    handleAddCategory:(values)=>{
-        dispatch(actionCreator.getAddAction(values));
+    handleSave:(values)=>{
+        dispatch(actionCreator.productSaveAction(values));
     },
+    handleMainImage:(getFileList)=>{
+        dispatch(actionCreator.setMainImageAction(getFileList));
+    },
+    handleImages:(values)=>{
+        dispatch(actionCreator.setImagesAction(values));
+    },
+    handleDetail:(values)=>{
+        dispatch(actionCreator.setDetailAction(values));
+    },            
     handleLevelCategories:(level)=>{
         dispatch(actionCreator.getLevelCategories(level))
     }
 })
 
-export default connect(mapStateToProps,mapDispatchToProps)(WrappedCategoryAdd);
+export default connect(mapStateToProps,mapDispatchToProps)(WrappedProductSave);

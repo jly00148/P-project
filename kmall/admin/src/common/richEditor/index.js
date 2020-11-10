@@ -28,7 +28,7 @@ class RichEditor extends Component {
         ]
         $.ajaxSetup({
             xhrFields:{
-                withCredentials:true
+                withCredentials:true//携带cookie
             }
         })
     }
@@ -42,7 +42,6 @@ class RichEditor extends Component {
             }
       });
       this.editor.on('valuechanged',()=>{//富文本输入内容会被触发
-        //   console.log(this.editor.getValue())
         this.props.getValue(this.editor.getValue())
       })
     }
