@@ -20,7 +20,7 @@ import Product from 'pages/product';
 import Err from 'common/err';//引入路由访问无效页面组件
 import { getUsername } from 'util';//获取用户名(getUsername要return)
 
-class App extends Component {    
+class App extends Component {
     render() {
         // 处理在主页home中如果local Storage用户消失就会去登录，否则没有消失就禁止去登录停在home主页
         const ProtectRoute = ({component:Component,...rest})=>(<Route 
@@ -36,15 +36,16 @@ class App extends Component {
                 return getUsername() ? <Redirect to="/" />  : <Component {...props} />
             }}
         />)
+                       
         return (
             <Router forceRefresh={true}>
                 <div className="App">
                     <Switch>{/* 加Switch的目的是匹配/就不往下匹配了，不然无效页面后去访问主页会出现err页面提示信息 */}  
                         <ProtectRoute exact path="/" component={Home} />
                         <LoginRoute path="/login" component={Login} />
-                        <Route path="/user" component={User} />
-                        <Route path="/category" component={Category} />
-                        <Route path="/product" component={Product} />
+                        <ProtectRoute path="/user" component={User} />
+                        <ProtectRoute path="/category" component={Category} />
+                        <ProtectRoute path="/product" component={Product} />
                         <Route component={Err} />{/* 不加路径是代表所有，所以也包括主页路径/ */}
                     </Switch>
                 </div>

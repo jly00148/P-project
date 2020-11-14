@@ -38,11 +38,13 @@ export const setDetailAction = (payload)=>({
 //添加分类
 export const productSaveAction = (values)=>{
     return (dispatch,getState)=>{
-        console.log(values)
         const state = getState().get('product');
         const mainImage = state.get('mainImage');
-        const iamges = state.get('iamges');
+        const images = state.get('images');
         const detail = state.get('detail');
+        console.log('mainImage::',mainImage)
+        console.log("images::",images)
+        console.log("detail::",detail)
     //     dispatch(getLoadingReqestStartAction())
     //     api.addCategories(values)
     //     .then(result=>{

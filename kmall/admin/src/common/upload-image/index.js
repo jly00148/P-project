@@ -20,17 +20,16 @@ class UploadImage extends Component{
           this.setState({ previewVisible: false })
         }
     
-    handlePreview(file) {
+    handlePreview(file) {//预览图片
         this.setState({
-          previewImage: file.url || file.preview,
-          previewVisible: true,
+          previewImage: file.response.thumbUrl,
+          previewVisible: true,//true为放大图片效果，false无效果
         });
       };
     
-      handleChange({ fileList }){
-          console.log(fileList)
+      handleChange({ fileList }){//当上传图片后触发
           this.setState({ fileList },()=>{
-            this.props.getFileList(fileList.map(fileUrl=>{
+            this.props.getFileList(fileList.map(fileUrl=>{//上传几张图片获得几张图片地址
               if(fileUrl.response){
                 return fileUrl.response.url
               }
@@ -60,7 +59,7 @@ class UploadImage extends Component{
               {fileList.length >= max ? null : uploadButton}
             </Upload>
             <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-              <img alt="example" style={{ width: '100%' }} src={previewImage} />
+              <img alt="图片走丢了..." style={{ width: '96%' }} src={previewImage} />
             </Modal>
           </div>
         );

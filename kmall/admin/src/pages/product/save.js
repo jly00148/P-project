@@ -73,7 +73,7 @@ class ProductSave extends Component {
                                         onChange={this.handleSelectChange}
                                         >
                                         <Option value="0">根分类</Option>
-                                            {
+                                        {
                                             categories.map((categories)=>{
                                                 return  <Option 
                                                             key={categories.get('_id')} 
@@ -155,25 +155,23 @@ class ProductSave extends Component {
 
                         <Form.Item label="封面图片" required={true}>
                             <UploadImage max={1} 
-                            action={UPLOAD_PRODUCT_IMAGE} 
-                            getFileList={
-                                (getFileList)=>{
-                                    handleMainImage(getFileList)
+                                action={UPLOAD_PRODUCT_IMAGE} 
+                                getFileList={
+                                    (getFileList)=>{
+                                        handleMainImage(getFileList)
+                                    }
                                 }
-                            }
-                            
                             />
                         </Form.Item>
 
                         <Form.Item label="商品图片" required={true}>
-                            <UploadImage 
-                            max={8} 
-                            action={UPLOAD_PRODUCT_IMAGE}
-                            getFileList={
-                                (fileList)=>{
-                                    handleImages(fileList)
+                            <UploadImage max={8} 
+                                action={UPLOAD_PRODUCT_IMAGE} 
+                                getFileList={
+                                    (getFileList)=>{
+                                        handleImages(getFileList)
+                                    }
                                 }
-                            }
                             />
                         </Form.Item>
 
@@ -222,8 +220,8 @@ const mapDispatchToProps = (dispatch) => ({
     handleMainImage:(getFileList)=>{
         dispatch(actionCreator.setMainImageAction(getFileList));
     },
-    handleImages:(values)=>{
-        dispatch(actionCreator.setImagesAction(values));
+    handleImages:(getFileList)=>{
+        dispatch(actionCreator.setImagesAction(getFileList));
     },
     handleDetail:(values)=>{
         dispatch(actionCreator.setDetailAction(values));
