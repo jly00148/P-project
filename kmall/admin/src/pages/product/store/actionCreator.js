@@ -35,16 +35,32 @@ export const setDetailAction = (payload)=>({
     payload
 })
 
+export const setMainImageStatusAction = (payload)=>({
+    type:types.HAND_MAIN_IMAGE_STATUS,
+    payload
+})
+
+
+export const setImagesStatusAction = (payload)=>({
+    type:types.HAND_IMAGES_STATUS,
+    payload
+})
+
 //添加分类
-export const productSaveAction = (values)=>{
+export const productSaveAction = (err,values)=>{
     return (dispatch,getState)=>{
         const state = getState().get('product');
         const mainImage = state.get('mainImage');
         const images = state.get('images');
         const detail = state.get('detail');
-        console.log('mainImage::',mainImage)
-        console.log("images::",images)
-        console.log("detail::",detail)
+
+        if(!mainImage){
+            dispatch(setMainImageStatusAction('error'))
+        }
+        if(!images){
+            dispatch(setImagesStatusAction('error'))
+        }        
+
     //     dispatch(getLoadingReqestStartAction())
     //     api.addCategories(values)
     //     .then(result=>{

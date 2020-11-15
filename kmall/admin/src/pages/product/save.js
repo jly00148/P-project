@@ -22,10 +22,7 @@ class ProductSave extends Component {
     handleSubmit(e) {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-          if (!err) {
-            //   console.log('values::',values)
-            this.props.handleSave(values);
-          }
+            this.props.handleSave(err,values);
         });
       };
     handleSelectChange (value) {
@@ -41,7 +38,11 @@ class ProductSave extends Component {
             categories,
             handleMainImage,
             handleImages,
-            handleDetail
+            handleDetail,
+            validateStatus,
+            help,
+            validateStatus1,
+            help1            
         } = this.props
 
         return(
@@ -153,7 +154,11 @@ class ProductSave extends Component {
                             }
                         </Form.Item>
 
-                        <Form.Item label="封面图片" required={true}>
+                        <Form.Item label="封面图片" 
+                        required={true}
+                        validateStatus={validateStatus}
+                        help={help}
+                        >
                             <UploadImage max={1} 
                                 action={UPLOAD_PRODUCT_IMAGE} 
                                 getFileList={
@@ -164,7 +169,11 @@ class ProductSave extends Component {
                             />
                         </Form.Item>
 
-                        <Form.Item label="商品图片" required={true}>
+                        <Form.Item label="商品图片" 
+                        required={true}
+                        validateStatus={validateStatus1}
+                        help={help1}                        
+                        >
                             <UploadImage max={8} 
                                 action={UPLOAD_PRODUCT_IMAGE} 
                                 getFileList={
@@ -175,7 +184,7 @@ class ProductSave extends Component {
                             />
                         </Form.Item>
 
-                        <Form.Item label="商品详情" required={true}>
+                        <Form.Item label="商品详情">
                             <RichEditor 
                                 url={UPLOAD_PRODUCT_DATAILIMAGES}
                                 getValue={
@@ -209,13 +218,17 @@ const WrappedProductSave = Form.create({ name: 'coordinated' })(ProductSave);
 //映射属性到组件
 const mapStateToProps = (state) => ({
     categories:state.get('product').get('categories'),
-    isFetching:state.get('product').get('isFetching')
+    isFetching:state.get('product').get('isFetching'),
+    validateStatus:state.get('product').get('validateStatus'),
+    help:state.get('product').get('help'),
+    validateStatus1:state.get('product').get('validateStatus1'),
+    help1:state.get('product').get('help1'),    
 })
 
 //映射方法到组件
 const mapDispatchToProps = (dispatch) => ({
-    handleSave:(values)=>{
-        dispatch(actionCreator.productSaveAction(values));
+    handleSave:(err,values)=>{
+        dispatch(actionCreator.productSaveAction(err,values));
     },
     handleMainImage:(getFileList)=>{
         dispatch(actionCreator.setMainImageAction(getFileList));

@@ -10,7 +10,11 @@ const defaultState = fromJS({
     categories:[],
     mainImage:'',
     images:'',
-    detail:''
+    detail:'',
+    validateStatus:'',
+    help:'',
+    validateStatus1:'',
+    help1:''    
 })
 
 export default (state=defaultState,action)=>{
@@ -41,13 +45,33 @@ export default (state=defaultState,action)=>{
         })
     }
     if(action.type == types.HAND_MAIN_IMAGE){
-        return state.set('mainImage',fromJS(action.payload))
+        return state.merge({
+            mainImage:action.payload,
+            validateStatus:'success',
+            help:''
+        })
     }
     if(action.type == types.HAND_IMAGES){
-        return state.set('images',fromJS(action.payload))
+        return state.merge({
+            images:action.payload,
+            validateStatus:'success',
+            help:''
+        })
     }
     if(action.type == types.HAND_DETAIL){
         return state.set('detail',fromJS(action.payload))
-    }        
+    } 
+    if(action.type == types.HAND_MAIN_IMAGE_STATUS){
+        return state.merge({
+            validateStatus:action.payload,
+            help:'请输入封面图片'
+        })
+    }
+    if(action.type == types.HAND_IMAGES_STATUS){
+        return state.merge({
+            validateStatus1:action.payload,
+            help1:'请输入商品图片'
+        })
+    }       
     return state
 }
