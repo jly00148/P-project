@@ -42,7 +42,7 @@ class CategoryList extends Component {
     }
 
     componentDidMount(){
-      this.props.handleCategoriesList(1)//请求第几页，不传后台默认请求第一页
+      this.props.handleProductsPage(1)//请求第几页，不传后台默认请求第一页
     }
 
     render() {
@@ -60,44 +60,12 @@ class CategoryList extends Component {
 
       const columns = [ 
         {
-          title: '分类名称',
+          title: '商品名称',
           dataIndex: 'name',
           key: 'name',
-          width:'20%',
-          render:(name,record)=>{
-            return <Input 
-            style={{width:'80%'}}
-            defaultValue={name}
-            onBlur={
-              (ev)=>{
-                if(ev.target.value != name){
-                  handleUpdateName(ev.target.value,record._id)
-                }
-              }
-            }
-            />
-          }
         },
         {
-          title: '手机分类名称',
-          dataIndex: 'mobileName',
-          key: 'mobileName',
-          width:'20%',
-          render:(mobileName,record)=>{
-            return <Input 
-            defaultValue={mobileName}
-            onBlur={
-              (ev)=>{
-                if(ev.target.value != mobileName){
-                  handleUpdateMobileName(ev.target.value,record._id)
-                }
-              }
-            }
-            />
-          }          
-        },
-        {
-          title: '是否显示',
+          title: '是否首页显示',
           dataIndex: 'isShow',
           key: 'isShow',
           width:'20%',
@@ -113,7 +81,43 @@ class CategoryList extends Component {
               }
             />
           }
+        },        
+        {
+          title: '上架/下架',
+          dataIndex: 'status',
+          key: 'status',
+          width:'20%',
+          render:(status,record)=>{
+            return <Switch
+              checkedChildren="上架"
+              unCheckedChildren="下架"
+              checked={status == '0' ? false : true }
+              onChange={
+                (checked)=>{
+                  handleIsShow(checked ? '1' : '0',record._id)
+                }
+              }
+            />
+          }
         },
+        {
+          title: '是否热卖',
+          dataIndex: 'isHot',
+          key: 'isHot',
+          width:'20%',
+          render:(isHot,record)=>{
+            return <Switch
+              checkedChildren="热卖"
+              unCheckedChildren="冷清"
+              checked={isHot == '0' ? false : true }
+              onChange={
+                (checked)=>{
+                  handleIsShow(checked ? '1' : '0',record._id)
+                }
+              }
+            />
+          }
+        },        
         {
           title: '排序',
           dataIndex: 'order',
@@ -131,6 +135,9 @@ class CategoryList extends Component {
             }
             />
           }            
+        },
+        {
+          title:'操作',
         }
       ];
 
@@ -184,17 +191,17 @@ class CategoryList extends Component {
 
 //映射属性到组件
 const mapStateToProps = (state) => ({
-  isFetching:state.get('category').get('isFetching'),
-  categories:state.get('category').get('categories'),
-  list:state.get('category').get('list'),
-  current:state.get('category').get('current'),
-  total:state.get('category').get('total'),
-  pageSize:state.get('category').get('pageSize'),
+  isFetching:state.get('product').get('isFetching'),
+  categories:state.get('product').get('categories'),
+  list:state.get('product').get('list'),
+  current:state.get('product').get('current'),
+  total:state.get('product').get('total'),
+  pageSize:state.get('product').get('pageSize'),
 })
 //映射方法到组件
 const mapDispatchToProps = (dispatch) => ({
-  handleCategoriesList: (page) => {
-    dispatch(actionCreator.getCategoriesListAction(page))
+  handleProductsPage: (page) => {
+    dispatch(actionCreator.getProductPageAction(page))
   },
   handleUpdateName: (name,id) => {
     dispatch(actionCreator.handleUpdateNameAction(name,id))

@@ -61,7 +61,6 @@ async function getPaginationProducts(req){
 
 //获取商品列表
 router.get('/list',(req,res)=>{
-	/*
 	const {page,status,category,keyword,orderBy} = req.query
 	
 	let query = {};
@@ -88,11 +87,11 @@ router.get('/list',(req,res)=>{
 	}
 
 	ProductModel.getPaginationProducts(page,query,projection,sort)
-	*/
+	
 	getPaginationProducts(req)
 	.then(result=>{
 		res.json({
-			code:0,
+			code:1,
 			data:{
 				current:result.current,
 				total:result.total,
@@ -104,7 +103,7 @@ router.get('/list',(req,res)=>{
 	})
 	.catch(e=>{
 		res.json({
-			code:1,
+			code:0,
 			message:'获取商品列表失败'
 		})
 	})
@@ -186,14 +185,14 @@ router.post("/",(req,res)=>{
 	.then((product)=>{
 		if(product){
 			res.json({
-				code:0,
+				code:1,
 				message:'新增商品成功'
 			})
 		}
 	})
 	.catch((e)=>{
  		res.json({
- 			code:1,
+ 			code:0,
  			message:"新增商品失败,服务器端错误"
  		})
 	})
@@ -213,16 +212,16 @@ router.put("/",(req,res)=>{
 		stock:body.stock
 	}
 	ProductModel
-	.update({_id:body.id},update)
+	.updateOne({_id:body.id},update)
 	.then((raw)=>{
 		res.json({
-			code:0,
+			code:1,
 			message:'更新商品成功'
 		})
 	})
 	.catch((e)=>{
  		res.json({
- 			code:1,
+ 			code:0,
  			message:"更新分类失败,服务器端错误"
  		})
 	})

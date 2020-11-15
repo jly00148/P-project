@@ -54,30 +54,45 @@ export const productSaveAction = (err,values)=>{
         const images = state.get('images');
         const detail = state.get('detail');
 
+        let hasErr = false;//布尔值逻辑处理程序有错误终止与反之进行
+        if(err){
+            hasErr = true;
+        }
         if(!mainImage){
+            hasErr = true;
             dispatch(setMainImageStatusAction('error'))
         }
         if(!images){
+            hasErr = true;
             dispatch(setImagesStatusAction('error'))
         }        
 
-    //     dispatch(getLoadingReqestStartAction())
-    //     api.addCategories(values)
-    //     .then(result=>{
-    //         if(result.code == 1){
-    //             message.success(result.message,2,function(){
-    //                 window.location.reload()//添加完分类后重新刷新使form表单清空
-    //             });//数字代表秒,数字后可传回调
-    //         }else{
-    //             message.error(result.message,2);
-    //         }
-    //     })
-    //     .catch(err=>{
-    //         message.error('网络错误，请稍后再试！');
-    //     })
-    //     .finally(()=>{
-    //         dispatch(getLoadingReqestDoneAction())
-    //     })
+        if(hasErr){
+            return;//有错误终止程序往下运行
+        }
+
+        dispatch(getLoadingReqestStartAction())
+        api.addProducts({
+            ...values,//扩展values这个对象方便与其他三个合并成新的对象
+            mainImage,
+            images,
+            detail
+        })
+        .then(result=>{
+            if(result.code == 1){
+                message.success(result.message,2,function(){
+                    window.location.href='/product'
+                });
+            }else{
+                message.error(result.message,2);
+            }
+        })
+        .catch(err=>{
+            message.error('网络错误，请稍后再试！');
+        })
+        .finally(()=>{
+            dispatch(getLoadingReqestDoneAction())
+        })
     }
 }
 
@@ -95,10 +110,10 @@ export const getLevelCategories = (level)=>{
 }
 
 //将上述的内容添加到展示页面
-export const getCategoriesListAction = (page)=>{
+export const getProductPageAction = (page)=>{
     return (dispatch,getState)=>{
         dispatch(getLoadingReqestStartAction())
-        api.getCategoriesList(page)
+        api.getProductPage(page)
         .then(result=>{
             if(result.code == 1){
                 // console.log(result)
