@@ -132,58 +132,85 @@ export const getProductPageAction = (page)=>{
     }
 }
 
-//更新分类名称
-export const handleUpdateNameAction = (name,id)=>{
+
+//更新显示
+export const handleIsShowAction = (newShow,id)=>{
     return (dispatch,getState)=>{
-        const current = getState().get('category').get('current');
-        dispatch(getLoadingReqestStartAction())
-        api.updateCategoriesList({name,id,current})
+        const page = getState().get('product').get('current');
+        api.updateProductsIsShowList(
+            {
+                isShow:newShow,
+                id:id,
+                page:page
+            }
+            )
         .then(result=>{
-            if(result.code == 10){
-                message.success('更新分类名称成功',2);
+            if(result.code == 1){
+                dispatch(getSetPageAction(result.data))
             }else{
-                message.error('获取首页数据失败，请稍后再试！');
+                message.error('获取排序数据失败，请稍后再试！');
             }
         })
         .catch(err=>{
             message.error('网络错误，请稍后再试！');
         })
-        .finally(()=>{
-            dispatch(getLoadingReqestDoneAction())
-        })
-
     }
 }
 
-//更新手机分类名称
-export const handleUpdateMobileNameAction = (mobileName,id)=>{
+//更新上下架状态
+export const handleUpdateStatusAction = (newStatus,id)=>{
     return (dispatch,getState)=>{
-        const current = getState().get('category').get('current');
-        dispatch(getLoadingReqestStartAction())
-        api.updateCategoriesMobileList({mobileName,id,current})
+        const page = getState().get('product').get('current');
+        api.updateProductsStatusList(
+            {
+                status:newStatus,
+                id:id,
+                page:page
+            }
+            )
         .then(result=>{
-            if(result.code == 10){
-                message.success('更新手机分类名称成功',2);
+            if(result.code == 1){
+                dispatch(getSetPageAction(result.data))
             }else{
-                message.error('获取首页数据失败，请稍后再试！');
+                message.error('获取排序数据失败，请稍后再试！');
             }
         })
         .catch(err=>{
             message.error('网络错误，请稍后再试！');
         })
-        .finally(()=>{
-            dispatch(getLoadingReqestDoneAction())
-        })
+    }
+}
 
+//更新热销滞销
+export const handleUpdateHotAction = (newHot,id)=>{
+    return (dispatch,getState)=>{
+        const page = getState().get('product').get('current');
+        api.updateProductsisHotList(
+            {
+                isHot:newHot,
+                id:id,
+                page:page
+            }
+            )
+        .then(result=>{
+            if(result.code == 1){
+                dispatch(getSetPageAction(result.data))
+            }else{
+                message.error('获取排序数据失败，请稍后再试！');
+            }
+        })
+        .catch(err=>{
+            message.error('网络错误，请稍后再试！');
+        })
     }
 }
 
 //更新排序
 export const handleUpdateOrderAction = (newOrder,id)=>{
     return (dispatch,getState)=>{
-        const page = getState().get('category').get('current');
+        const page = getState().get('product').get('current');
         dispatch(getLoadingReqestStartAction())
-        api.updateCategoriesOrderList(
+        api.updateProductsOrderList(
             {
                 order:newOrder,
                 id:id,
@@ -191,7 +218,7 @@ export const handleUpdateOrderAction = (newOrder,id)=>{
             }
             )
         .then(result=>{
-            if(result.code == 10){
+            if(result.code == 1){
                 message.success('更新排序成功',2,function(){
                     window.location.reload()
                 });
@@ -206,29 +233,5 @@ export const handleUpdateOrderAction = (newOrder,id)=>{
             dispatch(getLoadingReqestDoneAction())
         })
 
-    }
-}
-
-//更新排序
-export const handleIsShowAction = (checked,id)=>{
-    return (dispatch,getState)=>{
-        const page = getState().get('category').get('current');
-        api.updateCategoriesIsShowList(
-            {
-                isShow:checked,
-                id:id,
-                page:page
-            }
-            )
-        .then(result=>{
-            if(result.code == 10){
-                dispatch(getSetPageAction(result.data))
-            }else{
-                message.error('获取排序数据失败，请稍后再试！');
-            }
-        })
-        .catch(err=>{
-            message.error('网络错误，请稍后再试！');
-        })
     }
 }

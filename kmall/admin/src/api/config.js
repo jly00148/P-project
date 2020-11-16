@@ -15,5 +15,9 @@ export const API_CONFIG = {
     updateCategoriesOrderList:['/categories/order','put'],
     updateCategoriesIsShowList:['/categories/isShow','put'],
     addProducts:['/products','post'],
-    getProductPage:['/products/list','get']
+    getProductPage:['/products/list','get'],
+    updateProductsIsShowList:['/products/isShow','put'],
+    updateProductsStatusList:['/products/status','put'],
+    updateProductsisHotList:['/products/isHot','put'],
+    updateProductsOrderList:['/products/order','put']
 }

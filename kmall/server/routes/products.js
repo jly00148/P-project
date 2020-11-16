@@ -238,7 +238,7 @@ router.put("/order",(req,res)=>{
 			.getPaginationProducts(page,{})
 			.then((result)=>{
 				res.json({
-					code:0,
+					code:1,
 					data:{
 						current:result.current,
 						total:result.total,
@@ -249,7 +249,7 @@ router.put("/order",(req,res)=>{
 			})					
 		}else{
 	 		res.json({
-	 			code:1,
+	 			code:0,
 	 			message:"更新排序失败,数据操作失败"
 	 		})					
 		}
@@ -267,7 +267,7 @@ router.put("/status",(req,res)=>{
 			.getPaginationProducts(page,{})
 			.then((result)=>{
 				res.json({
-					code:0,
+					code:1,
 					message:'更新状态成功',
 					data:{
 						current:result.current,
@@ -279,7 +279,7 @@ router.put("/status",(req,res)=>{
 			})								
 		}else{
 			res.json({
-				code:1,
+				code:0,
 				message:'更新状态失败'
 			})							
 		}
@@ -295,7 +295,7 @@ router.put("/isShow",(req,res)=>{
 			.getPaginationProducts(page,{})
 			.then((result)=>{
 				res.json({
-					code:0,
+					code:1,
 					message:'更新成功',
 					data:{
 						current:result.current,
@@ -307,7 +307,7 @@ router.put("/isShow",(req,res)=>{
 			})								
 		}else{
 			res.json({
-				code:1,
+				code:0,
 				message:'更新失败'
 			})							
 		}
@@ -323,7 +323,7 @@ router.put("/isHot",(req,res)=>{
 			.getPaginationProducts(page,{})
 			.then((result)=>{
 				res.json({
-					code:0,
+					code:1,
 					message:'更新成功',
 					data:{
 						current:result.current,
@@ -335,7 +335,7 @@ router.put("/isHot",(req,res)=>{
 			})								
 		}else{
 			res.json({
-				code:1,
+				code:0,
 				message:'更新失败'
 			})							
 		}

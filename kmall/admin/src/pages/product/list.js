@@ -52,10 +52,11 @@ class CategoryList extends Component {
         total,
         pageSize,
         isFetching,
-        handleUpdateName,
-        handleUpdateMobileName,
+        handleIsShow,
+        handleStatus,
+        handleHot,
         handleUpdateOrder,
-        handleIsShow
+
       } = this.props;
 
       const columns = [ 
@@ -94,7 +95,7 @@ class CategoryList extends Component {
               checked={status == '0' ? false : true }
               onChange={
                 (checked)=>{
-                  handleIsShow(checked ? '1' : '0',record._id)
+                  handleStatus(checked ? '1' : '0',record._id)
                 }
               }
             />
@@ -108,11 +109,11 @@ class CategoryList extends Component {
           render:(isHot,record)=>{
             return <Switch
               checkedChildren="热卖"
-              unCheckedChildren="冷清"
+              unCheckedChildren="滞销"
               checked={isHot == '0' ? false : true }
               onChange={
                 (checked)=>{
-                  handleIsShow(checked ? '1' : '0',record._id)
+                  handleHot(checked ? '1' : '0',record._id)
                 }
               }
             />
@@ -138,6 +139,8 @@ class CategoryList extends Component {
         },
         {
           title:'操作',
+          dataIndex: 'handle',
+          key: 'handle',          
         }
       ];
 
@@ -165,6 +168,7 @@ class CategoryList extends Component {
                   <Table 
                     dataSource={dataSource} 
                     columns={columns}
+                    rowKey='_id'
                     pagination={{
                       current:current,
                       total:total,
@@ -203,17 +207,17 @@ const mapDispatchToProps = (dispatch) => ({
   handleProductsPage: (page) => {
     dispatch(actionCreator.getProductPageAction(page))
   },
-  handleUpdateName: (name,id) => {
-    dispatch(actionCreator.handleUpdateNameAction(name,id))
+  handleIsShow: (newShow,id) => {
+    dispatch(actionCreator.handleIsShowAction(newShow,id))
   },
-  handleUpdateMobileName: (mobileName,id) => {
-    dispatch(actionCreator.handleUpdateMobileNameAction(mobileName,id))
+  handleStatus: (newStatus,id) => {
+    dispatch(actionCreator.handleUpdateStatusAction(newStatus,id))
   },
+  handleHot: (newHot,id) => {
+    dispatch(actionCreator.handleUpdateHotAction(newHot,id))
+  },  
   handleUpdateOrder: (newOrder,id) => {
     dispatch(actionCreator.handleUpdateOrderAction(newOrder,id))
   },
-  handleIsShow: (checked,id) => {
-    dispatch(actionCreator.handleIsShowAction(checked,id))
-  }   
 })
 export default connect(mapStateToProps,mapDispatchToProps)(CategoryList);
