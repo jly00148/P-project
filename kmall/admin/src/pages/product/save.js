@@ -59,9 +59,33 @@ class ProductSave extends Component {
             price,
             stock,
             detail,
-            mainImages,
+            mainImage,
             images      
         } = this.props
+
+        
+        //处理图片回填
+        const mainImageFileList = [];
+        let imagesFileList = [];
+        if(mainImage){
+            mainImageFileList.push({
+                uid:'0',
+                // status:'done',
+                url:mainImage,
+                response:{thumbUrl:mainImage}//点击图片方法查看，下同
+            })
+        }
+
+        if(images){
+            imagesFileList = images.split(',').map((url,index)=>{
+                return {
+                    uid:index,
+                    status:'done',
+                    url:url,
+                    response:{thumbUrl:mainImage}
+                }
+            })
+        }
 
         return(
             <Layout className="content">
@@ -183,6 +207,7 @@ class ProductSave extends Component {
                         help={help}
                         >
                             <UploadImage max={1} 
+                                fileList={mainImageFileList}
                                 action={UPLOAD_PRODUCT_IMAGE} 
                                 getFileList={
                                     (getFileList)=>{
@@ -198,6 +223,7 @@ class ProductSave extends Component {
                         help={help1}                        
                         >
                             <UploadImage max={8} 
+                                fileList={imagesFileList}
                                 action={UPLOAD_PRODUCT_IMAGE} 
                                 getFileList={
                                     (getFileList)=>{
@@ -215,6 +241,7 @@ class ProductSave extends Component {
                                         handleDetail(value)
                                     }
                                 }
+                                values={detail}//商品详情回填传值到富文本
                             />
                         </Form.Item>
 
@@ -252,7 +279,7 @@ const mapStateToProps = (state) => ({
     price:state.get('product').get('price'),
     stock:state.get('product').get('stock'),
     detail:state.get('product').get('detail'),
-    mainImages:state.get('product').get('mainImages'),
+    mainImage:state.get('product').get('mainImage'),
     images:state.get('product').get('images')
 })
 

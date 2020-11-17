@@ -248,7 +248,6 @@ export const getProductDetailAction = (productId)=>{
             id:productId,
         })
         .then(result=>{
-            console.log(result)
             if(result.code == 1){
                 dispatch(setProductDetailAction(result.data))
             }else{

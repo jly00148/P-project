@@ -6,6 +6,9 @@ import 'simditor/styles/simditor.css';
 class RichEditor extends Component {
     constructor(props){
         super(...props)
+        this.state = {
+            isLoaded:false
+        }
         this.toobar=[
             'title',
             'bold',
@@ -32,6 +35,8 @@ class RichEditor extends Component {
             }
         })
     }
+
+
     componentDidMount(){
         this.editor = new Simditor({
             textarea: this.textarea,
@@ -42,9 +47,21 @@ class RichEditor extends Component {
             }
       });
       this.editor.on('valuechanged',()=>{//富文本输入内容会被触发
-        this.props.getValue(this.editor.getValue())
+        // this.props.getValue(this.editor.getValue())
+        this.setState({isLoaded:true},()=>{
+            this.props.getValue(this.editor.getValue())
+        })
       })
     }
+
+    //如果有values传过来，回填商品详情处理
+    componentDidUpdate(){
+        if(this.props.values && !this.state.isLoaded){
+            this.editor.setValue(this.props.values);
+            this.setState({isLoaded:true})
+        }
+    }
+
     render(){
         return(
             <textarea  ref={(textarea)=>{this.textarea=textarea}} ></textarea>
