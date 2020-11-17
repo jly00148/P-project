@@ -11,20 +11,30 @@ import RichEditor from 'common/richEditor';
 
 class ProductSave extends Component {
     constructor(props){
-        super(...props)
+        super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleSelectChange = this.handleSelectChange.bind(this)
+        this.state = {
+            //组件加载完通过this.props.match.params.productId来获取参数即id值
+            productId:this.props.match.params.productId
+        }
 
     }
+
     componentDidMount(){
         this.props.handleLevelCategories()//不传参后台默认level=2
+        if(this.state.productId){
+            this.props.getProductDetail(this.state.productId)
+        }
     }
+
     handleSubmit(e) {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             this.props.handleSave(err,values);
         });
       };
+
     handleSelectChange (value) {
         this.props.form.setFieldsValue({
         });
@@ -42,7 +52,15 @@ class ProductSave extends Component {
             validateStatus,
             help,
             validateStatus1,
-            help1            
+            help1,
+            category,
+            name,
+            description,
+            price,
+            stock,
+            detail,
+            mainImages,
+            images      
         } = this.props
 
         return(
@@ -68,6 +86,7 @@ class ProductSave extends Component {
                                         required: true, message: '请输入需要添加的商品!' 
                                         }
                                     ],
+                                    initialValue:category//initialValue是form的方法，设置表单一个初始值
                                 })(
                                     <Select
                                         placeholder="请输入需要添加的商品"
@@ -97,9 +116,10 @@ class ProductSave extends Component {
                                         required: true, message: '请输入商品名称!' ,
                                         }
                                     ],
+                                    initialValue:name
                                 }
                             )(<Input 
-                                placeholder="请输入商品名称" 
+                                placeholder={'请输入商品名称'}
                                 autoComplete="off"
                                 />)
                             }
@@ -113,6 +133,7 @@ class ProductSave extends Component {
                                         required: true, message: '请输入商品描述!' ,
                                         }
                                     ],
+                                    initialValue:description
                                 }
                             )(<Input 
                                 placeholder="请输入商品描述" 
@@ -129,6 +150,7 @@ class ProductSave extends Component {
                                         required: true, message: '请输入商品库存!' ,
                                         }
                                     ],
+                                    initialValue:stock
                                 }
                             )(<Input
                                 placeholder="商品价格" 
@@ -145,6 +167,7 @@ class ProductSave extends Component {
                                         required: true, message: '请输入商品价格!' ,
                                         }
                                     ],
+                                    initialValue:price
                                 }
                             )(<InputNumber 
                                 placeholder="商品价格" 
@@ -222,7 +245,15 @@ const mapStateToProps = (state) => ({
     validateStatus:state.get('product').get('validateStatus'),
     help:state.get('product').get('help'),
     validateStatus1:state.get('product').get('validateStatus1'),
-    help1:state.get('product').get('help1'),    
+    help1:state.get('product').get('help1'),  
+    category:state.get('product').get('category'),
+    name:state.get('product').get('name'),
+    description:state.get('product').get('description'),
+    price:state.get('product').get('price'),
+    stock:state.get('product').get('stock'),
+    detail:state.get('product').get('detail'),
+    mainImages:state.get('product').get('mainImages'),
+    images:state.get('product').get('images')
 })
 
 //映射方法到组件
@@ -241,6 +272,9 @@ const mapDispatchToProps = (dispatch) => ({
     },            
     handleLevelCategories:(level)=>{
         dispatch(actionCreator.getLevelCategories(level))
+    },
+    getProductDetail:(productId)=>{
+        dispatch(actionCreator.getProductDetailAction(productId))
     }
 })
 

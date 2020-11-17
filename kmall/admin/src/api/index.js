@@ -20,35 +20,34 @@ const getApiObj = (apiConfig)=>{
 const request = (url,method,data)=>{
     return new Promise((resolve,reject)=>{
         // 方法一:针对data是对象的处理方法，处理后请求会把页码发送到后台，req.query.page接收
-        // const options = {
-        //     method:method,
-        //     url:url,
-        //     withCredentials:true
-        // }
-
-        //switch(options.method.toUpperCase()){
-        // case 'GET':
-        // case 'DELETE':
-        // options.params = data
-        // break
-        // default:
-        // options.data = data
-        // }
-
-        // axios(options).....
-
-
-        //方法二：
-        if(!isNaN(data)){
-            url = url +'?'+ 'page'+'='+data;//传页码
-        }
-
-        axios({
+        const options = {
             method:method,
             url:url,
-            data:data,
             withCredentials:true
-        })
+        }
+
+        switch(options.method.toUpperCase()){
+        case 'GET':
+        case 'DELETE':
+        options.params = data
+        break
+        default:
+        options.data = data
+        }
+
+        //方法二：(有缺点：商品管理修改的时候无法传递商品id到后台)
+        // if(!isNaN(data)){
+        //     url = url +'?'+ 'page'+'='+data;//传页码
+        // }
+        // console.log(data)
+        // axios({
+        //     method:method,
+        //     url:url,
+        //     data:data,
+        //     withCredentials:true
+        // })
+
+        axios(options)//用的是方法一
         .then(result=>{
             const data  = result.data;
             if(data.code == 0){//用户没有权限，code=0来自routes/counts.js

@@ -46,6 +46,11 @@ export const setImagesStatusAction = (payload)=>({
     payload
 })
 
+export const setProductDetailAction = (payload)=>({
+    type:types.SET_PRODUCT_DETAIL,
+    payload
+})
+
 //添加分类
 export const productSaveAction = (err,values)=>{
     return (dispatch,getState)=>{
@@ -233,5 +238,25 @@ export const handleUpdateOrderAction = (newOrder,id)=>{
             dispatch(getLoadingReqestDoneAction())
         })
 
+    }
+}
+
+// 拿到id后获取detail内容
+export const getProductDetailAction = (productId)=>{
+    return (dispatch,getState)=>{
+        api.getProductIdDetail({
+            id:productId,
+        })
+        .then(result=>{
+            console.log(result)
+            if(result.code == 1){
+                dispatch(setProductDetailAction(result.data))
+            }else{
+                message.error('获取排序数据失败，请稍后再试！');
+            }
+        })
+        .catch(err=>{
+            message.error('网络错误，请稍后再试！');
+        })
     }
 }

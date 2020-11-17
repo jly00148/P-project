@@ -14,7 +14,13 @@ const defaultState = fromJS({
     validateStatus:'',
     help:'',
     validateStatus1:'',
-    help1:''    
+    help1:'',
+    category:'',
+    name:'',
+    description:'',
+    price:'',
+    stock:'',
+    detail:''
 })
 
 export default (state=defaultState,action)=>{
@@ -72,6 +78,18 @@ export default (state=defaultState,action)=>{
             validateStatus1:action.payload,
             help1:'请输入商品图片'
         })
-    }       
+    }   
+    if(action.type == types.SET_PRODUCT_DETAIL){
+        return state.merge({
+            category:action.payload.category._id,
+            name:action.payload.name,
+            description:action.payload.description,
+            price:action.payload.price,
+            stock:action.payload.stock,
+            detail:action.payload.detail,
+            mainImage:action.payload.mainImage,
+            images:action.payload.images
+        })
+    }          
     return state
 }

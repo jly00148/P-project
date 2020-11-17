@@ -12,7 +12,7 @@ class AdminLayout extends Component {
         return (
             <div className="AdminLayout">
               <Header />
-              <Layout>
+              <Layout  className="layout">
                 <Sider />
                 <Layout style={{ padding: '0 24px 24px' }}>
                   <Content

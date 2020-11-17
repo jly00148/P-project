@@ -47,7 +47,7 @@ class AdminHeader extends Component {
         return (
             <div className="AdminHeader">
                 <Header className="header">
-                    <a className="logo" href="/">KMALL</a>
+                    <a className="logo" href="/">KMALL商城后台管理系统</a>
                     <Dropdown overlay={menu} trigger={['click']}>
                         <a className="ant-dropdown-link" href="#">
                           {getUsername()} <Icon type="down" />

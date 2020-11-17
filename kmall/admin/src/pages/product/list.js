@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { Breadcrumb,Table,Button,Input,InputNumber,Switch } from 'antd';
+import { Breadcrumb,Table,Button,Input,InputNumber,Switch,Divider } from 'antd';
 import Layout from 'common/layout';
 import './index.css';
 import {actionCreator} from './store';
@@ -36,7 +36,7 @@ import {actionCreator} from './store';
 //     key: 'order',
 //   }
 // ];
-class CategoryList extends Component {
+class ProductList extends Component {
     constructor(props){
         super(...props)
     }
@@ -139,8 +139,11 @@ class CategoryList extends Component {
         },
         {
           title:'操作',
-          dataIndex: 'handle',
-          key: 'handle',          
+          render:(text,record)=><span>
+            <Link to={"/product/save/"+record._id}>修改</Link>
+            <Divider type="vertical" />
+            <Link to={"/product/detail/"+record._id}>查看</Link>
+          </span>
         }
       ];
 
@@ -148,7 +151,7 @@ class CategoryList extends Component {
         return list
       }).toJS()
         return (
-          <div className="User">
+          <div className="ProductList">
               <Layout>
                   <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>首页</Breadcrumb.Item>
@@ -156,7 +159,7 @@ class CategoryList extends Component {
                     <Breadcrumb.Item>商品列表</Breadcrumb.Item>
                   </Breadcrumb>
                   <Link 
-                    to="/product/add"
+                    to="/product/save"
                     >
                     <Button 
                     className="addBtn"
@@ -220,4 +223,4 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actionCreator.handleUpdateOrderAction(newOrder,id))
   },
 })
-export default connect(mapStateToProps,mapDispatchToProps)(CategoryList);
+export default connect(mapStateToProps,mapDispatchToProps)(ProductList);

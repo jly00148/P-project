@@ -141,7 +141,7 @@ export const handleUpdateOrderAction = (newOrder,id)=>{
         .then(result=>{
             if(result.code == 10){
                 message.success('更新排序成功',2,function(){
-                    window.location.reload()
+                    window.location.href="/category"
                 });
             }else{
                 message.error('获取排序数据失败，请稍后再试！');

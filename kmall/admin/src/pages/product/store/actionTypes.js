@@ -8,3 +8,4 @@ export const HAND_IMAGES = "product@hand_images";
 export const HAND_DETAIL = "product@hand_detail";
 export const HAND_MAIN_IMAGE_STATUS = "product@hand_main_image_status";
 export const HAND_IMAGES_STATUS = "product@hand_images_status";
+export const SET_PRODUCT_DETAIL = "product@set_product_detail";

@@ -1,9 +1,3 @@
-/*
-* @Author: Tom
-* @Date:   2018-08-06 09:23:30
-* @Last Modified by:   TomChen
-* @Last Modified time: 2019-08-25 15:27:54
-*/
 const Router = require('express').Router;
 const ProductModel = require('../models/product.js');
 const CategoryModel = require('../models/category.js');
@@ -47,7 +41,7 @@ async function getPaginationProducts(req){
 
 	let projection = 'name _id price status order isShow isHot mainImage';
 
-	let sort={order:-1,_id:-1};
+	let sort={order:1,_id:-1};
 
 	if(orderBy == 'price_asc'){
 		sort = {price:1}
@@ -123,13 +117,13 @@ router.get('/detail',(req,res)=>{
 	.populate({path:'category',select:'_id name'})
 	.then(product=>{
 		res.json({
-			code:0,
+			code:1,
 			data:product
 		})
 	})
 	.catch(e=>{
 		res.json({
-			code:1,
+			code:0,
 			message:'获取商品详情失败'
 		})
 	})
@@ -231,7 +225,7 @@ router.put("/",(req,res)=>{
 router.put("/order",(req,res)=>{
 	const {order,id,page}  = req.body
 	ProductModel
-	.update({_id:id},{order:order})
+	.updateOne({_id:id},{order:order})
 	.then((product)=>{
 		if(product){
 			ProductModel
@@ -260,7 +254,7 @@ router.put("/order",(req,res)=>{
 router.put("/status",(req,res)=>{
 	const {page,id,status}  = req.body;
 	ProductModel
-	.update({_id:id},{status:status})
+	.updateOne({_id:id},{status:status})
 	.then((product)=>{
 		if(product){
 			ProductModel
@@ -288,7 +282,7 @@ router.put("/status",(req,res)=>{
 router.put("/isShow",(req,res)=>{
 	const {id,isShow,page}  = req.body;
 	ProductModel
-	.update({_id:id},{isShow:isShow})
+	.updateOne({_id:id},{isShow:isShow})
 	.then((product)=>{
 		if(product){
 			ProductModel
@@ -316,7 +310,7 @@ router.put("/isShow",(req,res)=>{
 router.put("/isHot",(req,res)=>{
 	const{id,isHot,page}  = req.body;
 	ProductModel
-	.update({_id:id},{isHot:isHot})
+	.updateOne({_id:id},{isHot:isHot})
 	.then((product)=>{
 		if(product){
 			ProductModel
