@@ -43,7 +43,7 @@ export const getAddAction = (values)=>{
     }
 }
 
-//将添加好的分类映射到form表单里
+//添加商品页面加载完成需要回传商品分类等级到form表单
 export const getLevelCategories = (level)=>{
     return (dispatch,getState)=>{
         api.getLevelCategories(level)
@@ -57,7 +57,7 @@ export const getLevelCategories = (level)=>{
     }
 }
 
-//将上述的内容添加到展示页面
+//添加商品页面添加商品成功后回到list页面，要把刚才添加的商品信息展示出来
 export const getCategoriesListAction = (page)=>{
     return (dispatch,getState)=>{
         dispatch(getLoadingReqestStartAction())

@@ -5,7 +5,6 @@ const defaultState = fromJS({
     list:[
 
     ],
-
     isFetching:false,
     categories:[],
     mainImage:'',
@@ -24,15 +23,16 @@ const defaultState = fromJS({
 })
 
 export default (state=defaultState,action)=>{
-    if(action.type == types.PAGE){
-        // return state.set('list',fromJS(action.payload.list))
-        return state.merge({
-            list:fromJS(action.payload.list),
-            current:action.payload.current,
-            total:action.payload.total,
-            pageSize:action.payload.pageSize
-        })
-    }
+    // if(action.type == types.PAGE){
+    //     // return state.set('list',fromJS(action.payload.list))
+    //     return state.merge({
+    //         list:fromJS(action.payload.list),
+    //         current:action.payload.current,
+    //         total:action.payload.total,
+    //         pageSize:action.payload.pageSize
+    //     })
+    // }
+
     if(action.type == types.LOADING_REQEST_START){
         return state.set('isFetching',true)
     }
@@ -40,9 +40,9 @@ export default (state=defaultState,action)=>{
         return state.set('isFetching',false)
     }
     if(action.type == types.ADD_CATEGORIES){
-        return state.set('categories',fromJS(action.payload))
+        return state.set('categories',fromJS(action.payload))//为什么要设置immutable数据？因为只有变成immutable数据才添加商品页面(save.js)才能拿到相关)_id等等
     }
-    if(action.type == types.ADD_CATEGORIES_LIST){
+    if(action.type == types.ADD_PRODUCTS_LIST){
         return state.merge({
             list:fromJS(action.payload.list),
             current:action.payload.current,

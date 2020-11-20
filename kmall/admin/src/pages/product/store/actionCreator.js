@@ -16,7 +16,7 @@ const addCategoriesAction = (payload)=>({
 })
 
 const getSetPageAction = (payload)=>({
-    type:types.ADD_CATEGORIES_LIST,
+    type:types.ADD_PRODUCTS_LIST,
     payload
 })
 
@@ -59,7 +59,7 @@ export const productSaveAction = (err,values)=>{
         const images = state.get('images');
         const detail = state.get('detail');
 
-        let hasErr = false;//布尔值逻辑处理程序有错误终止与反之进行
+        let hasErr = false;//布尔值逻辑处理程序有错误终止与反之进行，防止出错后发送ajax
         if(err){
             hasErr = true;
         }
@@ -101,7 +101,7 @@ export const productSaveAction = (err,values)=>{
     }
 }
 
-//将添加好的分类映射到form表单里
+//添加商品页面加载完成需要回传商品分类等级到form表单
 export const getLevelCategories = (level)=>{
     return (dispatch,getState)=>{
         api.getLevelCategories(level)
@@ -114,14 +114,13 @@ export const getLevelCategories = (level)=>{
     }
 }
 
-//将上述的内容添加到展示页面
+//添加商品页面添加商品成功后回到list页面，组件加载完成执行componentDidMount()方法，要把刚才添加的商品信息展示出来
 export const getProductPageAction = (page)=>{
     return (dispatch,getState)=>{
         dispatch(getLoadingReqestStartAction())
         api.getProductPage(page)
-        .then(result=>{
+        .then(result=>{//result主要是需要展示的list内容、当前页current、总条数total以及每页显示条数pageSize
             if(result.code == 1){
-                // console.log(result)
                 dispatch(getSetPageAction(result.data))
             }else{
             message.error('获取首页数据失败，请稍后再试！');
@@ -241,7 +240,7 @@ export const handleUpdateOrderAction = (newOrder,id)=>{
     }
 }
 
-// 拿到id后获取detail内容
+// 拿到id后获取回传后的所有内容
 export const getProductDetailAction = (productId)=>{
     return (dispatch,getState)=>{
         api.getProductIdDetail({

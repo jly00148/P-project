@@ -18,7 +18,7 @@ const getLoadingReqestDoneAction = ()=>({
 export const getUserListAction = (page)=>{
     return (dispatch,getState)=>{
         dispatch(getLoadingReqestStartAction())//获取数据之前发送dispatch改变isFetching的值为true
-        api.getUsersList(page)
+        api.getUsersList({page:page})
         .then(result=>{
             if(result.code == 1){
                 for(let i = 0;i<result.data.list.length;i++){

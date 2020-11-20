@@ -48,7 +48,7 @@ router.get('/init',(req,res)=>{
 })
 
 
-//获取普通用户列表
+//获取用户列表
 router.get('/list',(req,res)=>{
 	let options = {
 		page: req.query.page,//需要显示的页码
@@ -62,13 +62,12 @@ router.get('/list',(req,res)=>{
 		res.json({
 			code:1,
 			data:{
-				current:result.current,//当前页
-				total:result.total,//总条数
-				pageSize:result.pageSize,//每页条数
-				list:result.list//当前页数据
+				current:result.current,
+				total:result.total,
+				pageSize:result.pageSize,
+				list:result.list
 			}
 		})
 	})
 })
-
 module.exports = router;

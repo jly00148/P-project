@@ -6,6 +6,7 @@
     position: absolute;
     right: 132px;
 } */
-.addBtn{
-    margin-bottom: 20px;
+
+.ant-select-selection__placeholder{
+    display: block;/*提高优先级*/
 }

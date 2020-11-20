@@ -27,12 +27,13 @@ const request = (url,method,data)=>{
         }
 
         switch(options.method.toUpperCase()){
-        case 'GET':
-        case 'DELETE':
-        options.params = data
-        break
-        default:
-        options.data = data
+            case 'GET':
+            case 'DELETE':
+            options.params = data//params不能随意更改
+            break
+
+            default:
+            options.data = data
         }
 
         //方法二：(有缺点：商品管理修改的时候无法传递商品id到后台)

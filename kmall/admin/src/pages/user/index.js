@@ -91,11 +91,12 @@ class User extends Component {
                     columns={columns} 
                     pagination={{
                       current:current,
-                      total:total,
-                      pageSize:pageSize
+                      total:total,//总条数
+                      pageSize:pageSize//每页显示条数
                     }}
                     onChange={//Table自带属性,点击触发打印pagination
                       (page)=>{
+                        console.log(page)
                         this.props.handleUserList(page.current);
                       }
                     }
@@ -122,8 +123,8 @@ const mapStateToProps = (state) => ({
 })
 //映射方法到组件
 const mapDispatchToProps = (dispatch) => ({
-  handleUserList: (values) => {
-    dispatch(actionCreator.getUserListAction(values))
+  handleUserList: (page) => {
+    dispatch(actionCreator.getUserListAction(page))
 }
 })
 

@@ -15,14 +15,17 @@ class UploadImage extends Component{
           this.handleChange = this.handleChange.bind(this);
     }
 
+    图片回填
     static getDerivedStateFromProps(props,state){
       if(props.fileList.length > 0 && state.fileList.length == 0){
+        // props是父组件传递的过来的所有值
         return {
           fileList:props.fileList
         }
       }
       return null
     }
+    
     
     handleCancel(){
           this.setState({ previewVisible: false })

@@ -51,12 +51,12 @@ class ProductList extends Component {
         current,
         total,
         pageSize,
+
         isFetching,
         handleIsShow,
         handleStatus,
         handleHot,
         handleUpdateOrder,
-
       } = this.props;
 
       const columns = [ 
@@ -77,7 +77,7 @@ class ProductList extends Component {
               checked={isShow == '0' ? false : true }
               onChange={
                 (checked)=>{
-                  handleIsShow(checked ? '1' : '0',record._id)
+                  handleIsShow(checked ? '1' : '0',record._id)//record记录每条数的信息，包括父商品名称id
                 }
               }
             />
@@ -113,6 +113,7 @@ class ProductList extends Component {
               checked={isHot == '0' ? false : true }
               onChange={
                 (checked)=>{
+                  console.log(record)
                   handleHot(checked ? '1' : '0',record._id)
                 }
               }
@@ -140,16 +141,14 @@ class ProductList extends Component {
         {
           title:'操作',
           render:(text,record)=><span>
-            <Link to={"/product/save/"+record._id}>修改</Link>
-            <Divider type="vertical" />
-            <Link to={"/product/detail/"+record._id}>查看</Link>
+              <Link to={"/product/save/"+record._id}>修改</Link>
+              <Divider type="vertical" />{/* 竖线 */}
+              <Link to={"/product/detail/"+record._id}>查看</Link>
           </span>
         }
       ];
 
-      const dataSource = list.map(list=>{
-        return list
-      }).toJS()
+      const dataSource = list.toJS()
         return (
           <div className="ProductList">
               <Layout>
@@ -177,7 +176,7 @@ class ProductList extends Component {
                       total:total,
                       pageSize:pageSize
                     }}
-                    onChange={//Table自带属性,点击触发打印pagination
+                    onChange={//Table自带属性,点击触发打印pagination,当点击下一页的时候，会把点击的页码传递到函数内，继续发送dispatch请求后台数据
                       (page)=>{
                         this.props.handleCategoriesList(page.current);
                       }
@@ -199,7 +198,8 @@ class ProductList extends Component {
 //映射属性到组件
 const mapStateToProps = (state) => ({
   isFetching:state.get('product').get('isFetching'),
-  categories:state.get('product').get('categories'),
+  // categories:state.get('product').get('categories'),
+
   list:state.get('product').get('list'),
   current:state.get('product').get('current'),
   total:state.get('product').get('total'),

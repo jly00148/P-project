@@ -15,7 +15,7 @@ class Product extends Component {
     render(){
       return (
         <Switch>
-          <Route exact path="/product/" component={productList} />
+          <Route exact path="/product/" component={productList} />{/* exac精确匹配 */}
           <Route path="/product/save/:productId?" component={productSave} />{/* 
           路由可以写正则的，包括?到：是可有可无的，
           正因为如此才能匹配到带参数和不带参数的路由 ,
