@@ -19,7 +19,8 @@ const defaultState = fromJS({
     description:'',
     price:'',
     stock:'',
-    detail:''
+    detail:'',
+    keyWord:''
 })
 
 export default (state=defaultState,action)=>{
@@ -47,7 +48,8 @@ export default (state=defaultState,action)=>{
             list:fromJS(action.payload.list),
             current:action.payload.current,
             total:action.payload.total,
-            pageSize:action.payload.pageSize
+            pageSize:action.payload.pageSize,
+            keyWord:action.payload.keyword
         })
     }
     if(action.type == types.HAND_MAIN_IMAGE){
@@ -60,8 +62,8 @@ export default (state=defaultState,action)=>{
     if(action.type == types.HAND_IMAGES){
         return state.merge({
             images:action.payload,
-            validateStatus:'success',
-            help:''
+            validateStatus1:'success',
+            help1:''
         })
     }
     if(action.type == types.HAND_DETAIL){
@@ -82,6 +84,7 @@ export default (state=defaultState,action)=>{
     if(action.type == types.SET_PRODUCT_DETAIL){
         return state.merge({
             category:action.payload.category._id,
+            categoryName:action.payload.category.name,
             name:action.payload.name,
             description:action.payload.description,
             price:action.payload.price,

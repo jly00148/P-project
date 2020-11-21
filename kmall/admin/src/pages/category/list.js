@@ -145,16 +145,20 @@ class CategoryList extends Component {
                     <Breadcrumb.Item>分类管理</Breadcrumb.Item>
                     <Breadcrumb.Item>分类列表</Breadcrumb.Item>
                   </Breadcrumb>
-                  <Link 
-                    to="/category/add"
-                    >
-                    <Button 
-                    className="addBtn"
-                      type="primary" 
-                      shape="round" 
-                      >添加分类
-                      </Button>
-                    </Link>
+
+                  <div style={{marginBottom:10,height:40}} className="clearfix">
+                      <Link 
+                        style={{float:"right"}}
+                        to="/category/add"
+                        >
+                        <Button 
+                        className="addBtn"
+                          type="primary" 
+                          shape="round" 
+                          >添加分类
+                          </Button>
+                      </Link>
+                    </div>
                   <Table 
                     dataSource={dataSource} 
                     columns={columns}

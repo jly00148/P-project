@@ -10,3 +10,16 @@
 .ant-select-selection__placeholder{
     display: block;/*提高优先级*/
 }
+.imgBox li{
+    list-style: none;
+    width: 104px;
+    height: 104px;
+    border: 0.5px solid #ccc;
+    float: left;
+    margin-right: 10px;
+}
+.imgBox li img{
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+}

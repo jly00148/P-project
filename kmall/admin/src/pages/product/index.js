@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import productSave from './save.js';
+import productDetail from './detail.js';
 import productList from './list.js';
 
 class Product extends Component {
@@ -20,6 +21,7 @@ class Product extends Component {
           路由可以写正则的，包括?到：是可有可无的，
           正因为如此才能匹配到带参数和不带参数的路由 ,
           之后考虑到点击修改页面获取参数的问题*/}
+          <Route path="/product/detail/:productId?" component={productDetail} />
         </Switch>
       )
     }

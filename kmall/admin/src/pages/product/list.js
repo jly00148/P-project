@@ -5,6 +5,7 @@ import { Breadcrumb,Table,Button,Input,InputNumber,Switch,Divider } from 'antd';
 import Layout from 'common/layout';
 import './index.css';
 import {actionCreator} from './store';
+import Search from 'antd/lib/input/Search';
 
 
 // const columns = [ 
@@ -42,7 +43,7 @@ class ProductList extends Component {
     }
 
     componentDidMount(){
-      this.props.handleProductsPage(1)//请求第几页，不传后台默认请求第一页
+      this.props.handleProductsPage(1,null)//请求第几页，不传后台默认请求第一页
     }
 
     render() {
@@ -57,6 +58,7 @@ class ProductList extends Component {
         handleStatus,
         handleHot,
         handleUpdateOrder,
+        keyWord
       } = this.props;
 
       const columns = [ 
@@ -157,17 +159,28 @@ class ProductList extends Component {
                     <Breadcrumb.Item>商品管理</Breadcrumb.Item>
                     <Breadcrumb.Item>商品列表</Breadcrumb.Item>
                   </Breadcrumb>
-                  <Link 
-                    to="/product/save"
-                    >
-                    <Button 
-                    className="addBtn"
-                      type="primary" 
-                      shape="round" 
-                      >添加商品
+
+                  <div 
+                    style={{marginBottom:10,height:40}} className='clearfix'>
+                    <Search 
+                      placeholder="关键词" 
+                      onSearch={value => this.props.handleProductsPage(1,value)} 
+                      enterButton 
+                      style={{width:300}}
+                    />
+                    <Link style={{float:"right"}}
+                      to="/product/save"
+                      >
+                      <Button 
+                        type="primary" 
+                        shape="round" 
+                        >添加商品
                       </Button>
                     </Link>
+                   </div>
+
                   <Table 
+                    className="table"
                     dataSource={dataSource} 
                     columns={columns}
                     rowKey='_id'
@@ -178,7 +191,7 @@ class ProductList extends Component {
                     }}
                     onChange={//Table自带属性,点击触发打印pagination,当点击下一页的时候，会把点击的页码传递到函数内，继续发送dispatch请求后台数据
                       (page)=>{
-                        this.props.handleCategoriesList(page.current);
+                        this.props.handleProductsPage(page.current,keyWord);
                       }
                     }
                     loading={
@@ -200,6 +213,7 @@ const mapStateToProps = (state) => ({
   isFetching:state.get('product').get('isFetching'),
   // categories:state.get('product').get('categories'),
 
+  keyWord:state.get('product').get('keyWord'),
   list:state.get('product').get('list'),
   current:state.get('product').get('current'),
   total:state.get('product').get('total'),
@@ -207,8 +221,9 @@ const mapStateToProps = (state) => ({
 })
 //映射方法到组件
 const mapDispatchToProps = (dispatch) => ({
-  handleProductsPage: (page) => {
-    dispatch(actionCreator.getProductPageAction(page))
+
+  handleProductsPage: (page,keyword) => {//keyword为什么不用驼峰命名？因为是为了和后台参数获得参数保持一致
+    dispatch(actionCreator.getProductPageAction(page,keyword))
   },
   handleIsShow: (newShow,id) => {
     dispatch(actionCreator.handleIsShowAction(newShow,id))

@@ -24,10 +24,9 @@ export const getAddAction = (values)=>{
         dispatch(getLoadingReqestStartAction())
         api.addCategories(values)
         .then(result=>{
-            console.log(result)
             if(result.code == 1){
                 message.success(result.message,2,function(){
-                    window.location.reload()//添加完分类后重新刷新使form表单清空
+                    window.location.href='/category'//添加完分类后重新刷新使form表单清空
                 });//数字代表秒,数字后可传回调
             }
             else{
@@ -48,7 +47,6 @@ export const getLevelCategories = (level)=>{
     return (dispatch,getState)=>{
         api.getLevelCategories(level)
         .then(result=>{
-            console.log(result)
             dispatch(addCategoriesAction(result.data));
         })
         .catch(err=>{

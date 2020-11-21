@@ -25,7 +25,7 @@ let pagination = (options)=>{
 		}
 
 		//每页显示条数
-		let limit = options.pageSize || 10;
+		let limit = options.pageSize || 2;
 
 		/*
 		分页:

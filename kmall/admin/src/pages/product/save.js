@@ -31,6 +31,7 @@ class ProductSave extends Component {
     handleSubmit(e) {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
+            values.id = this.state.productId//点击把修改后的内容提交后台传id，方便发送dispatch的时候判断是修改还是添加商品发送ajax
             //err的错误来自form.item表单的rule,除了图片验证外，把err传递过去和图片已经图片详情一起验证，当form表单中任何一个内容没有输入即提示
             this.props.handleSave(err,values);
         });
@@ -75,7 +76,10 @@ class ProductSave extends Component {
                 uid:'0',
                 status:'done',
                 url:mainImage,
-                response:{thumbUrl:mainImage}//点击图片方法查看，下同
+                response:{
+                    url:mainImage,
+                    thumbUrl:mainImage,
+                }//点击图片方法查看，下同
             })
         }
 
@@ -85,7 +89,10 @@ class ProductSave extends Component {
                     uid:index,
                     status:'done',
                     url:url,
-                    response:{thumbUrl:mainImage}
+                    response:{
+                        thumbUrl:url,
+                        url:url
+                    }
                 }
             })
         }
@@ -101,7 +108,7 @@ class ProductSave extends Component {
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>首页</Breadcrumb.Item>
                         <Breadcrumb.Item>商品管理</Breadcrumb.Item>
-                        <Breadcrumb.Item>添加商品</Breadcrumb.Item>
+                        <Breadcrumb.Item>{this.state.productId ? '修改商品' : '添加商品'}</Breadcrumb.Item>
                     </Breadcrumb>
                     <div className="container">
                     <Form labelCol={{ span: 5 }} wrapperCol={{ span: 8 }}>
@@ -174,7 +181,8 @@ class ProductSave extends Component {
                                 getFieldDecorator('stock', {
                                 rules: [
                                     { 
-                                        required: true, message: '请输入商品库存!' ,
+                                        required: true, message: '非有效字符!' ,
+                                        pattern: new RegExp(/^[1-9]\d*$/, "g"),//只能输入数字
                                         }
                                     ],
                                     initialValue:stock
@@ -191,7 +199,7 @@ class ProductSave extends Component {
                                 getFieldDecorator('price', {
                                 rules: [
                                     { 
-                                        required: true, message: '请输入商品价格!' ,
+                                        required: true, message: '非有效字符!' ,
                                         }
                                     ],
                                     initialValue:price
@@ -255,7 +263,7 @@ class ProductSave extends Component {
                                 shape="round"
                                 onClick={this.handleSubmit}
                             >
-                            添加商品
+                            {this.state.productId ? '修改商品' : '添加商品'}
                             </Button>
                         </Form.Item>
                     </Form>

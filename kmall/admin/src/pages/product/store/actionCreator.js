@@ -40,7 +40,6 @@ export const setMainImageStatusAction = (payload)=>({
     payload
 })
 
-
 export const setImagesStatusAction = (payload)=>({
     type:types.HAND_IMAGES_STATUS,
     payload
@@ -77,7 +76,14 @@ export const productSaveAction = (err,values)=>{
         }
 
         dispatch(getLoadingReqestStartAction())
-        api.addProducts({
+
+        
+        let request = api.addProducts;
+
+        if(values.id){//判断是否有id趣发送相应ajax
+            request = api.updateProducts;
+        }
+        request({
             ...values,//扩展values这个对象方便与其他三个合并成新的对象
             mainImage,
             images,
@@ -115,10 +121,16 @@ export const getLevelCategories = (level)=>{
 }
 
 //添加商品页面添加商品成功后回到list页面，组件加载完成执行componentDidMount()方法，要把刚才添加的商品信息展示出来
-export const getProductPageAction = (page)=>{
+export const getProductPageAction = (page,keyword)=>{
     return (dispatch,getState)=>{
-        dispatch(getLoadingReqestStartAction())
-        api.getProductPage(page)
+        const options = {
+            page:page
+        }
+        if(keyword){
+            options.keyword = keyword;
+        }
+
+        api.getProductPage(options)
         .then(result=>{//result主要是需要展示的list内容、当前页current、总条数total以及每页显示条数pageSize
             if(result.code == 1){
                 dispatch(getSetPageAction(result.data))
@@ -129,10 +141,6 @@ export const getProductPageAction = (page)=>{
         .catch(err=>{
             message.error('网络错误，请稍后再试！');
         })
-        .finally(()=>{
-            dispatch(getLoadingReqestDoneAction())
-        })
-
     }
 }
 
