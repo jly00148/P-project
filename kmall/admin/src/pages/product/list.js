@@ -66,6 +66,15 @@ class ProductList extends Component {
           title: '商品名称',
           dataIndex: 'name',
           key: 'name',
+          render:(name)=>{
+            if(keyWord){
+              const reg = new RegExp('('+keyWord+')','ig')
+              const html = name.replace(reg,'<span style="background-color:#FFFF00">$1</span>')
+              return <span dangerouslySetInnerHTML={{__html:html}}></span>
+            }else{
+              return name;
+            }
+          }
         },
         {
           title: '是否首页显示',
@@ -164,6 +173,7 @@ class ProductList extends Component {
                     style={{marginBottom:10,height:40}} className='clearfix'>
                     <Search 
                       placeholder="关键词" 
+                      loading={isFetching}//搜索框的loading
                       onSearch={value => this.props.handleProductsPage(1,value)} 
                       enterButton 
                       style={{width:300}}

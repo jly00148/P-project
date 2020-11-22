@@ -129,7 +129,7 @@ export const getProductPageAction = (page,keyword)=>{
         if(keyword){
             options.keyword = keyword;
         }
-
+        dispatch(getLoadingReqestStartAction())
         api.getProductPage(options)
         .then(result=>{//result主要是需要展示的list内容、当前页current、总条数total以及每页显示条数pageSize
             if(result.code == 1){
@@ -140,6 +140,9 @@ export const getProductPageAction = (page,keyword)=>{
         })
         .catch(err=>{
             message.error('网络错误，请稍后再试！');
+        })
+        .finally(()=>{
+            dispatch(getLoadingReqestDoneAction())
         })
     }
 }
