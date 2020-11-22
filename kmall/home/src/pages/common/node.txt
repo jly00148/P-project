@@ -1,0 +1,11 @@
+一：字体库使用步骤：
+    1.安装：npm i font-awesome
+    2.配制别名：node_modules:path.resolve(__dirname,'./node_modules')
+    3.在处理图片处添加gif后面的内容：test: /\.(png|jpg|gif|eot|svg|ttf|woff2|woff)\??.*$/i
+    4.在common/index.js中引入：require('node_modules/font-awesome/css/font-awesome.min.css')
+    5.在views/index.html使用：<i class="fa fa-user"></i>
+
+二：图片处理：
+    1.引入图片：background-image: url('view.jpg');
+    2.图片处理处options添加 name:'resource/[name].[ext]'
+    3.npx webpack打包后在resource文件下有生成图片地址，打包后的html有引入此文件的地址
