@@ -1,2 +1,1 @@
-require ('./index.css')
-console.log('list index...')
+require('./index.css')

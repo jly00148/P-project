@@ -24,8 +24,8 @@ const app = express();
 
 //跨域设置
 app.use((req,res,next)=>{
-	res.append("Access-Control-Allow-Origin","http://127.0.0.1:3001");
-	res.append("Access-Control-Allow-Credentials",true);//这个是服务端下发到客户端的 response 中头部字段，意义是允许客户端携带验证信息，例如 cookie 之类的
+	res.append("Access-Control-Allow-Origin","http://127.0.0.1:3001");//不允许相同写法的的不同端口
+	res.append("Access-Control-Allow-Credentials",true);//这个是服务端下发到客户端的 response 中头部字段，意义是允许客户端携带验证信息，例如 cookie 之类的(允许发送ajax携带cookie)
 	res.append("Access-Control-Allow-Methods","GET, POST, PUT,DELETE");
 	res.append("Access-Control-Allow-Headers", "Content-Type, X-Requested-With,X-File-Name"); 
 	next();

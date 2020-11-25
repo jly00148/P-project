@@ -32,6 +32,7 @@ router.post("/users",(req,res)=>{
 			 });
 		}else{
 			res.json({
+				code:0,
 			 	message:"用户名和密码错误",
 			 	data:{
 			 		username:username
