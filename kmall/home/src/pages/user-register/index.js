@@ -22,7 +22,10 @@ var page = {
         //1.触发数据
         var formData = {
             username:$.trim($('[name="username"]').val()),
-            password:$.trim($('[name="password"]').val())
+            password:$.trim($('[name="password"]').val()),
+            repassword:$.trim($('[name="repassword"]').val()),
+            phone:$.trim($('[name="phone"]').val()),
+            email:$.trim($('[name="email"]').val())
         }
         
         //错误信息函数调用
@@ -51,12 +54,12 @@ var page = {
                 formData.role = 'admin'
             }
 
-            api.login({
+            api.register({
                 method:'post',
                 data:formData,
                 dataType:'json',
                 success:function(data){
-                    window.location.href = '/'
+                    window.location.href = '/user-login/html'
                 },
                 error:function(msg){
                     formErr.show(msg)
@@ -92,6 +95,42 @@ var page = {
                 return result
             }
         }
+
+        if(!formData.repassword){
+            result.msg = '确认密码不能为空'
+            return result
+        }else{
+            if(!_util.validateFn(formData.password,'password')){
+                result.msg = '请输入字母、数字以及下划线4~7位密码'
+                return result
+            }
+        }
+
+        if(!formData.phone){
+            result.msg = '手机号不能为空'
+            return result
+        }else{
+            if(!_util.validateFn(formData.phone,'phone')){
+                result.msg = '请输入11位手机号'
+                return result
+            }
+        }
+
+        if(!formData.email){
+            result.msg = 'emial不能为空'
+            return result
+        }else{
+            if(!_util.validateFn(formData.email,'email')){
+                result.msg = '请输入正确的email'
+                return result
+            }
+        } 
+        
+        if(formData.password != formData.repassword){
+            result.msg = '两次密码输入不一致'
+            return result
+        }
+        
         result.status = true;//账号密码符合规范改为true才可发送ajax
         return result     
     }

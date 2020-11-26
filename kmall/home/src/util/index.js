@@ -5,6 +5,15 @@ module.exports = {
         }
         if(type == 'password'){
             return /^\w{4,7}$/.test(value)
-        }        
+        }
+        if(type == 'phone'){
+            return /^1[3|5|8|9]\d{9}$/.test(value)
+        }    
+        if(type == 'email'){
+            return /^\w+@\w+\.\w{2,6}$/.test(value)
+        }                    
+    },
+    showErrorMessage:(msg)=>{
+        alert(msg)
     }
 }

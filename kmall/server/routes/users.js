@@ -70,4 +70,42 @@ router.get('/list',(req,res)=>{
 		})
 	})
 })
+
+//注册用户
+router.post("/",(req,res)=>{
+	const {username,phone,email,password} = req.body
+	UserModel
+	.findOne({username:username})
+	.then((user)=>{
+		//已经有该用户
+		if(user){
+			 res.json({
+			 	code:0,
+			 	message:'用户已存在'
+			 });
+		}else{
+			//插入数据到数据库
+			new UserModel({
+				username:username,
+				phone:phone,
+				email:email,
+				password:hmac(password),
+			})
+			.save((err,newUser)=>{
+				if(!err){//插入成功
+					res.json({
+						code:1,
+						message:'注册成功'
+					})
+				}else{
+					 res.json({
+					 	code:0,
+					 	message:'注册失败'
+					 })					
+				}
+			})
+		}
+	})
+
+})
 module.exports = router;

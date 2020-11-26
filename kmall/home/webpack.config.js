@@ -19,6 +19,7 @@ module.exports = {
         'common':'./src/pages/common/index.js',
         'list':'./src/pages/list/index.js',
         'user-login':'./src/pages/user-login/index.js',
+        'user-register':'./src/pages/user-register/index.js',
     },
     //出口
     output: {
@@ -30,6 +31,7 @@ module.exports = {
         alias:{//配制别名
             pages:path.resolve(__dirname,'./src/pages'),
             util:path.resolve(__dirname,'./src/util'),
+            api:path.resolve(__dirname,'./src/api'),
             node_modules:path.resolve(__dirname,'./node_modules')
         }
     },    
@@ -96,6 +98,7 @@ module.exports = {
         new htmlWebpackPlugin(getHtmlConfig('index','首页')),
         new htmlWebpackPlugin(getHtmlConfig('list','列表页')),
         new htmlWebpackPlugin(getHtmlConfig('user-login','用户登录')),
+        new htmlWebpackPlugin(getHtmlConfig('user-register','用户注册')),
         new MiniCssExtractPlugin({
             filename:'css/[name]-[hash]-bundle.css'//将打包的css放入dist文件夹下的css文件里
         })

@@ -25,7 +25,6 @@ router.post("/users",(req,res)=>{
 			 }
 			 res.json({
 				code:1,
-				message:"登录成功",
 			 	data:{
 			 		username:username
 			 	}
@@ -44,11 +43,23 @@ router.post("/users",(req,res)=>{
 
 //用户退出
 router.delete('/users',(req,res)=>{
-	req.session.destroy();//销毁前台session数据
+	req.session.destroy();//销毁后台session数据
 	res.json({
-		code:0,
+		code:1,
+		message:'退出成功'
 	})
 })
 
+//获取登录用户的用户名
+router.get("/username",(req,res)=>{
+	if(req.userInfo._id){
+		res.json({
+			code:1,
+			data:{
+				username:req.userInfo.username
+			}
+		})
+	}
+});
 
 module.exports = router;
