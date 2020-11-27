@@ -71,6 +71,25 @@ router.get('/list',(req,res)=>{
 	})
 })
 
+//检查用户名是否存在
+router.get("/checkUsername",(req,res)=>{
+	const username = req.query.username;
+	UserModel
+	.findOne({username:username})
+	.then((user)=>{
+		if(user){
+			res.json({
+				code:0,
+				message:'用户名已存在'
+			})
+		}else{
+			res.json({
+				code:1,
+			})
+		}
+	})
+});
+
 //注册用户
 router.post("/",(req,res)=>{
 	const {username,phone,email,password} = req.body

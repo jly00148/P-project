@@ -9,6 +9,9 @@ var page = {
     },
     bindEvent:function(){
         var _this = this;
+        $('[name="username"]').on('blur',function(){
+            _this.onBlor()
+        })
         $('#btn-submit').on('click',function(){//点击登录框登录
             _this.submit()
         })
@@ -17,6 +20,35 @@ var page = {
                 _this.submit()   
             }
         })
+    },
+    onBlor:function(){
+        var username = $('[name="username"]').val()
+        //账号为空验证，密码同理
+        if(!username){
+            return
+        }else{//账号符合规范验证，密码同理
+            if(!_util.validateFn(username,'username')){
+                return
+            }else{
+                api.checkUsername({
+                    method:'get',
+                    data:{username:username},
+                    dataType:'json',
+                    success:function(){
+                        $('.error-item')
+                        .hide()
+                        .find('.error-msg')
+                        .text('')                            
+                    },
+                    error:function(msg){
+                        $('.error-item')
+                        .show()
+                        .find('.error-msg')
+                        .text(msg)
+                    }            
+                })
+            }
+        }
     },
     submit:function(){
         //1.触发数据

@@ -25,7 +25,6 @@ const request = (options)=>{
         data:options.data,
         dataType:'json',
         success:function(result){
-            console.log(result)
             if(result.code == 0){//用户名或者密码错误
                 options.error && options.error(result.message)
             }
