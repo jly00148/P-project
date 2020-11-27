@@ -91,7 +91,7 @@ var page = {
                 data:formData,
                 dataType:'json',
                 success:function(data){
-                    window.location.href = '/user-login/html'
+                    window.location.href = '/result.html?type=register'//传参?type=register
                 },
                 error:function(msg){
                     formErr.show(msg)

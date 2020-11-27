@@ -59,6 +59,10 @@ router.get("/username",(req,res)=>{
 				username:req.userInfo.username
 			}
 		})
+	}else{
+			res.json({
+				code:0
+			})
 	}
 });
 

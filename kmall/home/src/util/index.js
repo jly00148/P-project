@@ -16,4 +16,10 @@ module.exports = {
     showErrorMessage:(msg)=>{
         alert(msg)
     }
+    ,getParamFromUrl:(key)=>{
+        var query =window.location.search.substr(1)
+        var reg = new RegExp('(^|&)'+key+'='+'([^&]*)(&|$)')
+        var result = query.match(reg)
+        return result ? decodeURIComponent(result[2]) : null
+    }
 }

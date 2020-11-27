@@ -20,6 +20,7 @@ module.exports = {
         'list':'./src/pages/list/index.js',
         'user-login':'./src/pages/user-login/index.js',
         'user-register':'./src/pages/user-register/index.js',
+        'result':'./src/pages/result/index.js',
     },
     //出口
     output: {
@@ -99,6 +100,7 @@ module.exports = {
         new htmlWebpackPlugin(getHtmlConfig('list','列表页')),
         new htmlWebpackPlugin(getHtmlConfig('user-login','用户登录')),
         new htmlWebpackPlugin(getHtmlConfig('user-register','用户注册')),
+        new htmlWebpackPlugin(getHtmlConfig('result','结果提示')),
         new MiniCssExtractPlugin({
             filename:'css/[name]-[hash]-bundle.css'//将打包的css放入dist文件夹下的css文件里
         })
