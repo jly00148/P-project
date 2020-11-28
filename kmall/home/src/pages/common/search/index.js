@@ -17,9 +17,9 @@ var page = {
     },
     submit: function() {
         //1.获取数据
-        var keyword = $.trim($('#search-input').val())
+        var keyword = $.trim($('.search-input').val())
         window.location.href = './list.html?keyword='+keyword
-    }
+    },
 }
 
 $(function() {

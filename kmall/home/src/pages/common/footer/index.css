@@ -1,8 +1,9 @@
 .footer{
-    margin-top: 10px;
     text-align: center;
+    background-color: #f3f3f3;
 }
 .links{
+    padding-top: 10px;
     margin-bottom: 10px;
     text-decoration: none;
     color: rgb(192, 189, 189);

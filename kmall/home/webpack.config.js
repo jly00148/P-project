@@ -21,6 +21,7 @@ module.exports = {
         'user-login':'./src/pages/user-login/index.js',
         'user-register':'./src/pages/user-register/index.js',
         'result':'./src/pages/result/index.js',
+        'user-center':'./src/pages/user-center/index.js',
     },
     //出口
     output: {
@@ -74,24 +75,13 @@ module.exports = {
                     },
                 }
             },
+       //tpl
             {
-                test: /\.less$/,
-                use: [{
-                    loader: 'style-loader',
-                }, {
-                    loader: 'css-loader', // translates CSS into CommonJS
-                }, {
-                    loader: 'less-loader', // compiles Less to CSS
-                    options: {
-                        modifyVars: {
-                            'primary-color': '#1E90FF',
-                            'link-color': '#1E90FF',
-                            'border-radius-base': '2px',
-                        },
-                        javascriptEnabled: true,
-                    },
-                }],
-            }            
+                test:/\.tpl$/,
+                use: {
+                    loader: 'html-loader',
+                }
+            },            
         ]
     },
     plugins:[
@@ -101,6 +91,7 @@ module.exports = {
         new htmlWebpackPlugin(getHtmlConfig('user-login','用户登录')),
         new htmlWebpackPlugin(getHtmlConfig('user-register','用户注册')),
         new htmlWebpackPlugin(getHtmlConfig('result','结果提示')),
+        new htmlWebpackPlugin(getHtmlConfig('user-center','用户中心')),
         new MiniCssExtractPlugin({
             filename:'css/[name]-[hash]-bundle.css'//将打包的css放入dist文件夹下的css文件里
         })
@@ -109,11 +100,20 @@ module.exports = {
         contentBase:'./dist',//内容的目录
         host:'127.0.0.1',
         port:3002,//指定服务端口
-        proxy:[
-            {
-                context:['/sessions','/users'],
-                target:'http://127.0.0.1:3000'
-            }
-        ]
+        proxy: [{
+            context: [
+                '/sessions',
+                '/users',
+                '/categories',
+                '/ads',
+                '/floors',
+                '/products',
+                '/carts',
+                '/orders',
+                '/shippings',
+                '/payments'
+            ],
+            target: 'http://127.0.0.1:3000',
+        }]
     },                
 }

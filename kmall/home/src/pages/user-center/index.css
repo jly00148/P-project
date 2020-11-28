@@ -1,0 +1,18 @@
+.user-page-wrap{
+    background-color: #f3f3f3;
+}
+.form-item{
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+}
+.label-item{
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+}
+.content-item{
+    display: inline-block;
+    width: 400px;
+    padding-left: 40px;
+} 
