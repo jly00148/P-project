@@ -50,6 +50,18 @@ router.delete('/users',(req,res)=>{
 	})
 })
 
+//登录权限控制
+router.use((req,res,next)=>{
+	if(req.userInfo._id){
+		next()
+	}else{
+		res.json({
+			code:10
+		})
+	}
+})
+
+
 //获取登录用户的用户名
 router.get("/username",(req,res)=>{
 	if(req.userInfo._id){
@@ -66,4 +78,19 @@ router.get("/username",(req,res)=>{
 	}
 });
 
+//获取登录用户的信息
+router.get("/users",(req,res)=>{
+	UserModel.findById(req.userInfo._id,"username phone email")
+	.then(user=>{
+		res.json({
+			code:1,
+			data:user
+		})
+	})
+	.catch(e=>{
+		res.json({
+			code:0
+		});			
+	})
+})
 module.exports = router;

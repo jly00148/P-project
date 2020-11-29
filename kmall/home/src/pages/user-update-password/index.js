@@ -3,27 +3,25 @@ require('pages/common/nav')
 require('pages/common/footer')
 require('./index.css')
 var _side = require('pages/common/side')
-var tpl = require('./index.tpl')
-var _util = require('util')
 var api = require('api')
-var hogan = require('hogan.js')
+var _util = require('util')
 
 var page = {
     init: function() {
         this.renderSide()
-        this.getUseInfo()
+        this.loadUsername()
     },
     renderSide:function(){
-        _side.render('user-center')
+        _side.render('user-update-password')
     },
-    getUseInfo:function(){
-        api.getUseInfo({
-            success:function(user){
-                var html = _util.render(tpl,user,hogan)
-                $('.side-content').html(html)
+    loadUsername:function(){
+        var _this = this
+        api.getUsername({
+            success:function(data){
+                _this.username = data.username
             }
         })
-    }
+    },
 }
 
 $(function(){

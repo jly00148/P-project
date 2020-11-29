@@ -1,6 +1,7 @@
 require('./index.css')
 var Hogan = require('hogan.js')
 var tpl = require('./index.tpl')
+var _util = require('util')
 
 var list = [
     {name:'user-center',desc:'用户中心',link:'./user-center.html'},
@@ -13,11 +14,7 @@ module.exports = {
             return item.name == name
         }).isActive = true
 
-         var template = Hogan.compile(tpl);
-         var html = template.render({
-             list:list
-         })
-
-        $('.side').html(html)      
+        var html = _util.render(tpl,{list:list},Hogan)
+        $('.side').html(html)
     }
 }

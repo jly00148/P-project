@@ -18,7 +18,12 @@ var page = {
     submit: function() {
         //1.获取数据
         var keyword = $.trim($('.search-input').val())
-        window.location.href = './list.html?keyword='+keyword
+        if(!!!keyword){//输入内容为空禁止跳转
+            return
+        }
+        else{
+            window.location.href = './list.html?keyword='+keyword
+        }
     },
 }
 

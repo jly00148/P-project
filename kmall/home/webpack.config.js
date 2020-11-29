@@ -22,6 +22,7 @@ module.exports = {
         'user-register':'./src/pages/user-register/index.js',
         'result':'./src/pages/result/index.js',
         'user-center':'./src/pages/user-center/index.js',
+        'user-update-password':'./src/pages/user-update-password/index.js',
     },
     //出口
     output: {
@@ -92,6 +93,7 @@ module.exports = {
         new htmlWebpackPlugin(getHtmlConfig('user-register','用户注册')),
         new htmlWebpackPlugin(getHtmlConfig('result','结果提示')),
         new htmlWebpackPlugin(getHtmlConfig('user-center','用户中心')),
+        new htmlWebpackPlugin(getHtmlConfig('user-update-password','修改密码')),
         new MiniCssExtractPlugin({
             filename:'css/[name]-[hash]-bundle.css'//将打包的css放入dist文件夹下的css文件里
         })

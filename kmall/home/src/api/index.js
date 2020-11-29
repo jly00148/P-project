@@ -1,4 +1,6 @@
 var apiConfig = require('./config.js')
+var _util = require('util')
+
 var getApiObj = (apiConfig)=>{
     const apiObj = {}
     for(let key in apiConfig){
@@ -28,7 +30,7 @@ const request = (options)=>{
             if(result.code == 0){//用户名或者密码错误
                 options.error && options.error(result.message)
             }
-            else if(result.code == 1){//登录成功
+            else if(result.code == 1){//操作成功
                 options.success && options.success(result.data)
             }
             else if(result.code == 10){//没有权限

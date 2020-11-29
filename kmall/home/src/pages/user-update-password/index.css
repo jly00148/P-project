@@ -1,0 +1,34 @@
+.user-page-wrap{
+    background-color: #f3f3f3;
+}
+.form-item{
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+}
+.label-item{
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+}
+.content-item{
+    display: inline-block;
+    width: 400px;
+    padding-left: 40px;
+} 
+.side-content .form-lable{
+    display: inline-block;
+    background-color: #999;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-right: 1px solid #bdbdbd;
+    color: red;
+    margin-bottom: 10px;
+}
+.form-content{
+    width: 200px;
+    line-height: 25px;
+    outline: none;
+}

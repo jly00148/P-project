@@ -21,5 +21,10 @@ module.exports = {
         var reg = new RegExp('(^|&)'+key+'='+'([^&]*)(&|$)')
         var result = query.match(reg)
         return result ? decodeURIComponent(result[2]) : null
-    }
+    },
+    render:function(tpl,data,Hogan){
+        var template = Hogan.compile(tpl);
+        var html = template.render(data)
+        return html
+    },
 }

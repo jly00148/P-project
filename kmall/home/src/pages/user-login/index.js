@@ -1,5 +1,6 @@
 require('./index.css')
 require('pages/common/logo')
+require('pages/common/footer')
 var _util = require('util')
 var api = require('api')
 
@@ -56,7 +57,7 @@ var page = {
                 data:formData,
                 dataType:'json',
                 success:function(data){
-                    window.location.href = '/'
+                    window.location.href = '/user-center.html'
                 },
                 error:function(msg){
                     formErr.show(msg)

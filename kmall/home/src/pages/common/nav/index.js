@@ -10,7 +10,13 @@ var page = {
         $('#logout').on('click',function(){
             api.logout({
                 success:function(){
-                    window.location.reload()
+                    $('.not-login')
+                    .show()
+
+                    $('.login')
+                    .hide()
+                    .find('.username')
+                    .text('')
                 },
                 error:function(){
                     _util.showErrorMessage('网络错误，请稍后再试')
@@ -18,6 +24,7 @@ var page = {
             })
         })
     },
+    
     loadUsername:function(){
         api.getUsername({
             success:function(data){
