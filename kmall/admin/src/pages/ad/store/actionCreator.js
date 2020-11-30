@@ -39,7 +39,7 @@ export const getSaveAction = (err,values)=>{
 			image:image,		
 		})
 		.then(result=>{
-			if(result.code == 0){
+			if(result.code == 1){
 				message.success(result.message)
 				window.location.href = '/ad'
 			}else{
@@ -73,7 +73,7 @@ export const getPageAction = (page)=>{
 			page:page
 		})
 		.then(result=>{
-			if(result.code == 0){
+			if(result.code == 1){
 				dispatch(getSetPageAction(result.data))
 			}else{
 				message.error(result.message)
@@ -93,7 +93,7 @@ export const getUpdateOrderAction = (id,newOrder)=>{
 			page:state.get('current')			
 		})
 		.then(result=>{
-			if(result.code == 0){
+			if(result.code == 1){
 				dispatch(getSetPageAction(result.data))
 			}else{
 				message.error(result.message)
@@ -111,7 +111,7 @@ export const getUpdateIsShowAction = (id,newIsShow)=>{
 			page:state.get('current')			
 		})			
 		.then(result=>{
-			if(result.code == 0){
+			if(result.code == 1){
 				dispatch(getSetPageAction(result.data))
 			}else{
 				message.error(result.message)
@@ -131,7 +131,7 @@ export const getAdDetailAction = (adId)=>{
 			id:adId
 		})
 		.then(result=>{
-			if(result.code == 0){
+			if(result.code == 1){
 				dispatch(setAdDetail(result.data))
 			}else{
 				message.error(result.message)

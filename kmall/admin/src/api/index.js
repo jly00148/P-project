@@ -36,7 +36,6 @@ const request = (url,method,data)=>{
             options.data = data
         }
 
-        console.log('options::',options)
         //方法二：(有缺点：商品管理修改的时候无法传递商品id到后台)
         // if(!isNaN(data)){
         //     url = url +'?'+ 'page'+'='+data;//传页码

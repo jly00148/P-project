@@ -32,13 +32,13 @@ router.get("/positionAds",(req,res)=>{
 	.sort({order:-1})
 	.then((ads)=>{
 		res.json({
-			code:0,
+			code:1,
 			data:ads
 		})	
 	})
 	.catch(e=>{
  		res.json({
- 			code:1,
+ 			code:0,
  			message:"获取广告失败,服务器端错误"
  		})		
 	})	
@@ -106,13 +106,13 @@ router.get('/detail',(req,res)=>{
 	.findOne(query,"-__v -createdAt -updatedAt")
 	.then(ad=>{
 		res.json({
-			code:0,
+			code:1,
 			data:ad
 		})
 	})
 	.catch(e=>{
 		res.json({
-			code:1,
+			code:0,
 			message:'获取广告详情失败'
 		})
 	})
@@ -142,14 +142,14 @@ router.post("/",(req,res)=>{
 	.then((ad)=>{
 		if(ad){
 			res.json({
-				code:0,
+				code:1,
 				message:'新增广告成功'
 			})
 		}
 	})
 	.catch((e)=>{
  		res.json({
- 			code:1,
+ 			code:0,
  			message:"新增广告失败,服务器端错误"
  		})
 	})
@@ -168,13 +168,13 @@ router.put("/",(req,res)=>{
 	.update({_id:id},update)
 	.then((raw)=>{
 		res.json({
-			code:0,
+			code:1,
 			message:'更新广告成功'
 		})
 	})
 	.catch((e)=>{
  		res.json({
- 			code:1,
+ 			code:0,
  			message:"更新广告失败,服务器端错误"
  		})
 	})
@@ -191,7 +191,7 @@ router.put("/order",(req,res)=>{
 			.getPaginationAds(page,{})
 			.then((result)=>{
 				res.json({
-					code:0,
+					code:1,
 					data:{
 						current:result.current,
 						total:result.total,
@@ -202,7 +202,7 @@ router.put("/order",(req,res)=>{
 			})					
 		}else{
 	 		res.json({
-	 			code:1,
+	 			code:0,
 	 			message:"更新排序失败,数据操作失败"
 	 		})					
 		}
@@ -219,7 +219,7 @@ router.put("/isShow",(req,res)=>{
 			.getPaginationAds(page,{})
 			.then((result)=>{
 				res.json({
-					code:0,
+					code:1,
 					message:'更新成功',
 					data:{
 						current:result.current,
@@ -231,7 +231,7 @@ router.put("/isShow",(req,res)=>{
 			})								
 		}else{
 			res.json({
-				code:1,
+				code:0,
 				message:'更新失败'
 			})							
 		}

@@ -85,7 +85,7 @@ class ProductSave extends Component {
 			            }],
 			            initialValue:name
 			          })(
-			            <Input placeholder="广告名称" style={{width:400}} />
+			            <Input placeholder="广告名称" style={{width:400}} autoComplete="off" />
 			          )}
 			        </Form.Item>
 			        <Form.Item
@@ -98,7 +98,7 @@ class ProductSave extends Component {
 			            }],
 			            initialValue:link
 			          })(
-			            <Input placeholder="广告地址" style={{width:400}} />
+			            <Input placeholder="广告地址" style={{width:400}} autoComplete="off" />
 			          )}
 			        </Form.Item>                    
                     <Form.Item
