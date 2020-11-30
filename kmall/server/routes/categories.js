@@ -7,7 +7,7 @@ const router = Router();
 
 //获取分类数组数据
 router.get("/homeCategories",(req,res)=>{
-	CategoryModel.find({level:1,isShow:0},"-createdAt -updatedAt -__v -mobileName -pid")
+	CategoryModel.find({level:1,isShow:1},"-createdAt -updatedAt -__v -mobileName -pid")
 	.sort({order:-1,_id:-1})
 	.then((categories)=>{
 		res.json({

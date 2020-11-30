@@ -17,6 +17,7 @@ import Home from 'pages/home';
 import User from 'pages/user';
 import Category from 'pages/category';
 import Product from 'pages/product';
+import Ad from 'pages/ad';
 import Err from 'common/err';//引入路由访问无效页面组件
 import { getUsername } from 'util';//获取用户名(getUsername要return)
 
@@ -46,6 +47,7 @@ class App extends Component {
                         <ProtectRoute path="/user" component={User} />
                         <ProtectRoute path="/category" component={Category} />
                         <ProtectRoute path="/product" component={Product} />
+                        <ProtectRoute path="/ad" component={Ad} />
                         <Route component={Err} />{/* 不加路径是代表所有，所以也包括主页路径/ */}
                     </Switch>
                 </div>
