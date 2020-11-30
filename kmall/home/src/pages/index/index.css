@@ -25,7 +25,7 @@
     margin-right: 5px;
 }
 .categories .keyowrd-item .link:hover{
-    color: #f21;
+    color: #ff0036;
 }
 
 
@@ -50,8 +50,8 @@
     margin-bottom: 15px;
 }
 .floor-box:nth-child(odd) .floor-title{
-    color: #f21;
-    border-bottom: 1px solid #f21;
+    color: #ff0036;
+    border-bottom: 1px solid #ff0036;
 }
 .floor-box:nth-child(even) .floor-title{
     color: #69A88F;

@@ -4,7 +4,8 @@ var api_config = {
     logout:['/sessions/users','delete'],
     register:['users','post'],
     checkUsername:['users/checkUsername','get'],
-    getUseInfo:['sessions/users','get']
+    getUseInfo:['sessions/users','get'],
+    loadHomeCategory:['categories/homeCategories','get']
 }
 
 module.exports = api_config;

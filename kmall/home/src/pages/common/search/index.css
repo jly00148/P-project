@@ -1,5 +1,5 @@
 .logo-text{
-    color: #f21;
+    color: #ff0036;
     text-decoration: none;
     font-size: 30px;
     font-weight: bold;
@@ -10,7 +10,7 @@
     padding: 18px 0;
     box-sizing: border-box;
     margin-bottom: 30px;
-    border-bottom: 1px solid #f21;
+    border-bottom: 1px solid #ff0036;
 }
 .logo{
     float: left;
@@ -23,7 +23,7 @@
     width: 400px;
     margin-left: 150px;
     outline: none;
-    border: 2px solid #f21;
+    border: 2px solid #ff0036;
     height: 38px;
     padding-left: 10px;
     font-size: 14px;
@@ -34,4 +34,5 @@
     height: 42px;
     line-height: 42px;
     float: left;
+    background-color: #ff0036;
 }
