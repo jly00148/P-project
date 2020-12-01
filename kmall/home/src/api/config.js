@@ -6,7 +6,8 @@ var api_config = {
     checkUsername:['users/checkUsername','get'],
     getUseInfo:['sessions/users','get'],
     loadHomeCategory:['categories/homeCategories','get'],
-    getPositionAds:['ads/positionAds','get']
+    getPositionAds:['ads/positionAds','get'],
+    getFloor:['floors','get']
 }
 
 module.exports = api_config;

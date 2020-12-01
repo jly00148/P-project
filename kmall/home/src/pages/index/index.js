@@ -7,15 +7,19 @@ require('pages/common/footer')
 var hogan = require('hogan.js')//commonJs引入
 var api = require('api')
 var categoriesTpl = require('./categoriesTpl.tpl')
-var swiperTpl = require('./swiperTpl.tpl')
+var swipersTpl = require('./swiperTpl.tpl')
+var floorsTpl = require('./floorsTpl.tpl')
 var _util = require('util')
 
 
 var page = {
     init:function(){
         this.loadHomeCategory(),
-        this.swiper()
+        this.loadSwiper(),
+        this.loadFloor()
     },
+
+    //轮播图左侧
     loadHomeCategory:function(){
         api.loadHomeCategory({
             success:function(categories){
@@ -24,12 +28,12 @@ var page = {
             }
         })
     },
-    swiper:function(){
- 
 
+    //轮播图
+    loadSwiper:function(){
         api.getPositionAds({
           success:function(ads){
-            var html = _util.render(swiperTpl,{ads:ads},hogan);
+            var html = _util.render(swipersTpl,{ads:ads},hogan);
               $('.swiper-container .swiper-wrapper').html(html)
               var mySwiper = new Swiper ('.swiper-container', {
                 autoplay:true,//等同于以下设置
@@ -57,6 +61,16 @@ var page = {
         })
 
         
+    },
+
+    //楼层
+    loadFloor:function(){
+      api.getFloor({
+        success:function(floors){
+            var html = _util.render(floorsTpl,{floors:floors},hogan)
+            $('.floor-box').html(html)
+        }
+      })
     }
 }
 

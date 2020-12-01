@@ -1,9 +1,3 @@
-/*
-* @Author: Tom
-* @Date:   2018-08-06 09:23:30
-* @Last Modified by:   TomChen
-* @Last Modified time: 2019-08-22 22:19:25
-*/
 const Router = require('express').Router;
 const AdModel = require('../models/ad.js');
 
