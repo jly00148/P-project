@@ -5,7 +5,8 @@ var api_config = {
     register:['users','post'],
     checkUsername:['users/checkUsername','get'],
     getUseInfo:['sessions/users','get'],
-    loadHomeCategory:['categories/homeCategories','get']
+    loadHomeCategory:['categories/homeCategories','get'],
+    getPositionAds:['ads/positionAds','get']
 }
 
 module.exports = api_config;

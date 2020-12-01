@@ -4,7 +4,7 @@
 .categories{
     float: left;
     width: 240px;
-    height: 440px;
+    height: 460px;
     padding: 20px 0px;
     background: #999;
     opacity: 0.7;
@@ -30,7 +30,7 @@
 
 
 .focus .swiper-container{
-    height: 440px;
+    height: 460px;
 }
 .focus .swiper-container .swiper-pagination-bullet{
     width: 20px;

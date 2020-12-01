@@ -131,7 +131,7 @@ class CategoryList extends Component {
             }
             />
           }            
-        }
+        },
       ];
 
       const dataSource = list.map(list=>{
