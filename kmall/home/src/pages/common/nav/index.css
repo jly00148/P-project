@@ -1,11 +1,20 @@
 li{
     list-style: none;
 }
+.nav-box{
+    overflow: hidden;
+}
 .nav{
+    margin-bottom: 34px;
+    width: 1863px;
     height: 33px;
     line-height: 33px;
     background-color: #f3f3f3;
     border-bottom: 1px solid #e5e5e5;
+    position:fixed;
+    margin-left: 50%;
+    left: -931.5px;
+    z-index: 999;
 }
 .user-info{
     float: left;

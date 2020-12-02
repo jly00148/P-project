@@ -5,6 +5,13 @@
     font-weight: bold;
 }
 .search-box{
+    opacity: 0.8;
+    width: 1863px;
+    margin-left: 50%;
+    left: -931.5px;
+    position:fixed;
+    z-index: 999;
+    margin-top: 34px;
     background-color: #fff;
     height: 80px;
     padding: 18px 0;
