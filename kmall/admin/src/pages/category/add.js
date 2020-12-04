@@ -44,7 +44,7 @@ class CategoryAdd extends Component {
                 >
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>首页</Breadcrumb.Item>
-                        <Breadcrumb.Item>用户管理</Breadcrumb.Item>
+                        <Breadcrumb.Item>分类管理</Breadcrumb.Item>
                         <Breadcrumb.Item>添加分类</Breadcrumb.Item>
                     </Breadcrumb>
                     <div className="container">

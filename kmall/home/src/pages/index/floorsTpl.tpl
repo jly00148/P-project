@@ -7,7 +7,7 @@
                 <a href="./detail.html?productId={{_id}}">
                     <img class="floor-img" src="{{mainImage}}" alt="{{name}}" />
                     <p class="floor-text text-ellipsis">{{name}}</p>
-                    <p class="floor-price">{{price}}</p>
+                    <p class="floor-price">¥{{price}}</p>
                 </a>
             </li>
             {{/products}}

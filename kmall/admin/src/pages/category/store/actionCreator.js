@@ -59,10 +59,9 @@ export const getLevelCategories = (level)=>{
 export const getCategoriesListAction = (page)=>{
     return (dispatch,getState)=>{
         dispatch(getLoadingReqestStartAction())
-        api.getCategoriesList(page)
+        api.getCategoriesList({page:page})
         .then(result=>{
             if(result.code == 1){
-                // console.log(result)
                 dispatch(getSetPageAction(result.data))
             }else{
             message.error('获取首页数据失败，请稍后再试！');
@@ -85,7 +84,7 @@ export const handleUpdateNameAction = (name,id)=>{
         dispatch(getLoadingReqestStartAction())
         api.updateCategoriesList({name,id,current})
         .then(result=>{
-            if(result.code == 10){
+            if(result.code == 1){
                 message.success('更新分类名称成功',2);
             }else{
                 message.error('获取首页数据失败，请稍后再试！');
@@ -108,7 +107,7 @@ export const handleUpdateMobileNameAction = (mobileName,id)=>{
         dispatch(getLoadingReqestStartAction())
         api.updateCategoriesMobileList({mobileName,id,current})
         .then(result=>{
-            if(result.code == 10){
+            if(result.code == 1){
                 message.success('更新手机分类名称成功',2);
             }else{
                 message.error('获取首页数据失败，请稍后再试！');
@@ -137,7 +136,7 @@ export const handleUpdateOrderAction = (newOrder,id)=>{
             }
             )
         .then(result=>{
-            if(result.code == 10){
+            if(result.code == 1){
                 message.success('更新排序成功',2,function(){
                     window.location.href="/category"
                 });
@@ -167,7 +166,7 @@ export const handleIsShowAction = (checked,id)=>{
             }
             )
         .then(result=>{
-            if(result.code == 10){
+            if(result.code == 1){
                 dispatch(getSetPageAction(result.data))
             }else{
                 message.error('获取排序数据失败，请稍后再试！');

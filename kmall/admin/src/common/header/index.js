@@ -16,7 +16,7 @@ class AdminHeader extends Component {
     handleLogout(){
         api.logout('')
         .then(result=>{
-            if(result.code == 0){
+            if(result.code == 1){
                 removeUsername();
                 window.location.href = '/login';
             }

@@ -8,28 +8,14 @@ const router = Router();
 //用户登录
 router.post("/users",(req,res)=>{
 	const { username,password,role} = req.body
-	
 	let isAdmin = false
 	if(role == 'admin'){
 		isAdmin = true
 	}
-
 	UserModel
 	.findOne({username:username,password:hmac(password),isAdmin:isAdmin})
 	.then((user)=>{
-		if(user){
-			 req.session.userInfo = {
-			 	_id:user._id,
-			 	username:username,
-			 	isAdmin:isAdmin
-			 }
-			 res.json({
-				code:1,
-			 	data:{
-			 		username:username
-			 	}
-			 });
-		}else{
+		if(!user){
 			res.json({
 				code:0,
 			 	message:"用户名和密码错误",
@@ -37,6 +23,18 @@ router.post("/users",(req,res)=>{
 			 		username:username
 			 	}
 			 })
+		}else{
+			 req.session.userInfo = {
+				_id:user._id,
+				username:username,
+				isAdmin:isAdmin
+			}
+			res.json({
+			   code:1,
+				data:{
+					username:username
+				}
+			})			 
 		}
 	})
 })

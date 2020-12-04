@@ -168,7 +168,7 @@ router.put("/name",(req,res)=>{
 	.then((cate)=>{
 		if(cate){
 	 		res.json({
-	 			code:11,
+	 			code:0,
 	 			message:"更新分类失败,分类已存在"
 	 		})
 		}else{
@@ -180,7 +180,7 @@ router.put("/name",(req,res)=>{
 					.getPaginationCategories(page)
 					.then((result)=>{
 						res.json({
-							code:10,
+							code:1,
 							data:{
 								current:result.current,
 								total:result.total,
@@ -192,14 +192,14 @@ router.put("/name",(req,res)=>{
 					})					
 				}else{
 			 		res.json({
-			 			code:11,
+			 			code:0,
 			 			message:"更新分类失败,数据操作失败"
 			 		})					
 				}
 			})
 			.catch((e)=>{
 		 		res.json({
-		 			code:11,
+		 			code:0,
 		 			message:"添加分类失败,服务器端错误"
 		 		})
 			})
@@ -216,7 +216,7 @@ router.put("/mobileName",(req,res)=>{
 	.then((cate)=>{
 		if(cate){
 	 		res.json({
-	 			code:11,
+	 			code:0,
 	 			message:"更新分类失败,分类已存在"
 	 		})
 		}else{
@@ -228,7 +228,7 @@ router.put("/mobileName",(req,res)=>{
 					.getPaginationCategories(page)
 					.then((result)=>{
 						res.json({
-							code:10,
+							code:1,
 							data:{
 								current:result.current,
 								total:result.total,
@@ -239,14 +239,14 @@ router.put("/mobileName",(req,res)=>{
 					})					
 				}else{
 			 		res.json({
-			 			code:11,
+			 			code:0,
 			 			message:"更新分类失败,数据操作失败"
 			 		})					
 				}
 			})
 			.catch((e)=>{
 		 		res.json({
-		 			code:11,
+		 			code:0,
 		 			message:"添加分类失败,服务器端错误"
 		 		})
 			})
@@ -266,7 +266,7 @@ router.put("/order",(req,res)=>{
 			.getPaginationCategories(page)
 			.then((result)=>{
 				res.json({
-					code:10,
+					code:1,
 					data:{
 						current:result.current,
 						total:result.total,
@@ -277,7 +277,7 @@ router.put("/order",(req,res)=>{
 			})					
 		}else{
 	 		res.json({
-	 			code:11,
+	 			code:0,
 	 			message:"更新排序失败,数据操作失败"
 	 		})					
 		}
@@ -296,7 +296,7 @@ router.put("/isShow",(req,res)=>{
 			.getPaginationCategories(page)
 			.then((result)=>{
 				res.json({
-					code:10,
+					code:1,
 					data:{
 						current:result.current,
 						total:result.total,
@@ -307,7 +307,7 @@ router.put("/isShow",(req,res)=>{
 			})					
 		}else{
 	 		res.json({
-	 			code:11,
+	 			code:0,
 	 			message:"更新排序失败,数据操作失败"
 	 		})					
 		}

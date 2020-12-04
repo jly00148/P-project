@@ -37,6 +37,7 @@ class NormalLoginForm extends Component {
                   ],
               })(
                 <Input
+                  autoComplete="off"
                   prefix={<Icon type="user" 
                   style={{ color: 'rgba(0,0,0,.25)' }} 
                   />}
@@ -61,7 +62,7 @@ class NormalLoginForm extends Component {
                   />}
                   type="password"
                   placeholder="密码"
-                  autoComplete="new-password"
+                  autoComplete="off"
                 />,
               )}
             </Form.Item>

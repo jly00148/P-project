@@ -43,7 +43,7 @@ async function getPaginationProducts(req){
 
 	let sort={order:1,_id:-1};
 
-	if(orderBy == 'price_asc'){
+	if(orderBy == 'price_asc'){//价格升序
 		sort = {price:1}
 	}else if(orderBy == 'price_desc'){
 		sort = {price:-1}

@@ -13,16 +13,14 @@ const getLoginReqestDoneAction = ()=>({
 export const getLoginAction = (values)=>{
     return (dispatch,getState)=>{
         dispatch(getLoginReqestStartAction())//把loading值变为true
-        values.role = 'admin';
+        values.role = values.username;
         api.login(values)
         .then(result=>{
-            const data  = result.data;
             if(result.code == 1){
                 //2.跳转到后台首页
                 window.location.href = "/";
                 //1.在前端保存登录信息
                 saveUsername(result.data.username);
-
             }else{
                 message.error(result.message);
                 dispatch(getLoginReqestDoneAction())//把loading值变为false

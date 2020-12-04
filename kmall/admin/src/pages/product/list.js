@@ -119,8 +119,8 @@ class ProductList extends Component {
           width:'20%',
           render:(isHot,record)=>{
             return <Switch
-              checkedChildren="热卖"
-              unCheckedChildren="滞销"
+              checkedChildren="是"
+              unCheckedChildren="否"
               checked={isHot == '0' ? false : true }
               onChange={
                 (checked)=>{

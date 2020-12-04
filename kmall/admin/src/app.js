@@ -43,7 +43,7 @@ class App extends Component {
                 <div className="App">
                     <Switch>{/* 加Switch的目的是匹配/就不往下匹配了，不然无效页面后去访问主页会出现err页面提示信息 */}  
                         <ProtectRoute exact path="/" component={Home} />
-                        <LoginRoute path="/login" component={Login} />
+                        <LoginRoute exact path="/login" component={Login} />
                         <ProtectRoute path="/user" component={User} />
                         <ProtectRoute path="/category" component={Category} />
                         <ProtectRoute path="/product" component={Product} />
