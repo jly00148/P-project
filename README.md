@@ -1,2 +1,1 @@
-# P-project
-Project practice
+My projects
