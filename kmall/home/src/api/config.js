@@ -8,7 +8,8 @@ var api_config = {
     loadHomeCategory:['categories/homeCategories','get'],
     getPositionAds:['ads/positionAds','get'],
     getFloor:['floors','get'],
-    getProductsList:['products/list','get']
+    getProductsList:['products/list','get'],
+    getProductsDetail:['products/detail','get']
 }
 
 module.exports = api_config;
