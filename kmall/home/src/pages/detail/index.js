@@ -15,13 +15,30 @@ var page = {
         this.bindEvent()
     },
     bindEvent:function(){
-        var _this = this
-        //图片切换(事件代理)
+        var _this = this;
+        //图片切换(事件代理),下同
         this.$elem.on('click','.product-small-img-item',function(){
             var $this = $(this)
+
             //小图片样式切换
             $this.addClass('active')
             .siblings('.product-small-img-item').removeClass('active')
+
+            //大图跟随小图切换
+            var imgSrc = $this.find('img').attr('src')
+            $('.product-main-img img').attr('src',imgSrc)
+        })
+
+        //处理购买数量
+        this.$elem.on('click','.count-btn',function(){
+            var $this = $(this)
+            var $input = $('.count-input')
+            var current = parseInt($input.val())
+            if($this.hasClass('plus')){
+                $input.val(current == _this.stock ?  _this.stock : current+1)
+            }else{
+                $input.val(current == 1 ? 1 : current-1)
+            }
         })
     },
     productsDetailParams:{
@@ -35,6 +52,7 @@ var page = {
             data:this.productsDetailParams,
             success:function(product){
                 if(product){
+                    _this.stock = product.stock;//处理购物数量上限和下限
                     product.images = product.images.split(',')
                     product.activeImage = product.images[0]
                     var html = _util.render(detailTpl,product,hogan)
