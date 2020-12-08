@@ -27,4 +27,10 @@ module.exports = {
         var html = template.render(data)
         return html
     },
+    goResult:function(type){
+        window.location.href = './result.html?type='+type
+    },
+    showConfirm:function(msg){
+        return window.confirm(msg)
+    }
 }

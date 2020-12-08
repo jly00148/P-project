@@ -5,6 +5,7 @@ var page = {
     init:function(){
         this.loadUsername()
         this.bindEvent()
+        this.getCartsCount()
     },
     bindEvent:function(){
         $('#logout').on('click',function(){
@@ -36,6 +37,21 @@ var page = {
                 .find('.username')
                 .text(data.username)
             },
+        })
+    },
+    getCartsCount:function(){
+        var $cartNum = $('.nav-list .cart-num')
+        api.getCartsCount({
+            success:function(count){
+                $('.vacant-box').hide()
+                $('.cart-box1').show()
+                $cartNum.text(count || 0)
+            },
+            error:function(){
+                $('.cart-box1').show()
+                $('.vacant-box').hide()
+                $cartNum.text(0)
+            }
         })
     }
 }

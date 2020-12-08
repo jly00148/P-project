@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// const ProductModel = require('./product.js');
+const ProductModel = require('./product.js');
 const CartItemSchema = new mongoose.Schema({
     product:{
         type:mongoose.Schema.Types.ObjectId,
@@ -82,6 +82,101 @@ const UserSchema = new mongoose.Schema({
   timestamps:true
 });
 
+UserSchema.methods.getCart = function(){
+    return new Promise((resolve,reject)=>{
+        //如果没有购物车信息返回空对象
+        if(!this.cart){
+            resolve({
+                cartList:[]
+            });
+        }
+        //获取购物车项目的promise
+        let getCartItems = this.cart.cartList.map(cartItem=>{
+                return  ProductModel
+                        .findById(cartItem.product,"name price stock mainImage _id")
+                        .then(product=>{
+                            cartItem.product = product;
+                            cartItem.totalPrice = product.price * cartItem.count
+                            cartItem.checked = cartItem
+                            return cartItem
+                        })
+        })
+        
+        Promise.all(getCartItems)
+        .then(cartItems=>{
+            
+            //计算总价格
+            let totalCartPrice = 0;
+            cartItems.forEach(item=>{
+                if(item.checked){
+                    totalCartPrice += item.totalPrice
+                }
+            })
+            this.cart.totalCartPrice = totalCartPrice;
+
+            //设置新的购物车列表
+            this.cart.cartList = cartItems;
+            
+            //判断是否有没有选中的项目
+            let hasNotCheckedItem = cartItems.find((item)=>{
+                return item.checked == false;
+            })
+
+            if(hasNotCheckedItem){
+                this.cart.allChecked = false;
+            }else{
+                this.cart.allChecked = true;
+            }
+
+            resolve(this.cart);
+        })
+
+    });
+}
+
+//获取当前用户的订单商品列表
+UserSchema.methods.getOrderProductList = function(){
+    return new Promise((resolve,reject)=>{
+        //如果没有购物车信息返回空对象
+        if(!this.cart){
+            resolve({
+                cartList:[]
+            });
+        }
+        let checkedCartList = this.cart.cartList.filter(cartItem=>{
+          return cartItem.checked;
+        })
+        //获取购物车项目的promise
+        let getCartItems = checkedCartList.map(cartItem=>{
+                return  ProductModel
+                        .findById(cartItem.product,"name price stock mainImage _id")
+                        .then(product=>{
+                            cartItem.product = product;
+                            cartItem.totalPrice = product.price * cartItem.count
+                            return cartItem
+                        })
+        })
+        
+        Promise.all(getCartItems)
+        .then(cartItems=>{
+            
+            //计算总价格
+            let totalCartPrice = 0;
+            cartItems.forEach(item=>{
+                if(item.checked){
+                    totalCartPrice += item.totalPrice
+                }
+            })
+            this.cart.totalCartPrice = totalCartPrice;
+
+            //设置新的购物车列表
+            this.cart.cartList = cartItems;
+            
+            resolve(this.cart);
+        })
+
+    });
+}
 
 const UserModel = mongoose.model('User', UserSchema);
 

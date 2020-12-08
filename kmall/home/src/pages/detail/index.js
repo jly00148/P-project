@@ -40,6 +40,19 @@ var page = {
                 $input.val(current == 1 ? 1 : current-1)
             }
         })
+
+        //添加购物车
+        this.$elem.on('click','.add-cart-btn',function(){
+            api.addCarts({
+                data:{
+                    productId:_this.productsDetailParams.id,
+                    count:$('.count-input').val()
+                },
+                success:function(){
+                    _util.goResult('addCart')
+                }
+            })
+        })
     },
     productsDetailParams:{
         id:_util.getParamFromUrl('productId'),
