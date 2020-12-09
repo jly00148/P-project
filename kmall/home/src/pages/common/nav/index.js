@@ -58,4 +58,5 @@ var page = {
 
 
 
-module.exports=page.init()
+page.init()
+module.exports=page.getCartsCount//把购物车显示的数值函数到出去

@@ -1,5 +1,5 @@
 require('./index.css')
-require('pages/common/nav')
+var _nav = require('pages/common/nav')
 require('pages/common/search')
 require('pages/common/footer')
 require('util/pagination')
@@ -32,6 +32,7 @@ var page = {
         })
     },
     renderCart:function(cart){
+        _nav()//当点击商品数量增加或者较少与购物车的数数值保持一致
         if(cart.cartList.length > 0){
             var html = _util.render(cartTpl,cart,hogan)
             this.$elem.html(html)
@@ -147,6 +148,44 @@ var page = {
                     }
                 })
             }
+        })    
+        
+        //5.处理商品数量
+        this.$elem.on('click','.count-btn',function(){
+            var $this = $(this)
+            var productId = $this.parents('.product-item').data('product-id')
+            var $input = $this.siblings('.count-input')
+            var current = parseInt($input.val())
+            var stock = $input.data('stock')
+            var count = current
+            //减少
+            if($this.hasClass('minus')){
+                if(current == 1){
+                    _util.showErrorMessage("商品最少选择一件")
+                    return
+                }
+                count = current - 1
+            }
+            //增加
+            else if($this.hasClass('plus')){
+                if(current == stock){
+                    _util.showErrorMsg("商品已经达到上限了")
+                    return                    
+                }
+                count = current + 1
+            }
+            api.updateCartsCounts({
+                data:{
+                    productId:productId,
+                    count:count,
+                },
+                success:function(cart){
+                    _this.renderCart(cart)
+                },
+                error:function(){
+                    _this.showErrorMessage()
+                }                
+            })
         })        
     },
     

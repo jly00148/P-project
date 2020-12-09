@@ -14,7 +14,8 @@ var api_config = {
     getCartsCount:['/carts/count','get'],
     getCarts:['/carts','get'],
     updateCartsChoices:['/carts/choices','put'],
-    deleteCarts:['/carts','delete']
+    deleteCarts:['/carts','delete'],
+    updateCartsCounts:['/carts/counts','put']
 
 }
 
