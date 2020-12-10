@@ -37,7 +37,8 @@ var page = {
             var html = _util.render(cartTpl,cart,hogan)
             this.$elem.html(html)
         }else{
-            this.$elem.html('<p class="empty-message">您的购物车还没有商品!</p>') 
+            this.$elem
+            .html('<p class="empty-message">购物车空空如也~</p><img class="none" src="http://127.0.0.1:3000/none.png" />')
         }
     },
     showErrorPage:function(){

@@ -74,6 +74,6 @@
     <li class="product-submit">
         <span class="total-price-text">总价:</span>
         <span class="total-price">￥{{totalCartPrice}}</span>
-        <a href="javascript:;" class="btn btn-submit">去结算</a>
+        <a href="/order-confirm.html" class="btn btn-submit">去结算</a>
     </li>
 </ul>

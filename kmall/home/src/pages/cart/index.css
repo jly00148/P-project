@@ -68,6 +68,9 @@
 .cart{
     margin-top: 120px;
 }
+.cart .cart-box{
+    height: 800px;
+}
 .cart .cart-box .product-select{
     width: 6%;
 }
@@ -129,4 +132,11 @@
 }
 .total-price{
     color: #ff0036;
+}
+.none{
+    display: block;
+    width: 400px;
+    height: 400px;
+    display:table-cell;
+    margin: 0 auto;
 }

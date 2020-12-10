@@ -129,8 +129,6 @@ body{
 }
 .empty-message{
     text-align: center;
-    padding-top: 100px;
-    height: 300px;
     font-size: 30px;
-    color: #0af;
+    color: #ff0036;
 }

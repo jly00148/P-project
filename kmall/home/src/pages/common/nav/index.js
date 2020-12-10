@@ -18,6 +18,7 @@ var page = {
                     .hide()
                     .find('.username')
                     .text('')
+                    window.location.reload()
                 },
                 error:function(){
                     _util.showErrorMessage('网络错误，请稍后再试')

@@ -25,6 +25,7 @@ module.exports = {
         'user-update-password':'./src/pages/user-update-password/index.js',
         'detail':'./src/pages/detail/index.js',
         'cart':'./src/pages/cart/index.js',
+        'order-confirm':'./src/pages/order-confirm/index.js',
     },
     //出口
     output: {
@@ -98,6 +99,7 @@ module.exports = {
         new htmlWebpackPlugin(getHtmlConfig('user-update-password','修改密码')),
         new htmlWebpackPlugin(getHtmlConfig('detail','商品详情')),
         new htmlWebpackPlugin(getHtmlConfig('cart','订单详情')),
+        new htmlWebpackPlugin(getHtmlConfig('order-confirm','订单确认')),
         new MiniCssExtractPlugin({
             filename:'css/[name]-[hash]-bundle.css'//将打包的css放入dist文件夹下的css文件里
         })
