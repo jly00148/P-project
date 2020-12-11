@@ -17,8 +17,9 @@ var api_config = {
     deleteCarts:['/carts','delete'],
     updateCartsCounts:['/carts/counts','put'],
     getOrdersProducts:['/orders/products','get'],
-
-
+    addShippings:['/shippings','post'],
+    getShippingsList:['/shippings/list','get'],
+    deleteShippings:['/shippings','delete'], 
 }
 
 module.exports = api_config;

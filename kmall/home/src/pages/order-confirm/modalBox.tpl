@@ -32,7 +32,7 @@
                         <label for="" class="form-lable">
                             <i class="fa fa-map-marker"></i>
                         </label>
-                        <input type="text" class="form-content" name="address" placeholder="请输入详细地址到门牌号" >
+                        <input type="text" class="form-content" name="address" placeholder="请输入详细地址到/乡政/街道/门牌号" >
                     </div>
                     <div class="form-item">
                         <label for="" class="form-lable">

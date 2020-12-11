@@ -8,7 +8,7 @@ var _util = require('util')
 var api = require('api')
 
 var productBoxTpl =  require('./productBox.tpl')
-var shippingBoxTpl =  require('./shippingBox.tpl')
+var shippingsTpl =  require('./shippingBox.tpl')
 
 
 var page  = {
@@ -32,12 +32,31 @@ var page  = {
 
     },
     loadShippingList:function(){
-        var html = _util.render(shippingBoxTpl,{},hogan)
-        this.$shippingBox.html(html)
+        var _this = this;
+        api.getShippingsList({
+            success:function(shippings){
+                var html = _util.render(shippingsTpl,{shippings:shippings},hogan)
+                _this.$shippingBox.html(html)
+            }
+        })
     },
     bindEvent:function(){
         this.$shippingBox.on('click','.shipping-add',function(){
             modal.show()//点击显示弹出地址
+        })
+
+        //删除个人地址和信息
+        this.$shippingBox.on('click','.shipping-delete',function(){
+            var $this = $(this)
+            var shippingId = $this.parents('.shipping-item').data('shipping-id');
+            api.deleteShippings({
+                data:{
+                    id:shippingId
+                },
+                success:function(shippings){
+                    _util.goResult('delete')
+                }
+            })
         })
     }
 }

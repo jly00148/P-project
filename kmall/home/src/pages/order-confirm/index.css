@@ -59,7 +59,7 @@
     line-height: 60px;
     font-size: 20px;
     font-weight: bold;
-    color: #f21;
+    color: #ff0036;
     margin-right: 20px;
 }
 .product-footer .product-submit .total-price-text{
@@ -94,29 +94,33 @@
     cursor: pointer;
 }
 .shipping-item.active{
-    border-color: #f21;
+    border-color: #ff0036;
 }
 .shipping-title{
     height: 30px;
     line-height: 30px;
-    border-bottom: 1px dashed #ddd;
+    border-bottom: 1px dashed #999;
     font-size: 16px;
     color: #666;
     overflow: hidden;
     text-overflow: ellipsis;    
 }
 .shipping-detail{
-    height: 60px;
-    line-height: 30px;
-    margin-top: 10px;
+    height: 25px;
     font-size: 14px;
     color: #666;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 25px;
 }
 .shipping-footer{
     text-align: right;
     visibility: hidden;
+}
+.shipping-item{
+    width: 300px;
+    height: 140px;
+    box-sizing: border-box;
 }
 .shipping-item:hover{
     background-color: #fafafa;
@@ -125,11 +129,13 @@
     visibility: visible;
 }
 .shipping-add{
-    height: 103px;
+    width: 300px;
+    height: 140px;
     padding-top: 25px;
     font-size: 30px;
     text-align: center;
     color: #eee;
+    box-sizing: border-box;
 }
 /*
 商品列表
