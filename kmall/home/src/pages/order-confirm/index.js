@@ -55,7 +55,9 @@ var page  = {
                     id:shippingId
                 },
                 success:function(shippings){
-                    _util.goResult('delete')
+                    if(shippings){
+                        _util.goResult('delete')
+                    }
                 }
             })
         })
@@ -74,6 +76,33 @@ var page  = {
                     modal.show(shipping)
                 },                
             })
+        })
+
+        //选中地址
+        this.$shippingBox.on('click','.shipping-item',function(){
+            var $this = $(this);
+            $this.addClass('active')
+            .siblings('.shipping-item').removeClass('active')
+        })
+
+        //去支付(生成订单)
+        this.$productBox.on('click','.btn-submit',function(){
+            var $shippingItem = $('.shipping-item')
+            if($shippingItem.hasClass('active')){
+                api.addOrders({
+                    data:{
+                        shippingId:$shippingItem.data('shipping-id')
+                    },
+                    success:function(order){
+                        window.location.href = "./payment/html?No="+order.orderNo
+                    },
+                    error:function(){
+                        _util.showErrorMsg(mag)
+                    }
+                })
+            }else{
+                alert('请选择地址后再支付！')
+            }
         })
     }
 }

@@ -20,7 +20,7 @@
                         <label for="" class="form-lable">
                             <i class="fa fa-user"></i>
                         </label>
-                        <input type="text" class="form-content" name="name" value="{{shipping.name}}" placeholder="请输入收货人姓名" >
+                        <input type="text" class="form-content" name="name"  autoComplete="off" value="{{shipping.name}}" placeholder="请输入收货人姓名" >
                     </div>
                     <div class="form-item city-item">
                         <label for="" class="form-lable">
@@ -36,7 +36,7 @@
                         <label for="" class="form-lable">
                             <i class="fa fa-map-marker"></i>
                         </label>
-                        <input type="text" class="form-content" name="address" value="{{shipping.address}}" placeholder="请输入详细地址到/乡政/街道/门牌号" >
+                        <input type="text" class="form-content" name="address" value="{{shipping.address}}" placeholder="请输入详细地址到/乡政/街道/门牌号" autoComplete="off">
                     </div>
                     <div class="form-item">
                         <label for="" class="form-lable">

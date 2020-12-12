@@ -21,6 +21,10 @@ var api_config = {
     getShippingsList:['/shippings/list','get'],
     deleteShippings:['/shippings','delete'], 
     getShippingsDetail:['/shippings/detail','get'],  
+    updateShippings:['/shippings','put'],
+    addOrders:['/orders','post'],
+
+
 }
 
 module.exports = api_config;

@@ -64,6 +64,7 @@ module.exports = {
         return html
     },
     submit:function(){
+        var _this = this;
       //1.触发数据
       var formData = {
         name:$.trim($('[name="name"]').val()),
@@ -100,13 +101,23 @@ module.exports = {
             formData.role = 'admin'
         }
 
-        api.addShippings({
+        var request =  api.addShippings;
+        var tip = 'addMessage';
+
+        if(_this.shipping){
+            request = api.updateShippings;
+            tip = 'update'
+            formData.id = _this.shipping._id
+        }
+
+        request({
             method:'post',
             data:formData,
             dataType:'json',
             success:function(result){
+                console.log(result)
                 if(result.length >0){
-                    _util.goResult('addMessage')
+                    _util.goResult(tip)
                 }
             },
             error:function(msg){

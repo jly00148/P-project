@@ -2,7 +2,7 @@
     <h2 class="panel-header">收件地址：</h2>
     <div class="pandel-body">
     {{#shippings}}
-        <div class="shipping-item active" data-shipping-id="{{_id}}">                       
+        <div class="shipping-item" data-shipping-id="{{_id}}">                       
             <h3 class="shipping-title">收件人：{{name}}</h3>
             <p class="shipping-detail">
                 收件地址：{{province}}{{address}}
