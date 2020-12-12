@@ -20,6 +20,7 @@ var api_config = {
     addShippings:['/shippings','post'],
     getShippingsList:['/shippings/list','get'],
     deleteShippings:['/shippings','delete'], 
+    getShippingsDetail:['/shippings/detail','get'],  
 }
 
 module.exports = api_config;

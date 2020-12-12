@@ -1,7 +1,12 @@
 <div class="modal close"><!--close是点击非地址面板处隐藏地址面板-->
     <div class="modal-container">
         <div class="modal-header">
-            <h2 class="modal-title">新增地址</h2>
+            {{#shipping._id}}
+                <h2 class="modal-title">编辑地址</h2>
+            {{/shipping._id}}
+            {{^shipping._id}}
+                <h2 class="modal-title">新增地址</h2>
+            {{/shipping._id}}
             <i class="fa fa-close close-icon close"></i>
         </div>
         <div class="modal-body">
@@ -15,14 +20,13 @@
                         <label for="" class="form-lable">
                             <i class="fa fa-user"></i>
                         </label>
-                        <input type="text" class="form-content" name="name" placeholder="请输入收货人姓名" >
+                        <input type="text" class="form-content" name="name" value="{{shipping.name}}" placeholder="请输入收货人姓名" >
                     </div>
                     <div class="form-item city-item">
                         <label for="" class="form-lable">
                             <i class="fa fa-building"></i>
                         </label>
-                        <select name="province" class="province-select">
-                            <option value="">请选择</option>
+                        <select name="province" class="province-select" id="province-select">
                         </select>
                         <select name="city" class="city-select">
                             <option value="">请选择</option>
@@ -32,23 +36,30 @@
                         <label for="" class="form-lable">
                             <i class="fa fa-map-marker"></i>
                         </label>
-                        <input type="text" class="form-content" name="address" placeholder="请输入详细地址到/乡政/街道/门牌号" >
+                        <input type="text" class="form-content" name="address" value="{{shipping.address}}" placeholder="请输入详细地址到/乡政/街道/门牌号" >
                     </div>
                     <div class="form-item">
                         <label for="" class="form-lable">
                             <i class="fa fa-phone"></i>
                         </label>
-                        <input type="text" class="form-content" name="phone" placeholder="请输入手机号" >
+                        <input type="text" class="form-content" name="phone" value="{{shipping.phone}}" placeholder="请输入手机号" >
                     </div>
                     <div class="form-item">
                         <label for="" class="form-lable">
                             <i class="fa fa-envelope"></i>
                         </label>
-                        <input type="text" class="form-content" name="zip" placeholder="请输入邮编,如100001" >
-                    </div>      
-                    <div class="btn-item">
-                        <a href="javascript:;" class="btn btn-submit" id="btn-submit">提交</a>
-                    </div>  
+                        <input type="text" class="form-content" name="zip" value="{{shipping.zip}}" placeholder="请输入邮编,如100001" >
+                    </div>
+                    {{#shipping._id}} 
+                        <div class="btn-item">
+                            <a href="javascript:;" class="btn btn-submit" id="btn-submit">修改</a>
+                        </div>  
+                    {{/shipping._id}}
+                   {{^shipping._id}}
+                        <div class="btn-item">
+                            <a href="javascript:;" class="btn btn-submit" id="btn-submit">添加</a>
+                        </div>  
+                    {{/shipping._id}}                    
                 </div>                              
             </div>
         </div>

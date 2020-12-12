@@ -1,11 +1,12 @@
-var api = require('api')
+var api = require('api');
 var hogan = require('hogan.js')
 var _util = require('util')
 var district = require('util/district');
 var modalBoxTpl = require('./modalBox.tpl')
 
 module.exports = {
-    show:function(){
+    show:function(shipping){
+        this.shipping = shipping;
         this.$elem = $('.modal-box')
         this.$shippingBox = $('.shipping-box')
         this.loadModal()
@@ -13,19 +14,29 @@ module.exports = {
         this.loadProvinceOptions()
     },
     loadModal:function(){
-        // citys.getProvinces()
-        // citys.getCities()
-        var html = _util.render(modalBoxTpl,{},hogan)
+        var html = _util.render(modalBoxTpl,{shipping:this.shipping},hogan)
         this.$elem.html(html)
+
     },
     hideModal:function(){
         this.$elem.empty()
     },
     //遍历后的HTML插入到父节点内
     loadProvinceOptions:function(){
-        var productHtml = this.loadProvince()
-        $('.city-item').find('.province-select').html(productHtml)
+        var provinceHtml = this.loadProvince()
+        $('.city-item').find('.province-select').html(provinceHtml)
 
+        if(this.shipping){  //编辑回填省份
+            $('.province-select')
+            .val(this.shipping.province)
+
+            $('.city-select').
+            html(this.editLoadCitys(this.shipping.province))//回填省份对应的所有城市
+            .val(this.shipping.city)//回填value值
+        }
+    },
+    editLoadCitys:function(city){
+        return this.editAndAdd(city)
     },
     loadCitysOptions:function(citys){
         $('.city-item').find('.city-select').html(citys)
@@ -39,8 +50,12 @@ module.exports = {
         }
         return html
     },
+
     //遍历省份内的城市
     loadCitys:function(city){
+        return this.editAndAdd(city)
+    },
+    editAndAdd:function(city){
         var citys = district.getCities(city)
         var html = '<option value="">请选择</option>'
         for(var i = 0;i<citys.length;i++){
@@ -48,7 +63,6 @@ module.exports = {
         }
         return html
     },
-
     submit:function(){
       //1.触发数据
       var formData = {
@@ -165,9 +179,8 @@ module.exports = {
         })
         $('input').on('keyup',function(ev){//光标必需在input框内才触发
             if(ev.keyCode == 13){
-                _this.submit()  
+                _this.submit()
             }
-
         })
     }
 }

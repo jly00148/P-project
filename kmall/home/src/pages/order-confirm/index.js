@@ -9,6 +9,7 @@ var api = require('api')
 
 var productBoxTpl =  require('./productBox.tpl')
 var shippingsTpl =  require('./shippingBox.tpl')
+const { get } = require('http')
 
 
 var page  = {
@@ -56,6 +57,22 @@ var page  = {
                 success:function(shippings){
                     _util.goResult('delete')
                 }
+            })
+        })
+
+        //编辑信息
+        this.$shippingBox.on('click','.shipping-edit',function(ev){
+            //阻止事件冒泡,防止点击时选中改地址
+            ev.stopPropagation()
+            var $this = $(this)
+            var shippingId = $this.parents('.shipping-item').data('shipping-id')
+            api.getShippingsDetail({
+                data:{
+                    id:shippingId
+                },
+                success:function(shipping){
+                    modal.show(shipping)
+                },                
             })
         })
     }
