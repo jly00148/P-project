@@ -94,7 +94,7 @@ var page  = {
                         shippingId:$shippingItem.data('shipping-id')
                     },
                     success:function(order){
-                        window.location.href = "./payment/html?No="+order.orderNo
+                        window.location.href = "./payment.html?No="+order.orderNo
                     },
                     error:function(){
                         _util.showErrorMsg(mag)

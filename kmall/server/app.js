@@ -81,6 +81,7 @@ app.use("/floors",require('./routes/floors.js'));
 app.use("/carts",require('./routes/carts.js'));
 app.use("/orders",require('./routes/orders.js'));
 app.use("/shippings",require('./routes/shippings.js'));
+app.use("/payments",require('./routes/payments.js'));
 
 app.listen(3000,()=>{
 	console.log('server is running at 127.0.0.1:3000')

@@ -1,0 +1,23 @@
+.payment-box{
+    height: 800px;
+    text-align: center;
+    margin-top: 114px;
+}
+.payment-title{
+    margin-top: 20px;
+    height: 40px;
+    line-height: 40px;
+    color:#666;
+    font-size: 16px;
+}
+.payment-tips{
+    height: 40px;
+    line-height: 40px;
+    color: #f21;
+    font-size: 16px;
+}
+.payment-qr{
+    width: 350px;
+    height: 350px;
+    border: 1px dotted #000;
+}

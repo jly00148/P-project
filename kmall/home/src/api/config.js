@@ -23,6 +23,8 @@ var api_config = {
     getShippingsDetail:['/shippings/detail','get'],  
     updateShippings:['/shippings','put'],
     addOrders:['/orders','post'],
+    getPayments:['/payments','get'],
+    getPaymentsStatus:['/payments/status','get']
 
 
 }
