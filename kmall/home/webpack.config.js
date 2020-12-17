@@ -28,6 +28,7 @@ module.exports = {
         'order-confirm':'./src/pages/order-confirm/index.js',
         'payment':'./src/pages/payment/index.js',
         'order-list':'./src/pages/order-list/index.js',
+        'order-detail':'./src/pages/order-detail/index.js',
     },
     //出口
     output: {
@@ -104,6 +105,7 @@ module.exports = {
         new htmlWebpackPlugin(getHtmlConfig('order-confirm','订单确认')),
         new htmlWebpackPlugin(getHtmlConfig('payment','订单支付')),
         new htmlWebpackPlugin(getHtmlConfig('order-list','订单列表')),
+        new htmlWebpackPlugin(getHtmlConfig('order-detail','订单详情')),
         new MiniCssExtractPlugin({
             filename:'css/[name]-[hash]-bundle.css'//将打包的css放入dist文件夹下的css文件里
         })

@@ -26,6 +26,7 @@ var api_config = {
     getPayments:['/payments','get'],
     getPaymentsStatus:['/payments/status','get'],
     getOrdersList:['/orders/list','get'],
+    getOrdersDetail:['/orders/detail','get'],
 
 
 
