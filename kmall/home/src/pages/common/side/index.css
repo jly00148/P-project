@@ -6,7 +6,6 @@
     margin-right: 20px;
     padding-top: 20px;
     box-sizing: border-box;
-    margin-top: 80px;
 
 }
 .side-item{
@@ -23,7 +22,6 @@
 }
 
 .side-content{
-    margin-top: 80px;
     float: left;
     width: 1000px;
     min-height: 600px;
