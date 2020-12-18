@@ -163,8 +163,10 @@ router.post('/',(req,res)=>{
 
 //更新订单状态
 router.put('/status',(req,res)=>{
+	console.log(req.userInfo)
 	const {orderNo,status} = req.body
 	const query = {orderNo:orderNo}
+	
 	//普通用户只能修改自己的订单
 	if(!req.userInfo.isAdmin){
 		query.user = req.userInfo._id
@@ -172,14 +174,14 @@ router.put('/status',(req,res)=>{
 	const update = {}
 
 	//权限检查
-	if(!req.userInfo.isAdmin && status == '20'){
+	if(status == '20'){
 		update.status = status
 		update.statusDesc = "取消"
 	}
-	else if(req.userInfo.isAdmin && status == '40'){
-		update.status = status
-		update.statusDesc = "已发货"
-	}
+	// else if(req.userInfo.isAdmin && status == '40'){
+	// 	update.status = status
+	// 	update.statusDesc = "已发货"
+	// }
 	//没有权限
 	else{
 		return res.json({

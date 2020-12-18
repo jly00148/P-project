@@ -27,9 +27,7 @@ var api_config = {
     getPaymentsStatus:['/payments/status','get'],
     getOrdersList:['/orders/list','get'],
     getOrdersDetail:['/orders/detail','get'],
-
-
-
+    updateOrdersStatus:['/orders/status','put']
 }
 
 module.exports = api_config;

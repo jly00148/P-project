@@ -13,6 +13,7 @@ var page = {
         this.$elem = $('.order-box');
         this.renderSide()
         this.loadOrderDetail()
+        this.bindEvent()
     },
     ordersDetailParams:{
         orderNo:_util.getParamFromUrl('orderNo') || '',
@@ -20,7 +21,7 @@ var page = {
     renderSide:function(){
         _side.render('order-list')
     },
-    loadOrderDetail:function(){
+    loadOrderDetail:function(order){
         var _this = this;
         api.getOrdersDetail({
             data:this.ordersDetailParams,
@@ -35,6 +36,27 @@ var page = {
             },
             error:function(){
                 _this.$elem.html('<p class="empty-message">手动更改可能拿不到数据</p>')
+            }
+        })
+    },
+    bindEvent:function(){
+        var _this = this;
+        this.$elem.on('click','.btn-cancel',function(){
+            if(_util.showConfirm('您确定要删除订单吗？')){
+                var $this = $(this);
+
+                api.updateOrdersStatus({
+                    data:{
+                        orderNo:$this.data('order-no'),
+                        status:20
+                    },
+                    success:function(order){
+                        _this.loadOrderDetail(order)
+                    },
+                    error:function(msg){
+                        _util.showErrorMessage(msg)
+                    }
+                })
             }
         })
     }
