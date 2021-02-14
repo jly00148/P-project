@@ -1,6 +1,7 @@
     <div class="product-intro clearfix">
         <div class="product-img">
             <div class="product-main-img">
+                <div class="mask"></div>
                 <img src="{{activeImage}}"  alt="" />
             </div>
             <ul class="product-small-img-list clearfix">
@@ -12,6 +13,9 @@
             </ul>
         </div>
         <div class="product-info">
+        <div class="big-img">
+                <img src="{{activeImage}}" class="bigImg" alt="" />
+        </div>
             <h2 class="product-name">{{name}}</h2>
             <p class="product-description">{{description}}</p>
             <div class="product-info-item product-price">

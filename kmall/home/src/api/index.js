@@ -34,7 +34,7 @@ const request = (options)=>{
                 options.success && options.success(result.data)
             }
             else if(result.code == 10){//没有权限
-                // window.location.href = '/user-login.html'
+                window.location.href = '/user-login.html'
             }                        
         },
         error:function(err){//服务器端错误

@@ -27,6 +27,7 @@ var page = {
             //大图跟随小图切换
             var imgSrc = $this.find('img').attr('src')
             $('.product-main-img img').attr('src',imgSrc)
+            $('.big-img img').attr('src',imgSrc)
         })
 
         //处理购买数量
@@ -53,6 +54,44 @@ var page = {
                 }
             })
         })
+
+        //处理放大镜(鼠标进入)
+        this.$elem.on('mousemove','.product-main-img',function(ev){
+            $('.mask').css('display','block')
+            $('.big-img').css('display','block')
+
+            var l = ev.clientX - $('.product-main-img').offset().left - $('.mask').innerWidth() * 0.5;
+            var t = ev.clientY - $('.product-main-img').offset().top - $('.mask').innerHeight() * 0.5;
+            var w = $('.product-main-img').innerWidth() - $('.mask').innerWidth();
+            var h = $('.product-main-img').innerHeight() - $('.mask').innerHeight();
+            
+            if(l < 0){
+                l = 0;
+            }else if(l > w){
+                l = w;
+            }
+
+
+            if(t < 0){
+                t = 0;
+            }else if(t > h){
+                t = h;
+            }
+
+            $('.mask').css('left',l+'px');
+            $('.mask').css('top',t+'px');
+            
+            var percentX = l / ($('.product-main-img').innerWidth() - $('.mask').innerWidth());
+            var percentY = t / ($('.product-main-img').innerHeight() - $('.mask').innerHeight());
+            $('.bigImg').css('left',-300 * percentX+'px')
+            $('.bigImg').css('top',-300 * percentY+'px')
+
+        })
+        //处理放大镜(鼠标离开)
+        this.$elem.on('mouseout','.product-img',function(ev){
+            $('.mask').css('display','none')
+            $('.big-img').css('display','none')
+        })        
     },
     productsDetailParams:{
         id:_util.getParamFromUrl('productId'),
